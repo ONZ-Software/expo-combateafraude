@@ -1,9 +1,14 @@
 import {
   ConfigPlugin,
+  ExportedConfigWithProps,
+  withAppBuildGradle,
+  withMainApplication,
   withPlugins,
+  withProjectBuildGradle,
   withXcodeProject,
 } from '@expo/config-plugins'
 import { withDangerousMod } from '@expo/config-plugins'
+import { ApplicationProjectFile } from '@expo/config-plugins/build/android/Paths'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
@@ -13,120 +18,217 @@ import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs-extra'
 import path from 'path'
 
-const withCombateAFraude: ConfigPlugin<void> = (config) => {
-  return withDangerousMod(config, [
-    'ios',
-    async (config) => {
-      const filePath = path.join(
-        config.modRequest.platformProjectRoot,
-        'Podfile'
+const withCafIos: ConfigPlugin<void> = (config) => {
+  const withXcodeFiles: ConfigPlugin<void> = (config) =>
+    withXcodeProject(config, async (cfg) => {
+      const srcRoot = getSourceRoot(cfg.modRequest.projectRoot)
+      const projName = getProjectName(cfg.modRequest.projectRoot)
+
+      // Copy CombateAFraude Source Files
+      await fs.copyFile(
+        path.resolve(__dirname, './caf/CombateAFraude.m'),
+        cfg.modRequest.platformProjectRoot + '/CombateAFraude.m'
       )
-      const contents = await fs.readFile(filePath, 'utf-8')
-      let results: any = {
-        contents,
-      }
-      try {
-        results = mergeContents({
-          tag: 'DocumentDetector',
-          src: results.contents,
-          newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
-          anchor: /use_react_native!/,
-          offset: 0,
-          comment: '#',
-        })
-        results = mergeContents({
-          tag: 'PassiveFaceLiveness',
-          src: results.contents,
-          newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
-          anchor: /use_react_native!/,
-          offset: 0,
-          comment: '#',
-        })
-        results = mergeContents({
-          tag: 'FaceAuthenticator',
-          src: results.contents,
-          newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
-          anchor: /use_react_native!/,
-          offset: 0,
-          comment: '#',
-        })
-        results = mergeContents({
-          tag: 'useFrameworks',
-          src: results.contents,
-          newSrc: `use_frameworks!\n`,
-          anchor: /platform :ios/,
-          offset: 1,
-          comment: '#',
-        })
-        results.contents =
-          results.contents +
-          "source 'https://github.com/combateafraude/iOS.git'\n" +
-          "source 'https://cdn.cocoapods.org/'\n"
-      } catch (error: any) {
-        if (error.code === 'ERR_NO_MATCH') {
-          throw new Error(
-            `Cannot add Combate a Fraude to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`
-          )
+      await fs.copyFile(
+        path.resolve(__dirname, './caf/CombateAFraude.swift'),
+        cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
+      )
+
+      // Replace Main Briding-Header
+      await fs.copyFile(
+        path.resolve(__dirname, './caf/Bridging-Header.h'),
+        srcRoot + `/${projName}-Bridging-Header.h`
+      )
+
+      cfg.modResults = addBuildSourceFileToGroup({
+        filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
+        groupName: projName,
+        project: cfg.modResults,
+      })
+
+      cfg.modResults = addBuildSourceFileToGroup({
+        filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
+        groupName: projName,
+        project: cfg.modResults,
+      })
+
+      cfg.modResults = addBuildSourceFileToGroup({
+        filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
+        groupName: projName,
+        project: cfg.modResults,
+      })
+
+      return cfg
+    })
+
+  const withPods: ConfigPlugin<void> = (config) =>
+    withDangerousMod(config, [
+      'ios',
+      async (config) => {
+        const filePath = path.join(
+          config.modRequest.platformProjectRoot,
+          'Podfile'
+        )
+        const contents = await fs.readFile(filePath, 'utf-8')
+        let results: any = {
+          contents,
         }
-        throw error
-      }
+        try {
+          results = mergeContents({
+            tag: 'DocumentDetector',
+            src: results.contents,
+            newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
+            anchor: /use_react_native!/,
+            offset: 0,
+            comment: '#',
+          })
+          results = mergeContents({
+            tag: 'PassiveFaceLiveness',
+            src: results.contents,
+            newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
+            anchor: /use_react_native!/,
+            offset: 0,
+            comment: '#',
+          })
+          results = mergeContents({
+            tag: 'FaceAuthenticator',
+            src: results.contents,
+            newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
+            anchor: /use_react_native!/,
+            offset: 0,
+            comment: '#',
+          })
+          results = mergeContents({
+            tag: 'useFrameworks',
+            src: results.contents,
+            newSrc: `use_frameworks!\n`,
+            anchor: /platform :ios/,
+            offset: 1,
+            comment: '#',
+          })
+          results.contents =
+            results.contents +
+            "source 'https://github.com/combateafraude/iOS.git'\n" +
+            "source 'https://cdn.cocoapods.org/'\n"
+        } catch (error: any) {
+          if (error.code === 'ERR_NO_MATCH') {
+            throw new Error(
+              `Cannot add Combate a Fraude to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`
+            )
+          }
+          throw error
+        }
 
-      if (results.didMerge || results.didClear) {
-        await fs.writeFile(filePath, results.contents)
-      }
+        if (results.didMerge || results.didClear) {
+          await fs.writeFile(filePath, results.contents)
+        }
 
-      return config
-    },
+        return config
+      },
+    ])
+
+  return withPlugins(config, [
+    [withXcodeFiles, {}],
+    [withPods, {}],
   ])
 }
 
-const withCafFiles: ConfigPlugin = (config) => {
-  return withXcodeProject(config, async (cfg) => {
-    const srcRoot = getSourceRoot(cfg.modRequest.projectRoot)
-    const projName = getProjectName(cfg.modRequest.projectRoot)
-
-    // Copy CombateAFraude Source Files
-    await fs.copyFile(
-      path.resolve(__dirname, './caf/CombateAFraude.m'),
-      cfg.modRequest.platformProjectRoot + '/CombateAFraude.m'
-    )
-    await fs.copyFile(
-      path.resolve(__dirname, './caf/CombateAFraude.swift'),
-      cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
-    )
-
-    // Replace Main Briding-Header
-    await fs.copyFile(
-      path.resolve(__dirname, './caf/Bridging-Header.h'),
-      srcRoot + `/${projName}-Bridging-Header.h`
-    )
-
-    cfg.modResults = addBuildSourceFileToGroup({
-      filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
-      groupName: projName,
-      project: cfg.modResults,
+const withCafAndroid: ConfigPlugin<void> = (config) => {
+  const withMainAtv: ConfigPlugin<
+    ExportedConfigWithProps<ApplicationProjectFile>
+  > = (config) => {
+    return withMainApplication(config, async (config) => {
+      let mainApplication = config.modResults.contents
+      mainApplication = mergeContents({
+        tag: 'Package',
+        src: config.modResults.contents,
+        newSrc: `      packages.add(new CombateAFraudePackage());`,
+        anchor: /new PackageList\(this\)\.getPackages\(\)/,
+        offset: 1,
+        comment: '//',
+      }).contents
+      // console.log('MAIN APPLICATION => ', mainApplication)
+      return Object.assign(config, {
+        modResults: {
+          contents: mainApplication,
+        },
+      })
     })
+  }
 
-    cfg.modResults = addBuildSourceFileToGroup({
-      filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
-      groupName: projName,
-      project: cfg.modResults,
-    })
+  const withBuildGradle: ConfigPlugin<void> = (config) => {
+    const projectBuild: ConfigPlugin<void> = (expoCfg) =>
+      withProjectBuildGradle(expoCfg, async (config) => {
+        let mainApplication = config.modResults.contents
+        mainApplication = mergeContents({
+          tag: 'Maven Repo',
+          src: config.modResults.contents,
+          newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
+          anchor: /mavenLocal\(\)/,
+          offset: 1,
+          comment: '//',
+        }).contents
+        // console.log('PROJECT BUILD GRADLE => ', mainApplication)
+        return Object.assign(config, {
+          modResults: {
+            contents: mainApplication,
+          },
+        })
+      })
+    const appBuild: ConfigPlugin<void> = (expoCfg) =>
+      withAppBuildGradle(expoCfg, async (config) => {
+        let mainApplication = config.modResults.contents
+        mainApplication = mergeContents({
+          tag: 'Android Config',
+          src: config.modResults.contents,
+          newSrc: `
+  aaptOptions {
+    noCompress "tflite"
+  }
 
-    cfg.modResults = addBuildSourceFileToGroup({
-      filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
-      groupName: projName,
-      project: cfg.modResults,
-    })
+  dataBinding {
+    enabled = true
+  }`,
+          anchor: /android {/,
+          offset: 1,
+          comment: '//',
+        }).contents
+        mainApplication = mergeContents({
+          tag: 'Dependencies',
+          src: config.modResults.contents,
+          newSrc: `
+    implementation "com.combateafraude.sdk:passive-face-liveness:+"
+    implementation "com.combateafraude.sdk:document-detector:+"
+    implementation "com.combateafraude.sdk:face-authenticator:+"
+          `,
+          anchor: /dependencies {/,
+          offset: 1,
+          comment: '//',
+        }).contents
+        console.log('APP BUILD GRADLE => ', mainApplication)
+        return Object.assign(config, {
+          modResults: {
+            contents: mainApplication,
+          },
+        })
+      })
 
-    return cfg
-  })
+    return withPlugins(config, [
+      [projectBuild, {}],
+      [appBuild, {}],
+    ])
+  }
+
+  return withPlugins(config, [
+    [withMainAtv, {}],
+    [withBuildGradle, {}],
+  ])
 }
 
 const mainPlugin: ConfigPlugin<void> = (config) =>
   withPlugins(config, [
-    [withCombateAFraude, {}],
-    [withCafFiles, {}],
+    [withCafIos, {}],
+    [withCafAndroid, {}],
   ])
 
 export default mainPlugin

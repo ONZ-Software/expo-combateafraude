@@ -10,8 +10,33 @@ const Xcodeproj_1 = require("@expo/config-plugins/build/ios/utils/Xcodeproj");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const fs_extra_1 = __importDefault(require("fs-extra"));
 const path_1 = __importDefault(require("path"));
-const withCombateAFraude = (config) => {
-    return (0, config_plugins_2.withDangerousMod)(config, [
+const withCafIos = (config) => {
+    const withXcodeFiles = (config) => (0, config_plugins_1.withXcodeProject)(config, async (cfg) => {
+        const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
+        const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
+        // Copy CombateAFraude Source Files
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
+        // Replace Main Briding-Header
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
+            groupName: projName,
+            project: cfg.modResults,
+        });
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
+            groupName: projName,
+            project: cfg.modResults,
+        });
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
+            groupName: projName,
+            project: cfg.modResults,
+        });
+        return cfg;
+    });
+    const withPods = (config) => (0, config_plugins_2.withDangerousMod)(config, [
         'ios',
         async (config) => {
             const filePath = path_1.default.join(config.modRequest.platformProjectRoot, 'Podfile');
@@ -69,36 +94,97 @@ const withCombateAFraude = (config) => {
             return config;
         },
     ]);
+    return (0, config_plugins_1.withPlugins)(config, [
+        [withXcodeFiles, {}],
+        [withPods, {}],
+    ]);
 };
-const withCafFiles = (config) => {
-    return (0, config_plugins_1.withXcodeProject)(config, async (cfg) => {
-        const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
-        const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
-        // Copy CombateAFraude Source Files
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
-        // Replace Main Briding-Header
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
-        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
-            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
-            groupName: projName,
-            project: cfg.modResults,
+const withCafAndroid = (config) => {
+    const withMainAtv = (config) => {
+        return (0, config_plugins_1.withMainApplication)(config, async (config) => {
+            let mainApplication = config.modResults.contents;
+            mainApplication = (0, generateCode_1.mergeContents)({
+                tag: 'Package',
+                src: config.modResults.contents,
+                newSrc: `      packages.add(new CombateAFraudePackage());`,
+                anchor: /new PackageList\(this\)\.getPackages\(\)/,
+                offset: 1,
+                comment: '#',
+            }).contents;
+            // console.log('MAIN APPLICATION => ', mainApplication)
+            return Object.assign(config, {
+                modResults: {
+                    contents: mainApplication,
+                },
+            });
         });
-        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
-            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
-            groupName: projName,
-            project: cfg.modResults,
+    };
+    const withBuildGradle = (config) => {
+        const projectBuild = (expoCfg) => (0, config_plugins_1.withProjectBuildGradle)(expoCfg, async (config) => {
+            let mainApplication = config.modResults.contents;
+            mainApplication = (0, generateCode_1.mergeContents)({
+                tag: 'Maven Repo',
+                src: config.modResults.contents,
+                newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
+                anchor: /mavenLocal\(\)/,
+                offset: 1,
+                comment: '#',
+            }).contents;
+            // console.log('PROJECT BUILD GRADLE => ', mainApplication)
+            return Object.assign(config, {
+                modResults: {
+                    contents: mainApplication,
+                },
+            });
         });
-        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
-            filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
-            groupName: projName,
-            project: cfg.modResults,
+        const appBuild = (expoCfg) => (0, config_plugins_1.withAppBuildGradle)(expoCfg, async (config) => {
+            let mainApplication = config.modResults.contents;
+            mainApplication = (0, generateCode_1.mergeContents)({
+                tag: 'Android Config',
+                src: config.modResults.contents,
+                newSrc: `
+  aaptOptions {
+    noCompress "tflite"
+  }
+
+  dataBinding {
+    enabled = true
+  }`,
+                anchor: /android {/,
+                offset: 1,
+                comment: '#',
+            }).contents;
+            mainApplication = (0, generateCode_1.mergeContents)({
+                tag: 'Dependencies',
+                src: config.modResults.contents,
+                newSrc: `
+    implementation "com.combateafraude.sdk:passive-face-liveness:+"
+    implementation "com.combateafraude.sdk:document-detector:+"
+    implementation "com.combateafraude.sdk:face-authenticator:+"
+          `,
+                anchor: /dependencies {/,
+                offset: 1,
+                comment: '#',
+            }).contents;
+            console.log('APP BUILD GRADLE => ', mainApplication);
+            return Object.assign(config, {
+                modResults: {
+                    contents: mainApplication,
+                },
+            });
         });
-        return cfg;
-    });
+        return (0, config_plugins_1.withPlugins)(config, [
+            [projectBuild, {}],
+            [appBuild, {}],
+        ]);
+    };
+    return (0, config_plugins_1.withPlugins)(config, [
+        [withMainAtv, {}],
+        [withBuildGradle, {}],
+    ]);
 };
 const mainPlugin = (config) => (0, config_plugins_1.withPlugins)(config, [
-    [withCombateAFraude, {}],
-    [withCafFiles, {}],
+    [withCafIos, {}],
+    [withCafAndroid, {}],
 ]);
 exports.default = mainPlugin;

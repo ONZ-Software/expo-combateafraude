@@ -15,7 +15,7 @@
     "build": "expo-module build",
     "clean": "expo-module clean",
     "test": "expo-module test",
-    "prepare": "expo-module prepare",
+    "prepare": "expo-module prepare && yarn copy-caf-src",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "copy-caf-src": "cp -R ./src/caf ./build"

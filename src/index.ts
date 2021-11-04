@@ -1,18 +1,22 @@
-import { ConfigPlugin } from '@expo/config-plugins';
-import { withDangerousMod } from '@expo/config-plugins';
-import { mergeContents } from '@expo/config-plugins/build/utils/generateCode';
-import fs from 'fs-extra';
-import path from 'path';
+import {
+  ConfigPlugin,
+  withPlugins,
+  withXcodeProject,
+} from "@expo/config-plugins";
+import { withDangerousMod } from "@expo/config-plugins";
+import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
+import fs from "fs-extra";
+import path from "path";
 
-const withCombateAFraude: ConfigPlugin<{ name?: string }> = (config) => {
+const withCombateAFraude: ConfigPlugin<void> = (config) => {
   return withDangerousMod(config, [
-    'ios',
+    "ios",
     async (config) => {
       const filePath = path.join(
         config.modRequest.platformProjectRoot,
-        'Podfile'
+        "Podfile"
       );
-      const contents = await fs.readFile(filePath, 'utf-8');
+      const contents = await fs.readFile(filePath, "utf-8");
       let results: any = {
         contents,
       };
@@ -38,19 +42,19 @@ const withCombateAFraude: ConfigPlugin<{ name?: string }> = (config) => {
         //   comment: '#',
         // });
         results = mergeContents({
-          tag: 'useFrameworks',
+          tag: "useFrameworks",
           src: results.contents,
           newSrc: `use_frameworks!\n`,
           anchor: /platform :ios/,
           offset: 1,
-          comment: '#',
+          comment: "#",
         });
         results.contents =
           results.contents +
           "source 'https://github.com/combateafraude/iOS.git'\n" +
           "source 'https://cdn.cocoapods.org/'\n";
       } catch (error: any) {
-        if (error.code === 'ERR_NO_MATCH') {
+        if (error.code === "ERR_NO_MATCH") {
           throw new Error(
             `Cannot add Combate a Fraude to the project's ios/Podfile because it's malformed. Please report this with a copy of your project Podfile.`
           );
@@ -61,39 +65,13 @@ const withCombateAFraude: ConfigPlugin<{ name?: string }> = (config) => {
       if (results.didMerge || results.didClear) {
         await fs.writeFile(filePath, results.contents);
       }
-      await fs.copyFile(
-        './CAF/CombateAFraude.m',
-        config.modRequest.platformProjectRoot + '/CombateAFraude.m'
-      );
-      await fs.copyFile(
-        './CAF/CombateAFraude.swift',
-        config.modRequest.platformProjectRoot + '/CombateAFraude.swift'
-      );
-      await fs.copyFile(
-        './CAF/CombateAFraude-Bridging-Header.h',
-        config.modRequest.platformProjectRoot +
-          '/CombateAFraude-Bridging-Header.h'
-      );
 
-      await fs.copyFile(
-        './CAF/CombateAFraude.m',
-        config.modRequest.platformProjectRoot + '/4UBank/CombateAFraude.m'
-      );
-      await fs.copyFile(
-        './CAF/CombateAFraude.swift',
-        config.modRequest.platformProjectRoot + '/4UBank/CombateAFraude.swift'
-      );
-      await fs.copyFile(
-        './CAF/CombateAFraude-Bridging-Header.h',
-        config.modRequest.platformProjectRoot +
-          '/4UBank/CombateAFraude-Bridging-Header.h'
-      );
       console.log(
-        '-------------------------------------------------------------------------'
+        "-------------------------------------------------------------------------"
       );
       console.log(results.contents);
       console.log(
-        '-------------------------------------------------------------------------'
+        "-------------------------------------------------------------------------"
       );
       console.log({ dir: config.modRequest.platformProjectRoot });
       return config;
@@ -103,13 +81,46 @@ const withCombateAFraude: ConfigPlugin<{ name?: string }> = (config) => {
 
 function addExternalPod(src: string, podName: string) {
   return mergeContents({
-    tag: 'ExternalPod' + String(Math.random()).substring(-3),
+    tag: "ExternalPod" + String(Math.random()).substring(-3),
     src,
     newSrc: `  pod ${podName}`,
     anchor: /use_react_native!/,
     offset: 0,
-    comment: '#',
+    comment: "#",
   });
 }
 
-export default withCombateAFraude;
+const withCafFiles: ConfigPlugin = (config) => {
+  return withXcodeProject(config, async (config) => {
+    // config = { modResults, modRequest, ...expoConfig }
+
+    const xcodeProject = config.modResults;
+
+    console.log(xcodeProject);
+
+    await fs.copyFile(
+      "./caf/CombateAFraude.m",
+      config.modRequest.platformProjectRoot + "/CombateAFraude.m"
+    );
+    await fs.copyFile(
+      "./caf/CombateAFraude.swift",
+      config.modRequest.platformProjectRoot + "/CombateAFraude.swift"
+    );
+    // TODO: Get Project name
+    // await fs.copyFile(
+    //   "./caf/CombateAFraude-Bridging-Header.h",
+    //   config.modRequest.platformProjectRoot +
+    //     "/CombateAFraude-Bridging-Header.h"
+    // );
+
+    return config;
+  });
+};
+
+const mainPlugin: ConfigPlugin<void> = (config) =>
+  withPlugins(config, [
+    [withCombateAFraude, {}],
+    [withCafFiles, {}],
+  ]);
+
+export default mainPlugin;

@@ -18,9 +18,30 @@ const withCombateAFraude = (config) => {
                 contents,
             };
             try {
-                results = addExternalPod(results.contents, `'DocumentDetector', '~> 4.8.3'`);
-                results = addExternalPod(results.contents, `'PassiveFaceLiveness', '~> 3.7.2'`);
-                results = addExternalPod(results.contents, `'FaceAuthenticator', '~> 2.5.0'`);
+                results = (0, generateCode_1.mergeContents)({
+                    tag: 'DocumentDetector',
+                    src: results.contents,
+                    newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
+                    anchor: /use_react_native!/,
+                    offset: 0,
+                    comment: '#',
+                });
+                results = (0, generateCode_1.mergeContents)({
+                    tag: 'PassiveFaceLiveness',
+                    src: results.contents,
+                    newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
+                    anchor: /use_react_native!/,
+                    offset: 0,
+                    comment: '#',
+                });
+                results = (0, generateCode_1.mergeContents)({
+                    tag: 'FaceAuthenticator',
+                    src: results.contents,
+                    newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
+                    anchor: /use_react_native!/,
+                    offset: 0,
+                    comment: '#',
+                });
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'useFrameworks',
                     src: results.contents,
@@ -47,25 +68,16 @@ const withCombateAFraude = (config) => {
         },
     ]);
 };
-function addExternalPod(src, podName) {
-    return (0, generateCode_1.mergeContents)({
-        tag: 'ExternalPod' + String(Math.random()).substring(-3),
-        src,
-        newSrc: `  pod ${podName}`,
-        anchor: /use_react_native!/,
-        offset: 0,
-        comment: '#',
-    });
-}
 const withCafFiles = (config) => {
     return (0, config_plugins_1.withXcodeProject)(config, async (cfg) => {
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), cfg.modRequest.platformProjectRoot + `/CombateAFraude-Bridging-Header.h`);
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), cfg.modRequest.platformProjectRoot +
+            `/${cfg.slug}/${cfg.slug}-Bridging-Header.h`);
         const pbxGroup = cfg.modResults.hash.project.objects.PBXGroup;
-        cfg.modResults.addFile(`CombateAFraude-Bridging-Header.h`, Object.keys(pbxGroup)[0]);
-        cfg.modResults.addFile('CombateAFraude.m', Object.keys(pbxGroup)[0]);
-        cfg.modResults.addFile('CombateAFraude.swift', Object.keys(pbxGroup)[0]);
+        const pbxGroupIndex = Object.keys(pbxGroup)[0];
+        cfg.modResults.addFile('CombateAFraude.m', pbxGroupIndex);
+        cfg.modResults.addFile('CombateAFraude.swift', pbxGroupIndex);
         return cfg;
     });
 };

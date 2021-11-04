@@ -21,18 +21,30 @@ const withCombateAFraude: ConfigPlugin<void> = (config) => {
         contents,
       }
       try {
-        results = addExternalPod(
-          results.contents,
-          `'DocumentDetector', '~> 4.8.3'`
-        )
-        results = addExternalPod(
-          results.contents,
-          `'PassiveFaceLiveness', '~> 3.7.2'`
-        )
-        results = addExternalPod(
-          results.contents,
-          `'FaceAuthenticator', '~> 2.5.0'`
-        )
+        results = mergeContents({
+          tag: 'DocumentDetector',
+          src: results.contents,
+          newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
+          anchor: /use_react_native!/,
+          offset: 0,
+          comment: '#',
+        })
+        results = mergeContents({
+          tag: 'PassiveFaceLiveness',
+          src: results.contents,
+          newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
+          anchor: /use_react_native!/,
+          offset: 0,
+          comment: '#',
+        })
+        results = mergeContents({
+          tag: 'FaceAuthenticator',
+          src: results.contents,
+          newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
+          anchor: /use_react_native!/,
+          offset: 0,
+          comment: '#',
+        })
         results = mergeContents({
           tag: 'useFrameworks',
           src: results.contents,
@@ -63,17 +75,6 @@ const withCombateAFraude: ConfigPlugin<void> = (config) => {
   ])
 }
 
-function addExternalPod(src: string, podName: string) {
-  return mergeContents({
-    tag: 'ExternalPod' + String(Math.random()).substring(-3),
-    src,
-    newSrc: `  pod ${podName}`,
-    anchor: /use_react_native!/,
-    offset: 0,
-    comment: '#',
-  })
-}
-
 const withCafFiles: ConfigPlugin = (config) => {
   return withXcodeProject(config, async (cfg) => {
     await fs.copyFile(
@@ -86,17 +87,16 @@ const withCafFiles: ConfigPlugin = (config) => {
     )
     await fs.copyFile(
       path.resolve(__dirname, './caf/Bridging-Header.h'),
-      cfg.modRequest.platformProjectRoot + `/CombateAFraude-Bridging-Header.h`
+      cfg.modRequest.platformProjectRoot +
+        `/${cfg.slug}/${cfg.slug}-Bridging-Header.h`
     )
 
     const pbxGroup = cfg.modResults.hash.project.objects.PBXGroup
+    const pbxGroupIndex = Object.keys(pbxGroup)[0]
 
-    cfg.modResults.addFile(
-      `CombateAFraude-Bridging-Header.h`,
-      Object.keys(pbxGroup)[0]
-    )
-    cfg.modResults.addFile('CombateAFraude.m', Object.keys(pbxGroup)[0])
-    cfg.modResults.addFile('CombateAFraude.swift', Object.keys(pbxGroup)[0])
+    cfg.modResults.addFile('CombateAFraude.m', pbxGroupIndex)
+    cfg.modResults.addFile('CombateAFraude.swift', pbxGroupIndex)
+
     return cfg
   })
 }

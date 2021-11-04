@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_plugins_1 = require("@expo/config-plugins");
 const config_plugins_2 = require("@expo/config-plugins");
+const Paths_1 = require("@expo/config-plugins/build/ios/Paths");
+const Xcodeproj_1 = require("@expo/config-plugins/build/ios/utils/Xcodeproj");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
 const fs_extra_1 = __importDefault(require("fs-extra"));
 const path_1 = __importDefault(require("path"));
@@ -70,14 +72,28 @@ const withCombateAFraude = (config) => {
 };
 const withCafFiles = (config) => {
     return (0, config_plugins_1.withXcodeProject)(config, async (cfg) => {
+        const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
+        const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
+        // Copy CombateAFraude Source Files
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), cfg.modRequest.platformProjectRoot +
-            `/${cfg.slug}/${cfg.slug}-Bridging-Header.h`);
-        const pbxGroup = cfg.modResults.hash.project.objects.PBXGroup;
-        const pbxGroupIndex = Object.keys(pbxGroup)[0];
-        cfg.modResults.addFile('CombateAFraude.m', pbxGroupIndex);
-        cfg.modResults.addFile('CombateAFraude.swift', pbxGroupIndex);
+        // Replace Main Briding-Header
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
+            groupName: projName,
+            project: cfg.modResults,
+        });
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
+            groupName: projName,
+            project: cfg.modResults,
+        });
+        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
+            filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
+            groupName: projName,
+            project: cfg.modResults,
+        });
         return cfg;
     });
 };

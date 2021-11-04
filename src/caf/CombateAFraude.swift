@@ -152,7 +152,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
   @objc(faceAuthenticator:CPF:)
   func faceAuthenticator(mobileToken: String, CPF: String) {
     let faceAuthenticator = FaceAuthenticator.Builder(mobileToken: mobileToken)
-      .setPeopleId(CPF)
+      // .setPeopleId(CPF)
       .build()
 
     DispatchQueue.main.async {

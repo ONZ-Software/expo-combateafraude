@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@expo/config-plugins": "^4.0.6",
-    "fs-extra": "^10.0.0",
-    "xcode": "^3.0.1"
+    "fs-extra": "^10.0.0"
   }
 }

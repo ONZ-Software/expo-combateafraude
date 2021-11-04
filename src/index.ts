@@ -4,6 +4,11 @@ import {
   withXcodeProject,
 } from '@expo/config-plugins'
 import { withDangerousMod } from '@expo/config-plugins'
+import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
+import {
+  addBuildSourceFileToGroup,
+  getProjectName,
+} from '@expo/config-plugins/build/ios/utils/Xcodeproj'
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs-extra'
 import path from 'path'
@@ -77,6 +82,10 @@ const withCombateAFraude: ConfigPlugin<void> = (config) => {
 
 const withCafFiles: ConfigPlugin = (config) => {
   return withXcodeProject(config, async (cfg) => {
+    const srcRoot = getSourceRoot(cfg.modRequest.projectRoot)
+    const projName = getProjectName(cfg.modRequest.projectRoot)
+
+    // Copy CombateAFraude Source Files
     await fs.copyFile(
       path.resolve(__dirname, './caf/CombateAFraude.m'),
       cfg.modRequest.platformProjectRoot + '/CombateAFraude.m'
@@ -85,17 +94,30 @@ const withCafFiles: ConfigPlugin = (config) => {
       path.resolve(__dirname, './caf/CombateAFraude.swift'),
       cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
     )
+
+    // Replace Main Briding-Header
     await fs.copyFile(
       path.resolve(__dirname, './caf/Bridging-Header.h'),
-      cfg.modRequest.platformProjectRoot +
-        `/${cfg.slug}/${cfg.slug}-Bridging-Header.h`
+      srcRoot + `/${projName}-Bridging-Header.h`
     )
 
-    const pbxGroup = cfg.modResults.hash.project.objects.PBXGroup
-    const pbxGroupIndex = Object.keys(pbxGroup)[0]
+    cfg.modResults = addBuildSourceFileToGroup({
+      filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
+      groupName: projName,
+      project: cfg.modResults,
+    })
 
-    cfg.modResults.addFile('CombateAFraude.m', pbxGroupIndex)
-    cfg.modResults.addFile('CombateAFraude.swift', pbxGroupIndex)
+    cfg.modResults = addBuildSourceFileToGroup({
+      filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
+      groupName: projName,
+      project: cfg.modResults,
+    })
+
+    cfg.modResults = addBuildSourceFileToGroup({
+      filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
+      groupName: projName,
+      project: cfg.modResults,
+    })
 
     return cfg
   })

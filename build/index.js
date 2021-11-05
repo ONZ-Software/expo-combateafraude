@@ -115,22 +115,35 @@ const withCafAndroid = (config) => {
                     '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java', packageContents
                     .toString()
                     .replace(/\[\[PACKAGE\]\]/, (_c = config.android) === null || _c === void 0 ? void 0 : _c.package));
+                const mainAppContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/MainApplication.java');
+                const mainAppContentsUpdated = (0, generateCode_1.mergeContents)({
+                    tag: 'Add Package',
+                    src: mainAppContents.toString(),
+                    newSrc: `      packages.add(new CombateAFraudePackage());`,
+                    anchor: /return packages/,
+                    offset: 0,
+                    comment: '//',
+                }).contents;
+                await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/MainApplication.java', mainAppContentsUpdated);
                 return config;
             },
         ]);
     };
     const withFileMods = (config) => {
-        const mainActivity = (expoCfg) => (0, config_plugins_1.withMainApplication)(expoCfg, async (config) => {
-            config.modResults.contents = (0, generateCode_1.mergeContents)({
-                tag: 'Add Package',
-                src: config.modResults.contents,
-                newSrc: `      packages.add(new CombateAFraudePackage());`,
-                anchor: /return packages/,
-                offset: 0,
-                comment: '//',
-            }).contents;
-            return config;
-        });
+        // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
+        //   withMainApplication(expoCfg, async (config) => {
+        //     config.modResults.contents = mergeContents({
+        //       tag: 'Add Package',
+        //       src: config.modResults.contents,
+        //       newSrc: `      packages.add(new CombateAFraudePackage());`,
+        //       anchor: /return packages/,
+        //       offset: 0,
+        //       comment: '//',
+        //     }).contents
+        //     return config
+        //   })
         const projectBuild = (expoCfg) => (0, config_plugins_1.withProjectBuildGradle)(expoCfg, async (config) => {
             config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Maven Repo',
@@ -173,7 +186,7 @@ const withCafAndroid = (config) => {
             }).contents;
             return config;
         });
-        return (0, config_plugins_1.withPlugins)(config, [mainActivity, projectBuild, appBuild]);
+        return (0, config_plugins_1.withPlugins)(config, [projectBuild, appBuild]); //mainActivity
     };
     return (0, config_plugins_1.withPlugins)(config, [withCafSource, withFileMods]);
 };

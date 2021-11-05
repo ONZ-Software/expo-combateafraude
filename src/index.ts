@@ -137,6 +137,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
         )
+
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java',
@@ -160,6 +161,24 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )
+        const mainAppContents = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/MainApplication.java'
+        )
+        const mainAppContentsUpdated = mergeContents({
+          tag: 'Add Package',
+          src: mainAppContents.toString(),
+          newSrc: `      packages.add(new CombateAFraudePackage());`,
+          anchor: /return packages/,
+          offset: 0,
+          comment: '//',
+        }).contents
+
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/MainApplication.java',
+          mainAppContentsUpdated
+        )
 
         return config
       },
@@ -167,18 +186,18 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
   }
 
   const withFileMods: ConfigPlugin<void> = (config) => {
-    const mainActivity: ConfigPlugin<void> = (expoCfg) =>
-      withMainApplication(expoCfg, async (config) => {
-        config.modResults.contents = mergeContents({
-          tag: 'Add Package',
-          src: config.modResults.contents,
-          newSrc: `      packages.add(new CombateAFraudePackage());`,
-          anchor: /return packages/,
-          offset: 0,
-          comment: '//',
-        }).contents
-        return config
-      })
+    // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
+    //   withMainApplication(expoCfg, async (config) => {
+    //     config.modResults.contents = mergeContents({
+    //       tag: 'Add Package',
+    //       src: config.modResults.contents,
+    //       newSrc: `      packages.add(new CombateAFraudePackage());`,
+    //       anchor: /return packages/,
+    //       offset: 0,
+    //       comment: '//',
+    //     }).contents
+    //     return config
+    //   })
     const projectBuild: ConfigPlugin<void> = (expoCfg) =>
       withProjectBuildGradle(expoCfg, async (config) => {
         config.modResults.contents = mergeContents({
@@ -226,7 +245,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [mainActivity, projectBuild, appBuild])
+    return withPlugins(config, [projectBuild, appBuild]) //mainActivity
   }
 
   return withPlugins(config, [withCafSource, withFileMods])

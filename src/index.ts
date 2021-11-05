@@ -8,7 +8,6 @@ import {
   withXcodeProject,
 } from '@expo/config-plugins'
 import { withDangerousMod } from '@expo/config-plugins'
-import { ApplicationProjectFile } from '@expo/config-plugins/build/android/Paths'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
@@ -52,12 +51,6 @@ const withCafIos: ConfigPlugin<void> = (config) => {
         project: cfg.modResults,
       })
 
-      cfg.modResults = addBuildSourceFileToGroup({
-        filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
-        groupName: projName,
-        project: cfg.modResults,
-      })
-
       return cfg
     })
 
@@ -77,7 +70,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
+            newSrc: `  pod 'DocumentDetector'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -85,7 +78,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'PassiveFaceLiveness',
             src: results.contents,
-            newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
+            newSrc: `  pod 'PassiveFaceLiveness'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -93,7 +86,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'FaceAuthenticator',
             src: results.contents,
-            newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
+            newSrc: `  pod 'FaceAuthenticator'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -106,10 +99,10 @@ const withCafIos: ConfigPlugin<void> = (config) => {
             offset: 1,
             comment: '#',
           })
-          results.contents =
-            results.contents +
-            "source 'https://github.com/combateafraude/iOS.git'\n" +
-            "source 'https://cdn.cocoapods.org/'\n"
+          results.contents = `${results.contents}
+source 'https://github.com/combateafraude/iOS.git'
+source 'https://cdn.cocoapods.org/'
+            `
         } catch (error: any) {
           if (error.code === 'ERR_NO_MATCH') {
             throw new Error(
@@ -134,7 +127,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
 }
 
 const withCafAndroid: ConfigPlugin<void> = (config) => {
-  const withCafSource: ConfigPlugin<any> = (expoCfg) => {
+  const withCafSource: ConfigPlugin<void> = (expoCfg) => {
     return withDangerousMod(expoCfg, [
       'android',
       async (config) => {
@@ -177,10 +170,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     ])
   }
 
-  const withMainAtv: ConfigPlugin<any> = (config) => {
-    return withMainApplication(config, async (config) => {
-      let mainApplication = config.modResults.contents
-      mainApplication = mergeContents({
+  const withMainAtv: ConfigPlugin<void> = (expoCfg) =>
+    withMainApplication(expoCfg, async (config) => {
+      config.modResults.contents = mergeContents({
         tag: 'Package',
         src: config.modResults.contents,
         newSrc: `      packages.add(new CombateAFraudePackage());`,
@@ -188,20 +180,13 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         offset: 1,
         comment: '//',
       }).contents
-      // console.log('MAIN APPLICATION => ', mainApplication)
-      return Object.assign(config, {
-        modResults: {
-          contents: mainApplication,
-        },
-      })
+      return config
     })
-  }
 
   const withBuildGradle: ConfigPlugin<void> = (config) => {
     const projectBuild: ConfigPlugin<void> = (expoCfg) =>
       withProjectBuildGradle(expoCfg, async (config) => {
-        let mainApplication = config.modResults.contents
-        mainApplication = mergeContents({
+        config.modResults.contents = mergeContents({
           tag: 'Maven Repo',
           src: config.modResults.contents,
           newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
@@ -210,16 +195,11 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           comment: '//',
         }).contents
         // console.log('PROJECT BUILD GRADLE => ', mainApplication)
-        return Object.assign(config, {
-          modResults: {
-            contents: mainApplication,
-          },
-        })
+        return config
       })
     const appBuild: ConfigPlugin<void> = (expoCfg) =>
       withAppBuildGradle(expoCfg, async (config) => {
-        let mainApplication = config.modResults.contents
-        mainApplication = mergeContents({
+        config.modResults.contents = mergeContents({
           tag: 'Android Config',
           src: config.modResults.contents,
           newSrc: `
@@ -234,9 +214,10 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           offset: 1,
           comment: '//',
         }).contents
-        mainApplication = mergeContents({
+
+        config.modResults.contents = mergeContents({
           tag: 'Dependencies',
-          src: mainApplication,
+          src: config.modResults.contents,
           newSrc: `
     implementation "com.combateafraude.sdk:passive-face-liveness:+"
     implementation "com.combateafraude.sdk:document-detector:+"
@@ -246,12 +227,8 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           offset: 1,
           comment: '//',
         }).contents
-        // console.log('APP BUILD GRADLE => ', mainApplication)
-        return Object.assign(config, {
-          modResults: {
-            contents: mainApplication,
-          },
-        })
+
+        return config
       })
 
     return withPlugins(config, [
@@ -261,8 +238,8 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
   }
 
   return withPlugins(config, [
-    [withCafSource, {}],
     [withMainAtv, {}],
+    [withCafSource, {}],
     [withBuildGradle, {}],
   ])
 }

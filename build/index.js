@@ -29,11 +29,6 @@ const withCafIos = (config) => {
             groupName: projName,
             project: cfg.modResults,
         });
-        cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
-            filepath: cfg.modRequest.platformProjectRoot + '/Bridging-Header.h',
-            groupName: projName,
-            project: cfg.modResults,
-        });
         return cfg;
     });
     const withPods = (config) => (0, config_plugins_2.withDangerousMod)(config, [
@@ -48,7 +43,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'DocumentDetector',
                     src: results.contents,
-                    newSrc: `  pod 'DocumentDetector', '~> 4.8.3'`,
+                    newSrc: `  pod 'DocumentDetector'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -56,7 +51,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'PassiveFaceLiveness',
                     src: results.contents,
-                    newSrc: `  pod 'PassiveFaceLiveness', '~> 3.7.2'`,
+                    newSrc: `  pod 'PassiveFaceLiveness'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -64,7 +59,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'FaceAuthenticator',
                     src: results.contents,
-                    newSrc: `  pod 'FaceAuthenticator', '~> 2.5.0'`,
+                    newSrc: `  pod 'FaceAuthenticator'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -77,10 +72,10 @@ const withCafIos = (config) => {
                     offset: 1,
                     comment: '#',
                 });
-                results.contents =
-                    results.contents +
-                        "source 'https://github.com/combateafraude/iOS.git'\n" +
-                        "source 'https://cdn.cocoapods.org/'\n";
+                results.contents = `${results.contents}
+source 'https://github.com/combateafraude/iOS.git'
+source 'https://cdn.cocoapods.org/'
+            `;
             }
             catch (error) {
                 if (error.code === 'ERR_NO_MATCH') {
@@ -127,29 +122,20 @@ const withCafAndroid = (config) => {
             },
         ]);
     };
-    const withMainAtv = (config) => {
-        return (0, config_plugins_1.withMainApplication)(config, async (config) => {
-            let mainApplication = config.modResults.contents;
-            mainApplication = (0, generateCode_1.mergeContents)({
-                tag: 'Package',
-                src: config.modResults.contents,
-                newSrc: `      packages.add(new CombateAFraudePackage());`,
-                anchor: /new PackageList\(this\)\.getPackages\(\)/,
-                offset: 1,
-                comment: '//',
-            }).contents;
-            // console.log('MAIN APPLICATION => ', mainApplication)
-            return Object.assign(config, {
-                modResults: {
-                    contents: mainApplication,
-                },
-            });
-        });
-    };
+    const withMainAtv = (expoCfg) => (0, config_plugins_1.withMainApplication)(expoCfg, async (config) => {
+        config.modResults.contents = (0, generateCode_1.mergeContents)({
+            tag: 'Package',
+            src: config.modResults.contents,
+            newSrc: `      packages.add(new CombateAFraudePackage());`,
+            anchor: /new PackageList\(this\)\.getPackages\(\)/,
+            offset: 1,
+            comment: '//',
+        }).contents;
+        return config;
+    });
     const withBuildGradle = (config) => {
         const projectBuild = (expoCfg) => (0, config_plugins_1.withProjectBuildGradle)(expoCfg, async (config) => {
-            let mainApplication = config.modResults.contents;
-            mainApplication = (0, generateCode_1.mergeContents)({
+            config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Maven Repo',
                 src: config.modResults.contents,
                 newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
@@ -158,15 +144,10 @@ const withCafAndroid = (config) => {
                 comment: '//',
             }).contents;
             // console.log('PROJECT BUILD GRADLE => ', mainApplication)
-            return Object.assign(config, {
-                modResults: {
-                    contents: mainApplication,
-                },
-            });
+            return config;
         });
         const appBuild = (expoCfg) => (0, config_plugins_1.withAppBuildGradle)(expoCfg, async (config) => {
-            let mainApplication = config.modResults.contents;
-            mainApplication = (0, generateCode_1.mergeContents)({
+            config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Android Config',
                 src: config.modResults.contents,
                 newSrc: `
@@ -181,9 +162,9 @@ const withCafAndroid = (config) => {
                 offset: 1,
                 comment: '//',
             }).contents;
-            mainApplication = (0, generateCode_1.mergeContents)({
+            config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Dependencies',
-                src: mainApplication,
+                src: config.modResults.contents,
                 newSrc: `
     implementation "com.combateafraude.sdk:passive-face-liveness:+"
     implementation "com.combateafraude.sdk:document-detector:+"
@@ -193,12 +174,7 @@ const withCafAndroid = (config) => {
                 offset: 1,
                 comment: '//',
             }).contents;
-            // console.log('APP BUILD GRADLE => ', mainApplication)
-            return Object.assign(config, {
-                modResults: {
-                    contents: mainApplication,
-                },
-            });
+            return config;
         });
         return (0, config_plugins_1.withPlugins)(config, [
             [projectBuild, {}],
@@ -206,8 +182,8 @@ const withCafAndroid = (config) => {
         ]);
     };
     return (0, config_plugins_1.withPlugins)(config, [
-        [withCafSource, {}],
         [withMainAtv, {}],
+        [withCafSource, {}],
         [withBuildGradle, {}],
     ]);
 };

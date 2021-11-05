@@ -1,6 +1,5 @@
 import {
   ConfigPlugin,
-  ExportedConfigWithProps,
   withAppBuildGradle,
   withMainApplication,
   withPlugins,
@@ -120,10 +119,7 @@ source 'https://cdn.cocoapods.org/'
       },
     ])
 
-  return withPlugins(config, [
-    [withXcodeFiles, {}],
-    [withPods, {}],
-  ])
+  return withPlugins(config, [withXcodeFiles, withPods])
 }
 
 const withCafAndroid: ConfigPlugin<void> = (config) => {
@@ -170,20 +166,19 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     ])
   }
 
-  const withMainAtv: ConfigPlugin<void> = (expoCfg) =>
-    withMainApplication(expoCfg, async (config) => {
-      config.modResults.contents = mergeContents({
-        tag: 'Package',
-        src: config.modResults.contents,
-        newSrc: `      packages.add(new CombateAFraudePackage());`,
-        anchor: /new PackageList\(this\)\.getPackages\(\)/,
-        offset: 1,
-        comment: '//',
-      }).contents
-      return config
-    })
-
-  const withBuildGradle: ConfigPlugin<void> = (config) => {
+  const withFileMods: ConfigPlugin<void> = (config) => {
+    const mainActivity: ConfigPlugin<void> = (expoCfg) =>
+      withMainApplication(expoCfg, async (config) => {
+        config.modResults.contents = mergeContents({
+          tag: 'Add Package',
+          src: config.modResults.contents,
+          newSrc: `      packages.add(new CombateAFraudePackage());`,
+          anchor: /return packages/,
+          offset: 0,
+          comment: '//',
+        }).contents
+        return config
+      })
     const projectBuild: ConfigPlugin<void> = (expoCfg) =>
       withProjectBuildGradle(expoCfg, async (config) => {
         config.modResults.contents = mergeContents({
@@ -231,23 +226,13 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [
-      [projectBuild, {}],
-      [appBuild, {}],
-    ])
+    return withPlugins(config, [mainActivity, projectBuild, appBuild])
   }
 
-  return withPlugins(config, [
-    [withMainAtv, {}],
-    [withCafSource, {}],
-    [withBuildGradle, {}],
-  ])
+  return withPlugins(config, [withCafSource, withFileMods])
 }
 
 const mainPlugin: ConfigPlugin<void> = (config) =>
-  withPlugins(config, [
-    [withCafIos, {}],
-    [withCafAndroid, {}],
-  ])
+  withPlugins(config, [withCafIos, withCafAndroid])
 
 export default mainPlugin

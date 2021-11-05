@@ -89,10 +89,7 @@ source 'https://cdn.cocoapods.org/'
             return config;
         },
     ]);
-    return (0, config_plugins_1.withPlugins)(config, [
-        [withXcodeFiles, {}],
-        [withPods, {}],
-    ]);
+    return (0, config_plugins_1.withPlugins)(config, [withXcodeFiles, withPods]);
 };
 const withCafAndroid = (config) => {
     const withCafSource = (expoCfg) => {
@@ -122,18 +119,18 @@ const withCafAndroid = (config) => {
             },
         ]);
     };
-    const withMainAtv = (expoCfg) => (0, config_plugins_1.withMainApplication)(expoCfg, async (config) => {
-        config.modResults.contents = (0, generateCode_1.mergeContents)({
-            tag: 'Package',
-            src: config.modResults.contents,
-            newSrc: `      packages.add(new CombateAFraudePackage());`,
-            anchor: /new PackageList\(this\)\.getPackages\(\)/,
-            offset: 1,
-            comment: '//',
-        }).contents;
-        return config;
-    });
-    const withBuildGradle = (config) => {
+    const withFileMods = (config) => {
+        const mainActivity = (expoCfg) => (0, config_plugins_1.withMainApplication)(expoCfg, async (config) => {
+            config.modResults.contents = (0, generateCode_1.mergeContents)({
+                tag: 'Add Package',
+                src: config.modResults.contents,
+                newSrc: `      packages.add(new CombateAFraudePackage());`,
+                anchor: /return packages/,
+                offset: 0,
+                comment: '//',
+            }).contents;
+            return config;
+        });
         const projectBuild = (expoCfg) => (0, config_plugins_1.withProjectBuildGradle)(expoCfg, async (config) => {
             config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Maven Repo',
@@ -176,19 +173,9 @@ const withCafAndroid = (config) => {
             }).contents;
             return config;
         });
-        return (0, config_plugins_1.withPlugins)(config, [
-            [projectBuild, {}],
-            [appBuild, {}],
-        ]);
+        return (0, config_plugins_1.withPlugins)(config, [mainActivity, projectBuild, appBuild]);
     };
-    return (0, config_plugins_1.withPlugins)(config, [
-        [withMainAtv, {}],
-        [withCafSource, {}],
-        [withBuildGradle, {}],
-    ]);
+    return (0, config_plugins_1.withPlugins)(config, [withCafSource, withFileMods]);
 };
-const mainPlugin = (config) => (0, config_plugins_1.withPlugins)(config, [
-    [withCafIos, {}],
-    [withCafAndroid, {}],
-]);
+const mainPlugin = (config) => (0, config_plugins_1.withPlugins)(config, [withCafIos, withCafAndroid]);
 exports.default = mainPlugin;

@@ -1,7 +1,6 @@
 import {
   ConfigPlugin,
   withAppBuildGradle,
-  withMainApplication,
   withPlugins,
   withProjectBuildGradle,
   withXcodeProject,
@@ -161,6 +160,8 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )
+
+        // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
         const mainAppContents = await fs.readFile(
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/MainApplication.java'
@@ -173,7 +174,6 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           offset: 0,
           comment: '//',
         }).contents
-
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/MainApplication.java',
@@ -186,6 +186,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
   }
 
   const withFileMods: ConfigPlugin<void> = (config) => {
+    // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
     // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
     //   withMainApplication(expoCfg, async (config) => {
     //     config.modResults.contents = mergeContents({
@@ -245,7 +246,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [projectBuild, appBuild]) //mainActivity
+    return withPlugins(config, [projectBuild, appBuild])
   }
 
   return withPlugins(config, [withCafSource, withFileMods])

@@ -1,15 +1,16 @@
 {
   "name": "expo-combateafraude",
+  "author": "ONZ Software",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "license": "MIT",
-  "homepage": "http://github.com/thalesog/expo-combateafraude#readme",
+  "homepage": "http://github.com/onz-software/expo-combateafraude#readme",
   "repository": {
     "type": "git",
-    "url": "git+http://github.com/thalesog/expo-combateafraude.git"
+    "url": "git+http://github.com/onz-software/expo-combateafraude.git"
   },
   "bugs": {
-    "url": "http://github.com/thalesog/expo-combateafraude/issues"
+    "url": "http://github.com/onz-software/expo-combateafraude/issues"
   },
   "scripts": {
     "build": "expo-module build",

@@ -15,10 +15,10 @@ const withCafIos = (config) => {
         const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
         const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
         // Copy CombateAFraude Source Files
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
         // Replace Main Briding-Header
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
         cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
             filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
             groupName: projName,
@@ -100,6 +100,18 @@ const withCafIos = (config) => {
     ]);
 };
 const withCafAndroid = (config) => {
+    const withCafSource = (expoCfg) => {
+        return (0, config_plugins_2.withDangerousMod)(expoCfg, [
+            'android',
+            async (config) => {
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java');
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java');
+                return config;
+            },
+        ]);
+    };
     const withMainAtv = (config) => {
         return (0, config_plugins_1.withMainApplication)(config, async (config) => {
             let mainApplication = config.modResults.contents;
@@ -109,7 +121,7 @@ const withCafAndroid = (config) => {
                 newSrc: `      packages.add(new CombateAFraudePackage());`,
                 anchor: /new PackageList\(this\)\.getPackages\(\)/,
                 offset: 1,
-                comment: '#',
+                comment: '//',
             }).contents;
             // console.log('MAIN APPLICATION => ', mainApplication)
             return Object.assign(config, {
@@ -128,7 +140,7 @@ const withCafAndroid = (config) => {
                 newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
                 anchor: /mavenLocal\(\)/,
                 offset: 1,
-                comment: '#',
+                comment: '//',
             }).contents;
             // console.log('PROJECT BUILD GRADLE => ', mainApplication)
             return Object.assign(config, {
@@ -152,7 +164,7 @@ const withCafAndroid = (config) => {
   }`,
                 anchor: /android {/,
                 offset: 1,
-                comment: '#',
+                comment: '//',
             }).contents;
             mainApplication = (0, generateCode_1.mergeContents)({
                 tag: 'Dependencies',
@@ -164,7 +176,7 @@ const withCafAndroid = (config) => {
           `,
                 anchor: /dependencies {/,
                 offset: 1,
-                comment: '#',
+                comment: '//',
             }).contents;
             console.log('APP BUILD GRADLE => ', mainApplication);
             return Object.assign(config, {
@@ -179,6 +191,7 @@ const withCafAndroid = (config) => {
         ]);
     };
     return (0, config_plugins_1.withPlugins)(config, [
+        [withCafSource, {}],
         [withMainAtv, {}],
         [withBuildGradle, {}],
     ]);

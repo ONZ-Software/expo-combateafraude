@@ -26,17 +26,17 @@ const withCafIos: ConfigPlugin<void> = (config) => {
 
       // Copy CombateAFraude Source Files
       await fs.copyFile(
-        path.resolve(__dirname, './caf/CombateAFraude.m'),
+        path.resolve(__dirname, './caf/ios/CombateAFraude.m'),
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.m'
       )
       await fs.copyFile(
-        path.resolve(__dirname, './caf/CombateAFraude.swift'),
+        path.resolve(__dirname, './caf/ios/CombateAFraude.swift'),
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
       )
 
       // Replace Main Briding-Header
       await fs.copyFile(
-        path.resolve(__dirname, './caf/Bridging-Header.h'),
+        path.resolve(__dirname, './caf/ios/Bridging-Header.h'),
         srcRoot + `/${projName}-Bridging-Header.h`
       )
 
@@ -134,9 +134,28 @@ const withCafIos: ConfigPlugin<void> = (config) => {
 }
 
 const withCafAndroid: ConfigPlugin<void> = (config) => {
-  const withMainAtv: ConfigPlugin<
-    ExportedConfigWithProps<ApplicationProjectFile>
-  > = (config) => {
+  const withCafSource: ConfigPlugin<any> = (expoCfg) => {
+    return withDangerousMod(expoCfg, [
+      'android',
+      async (config) => {
+        await fs.copyFile(
+          path.resolve(__dirname, './caf/android/CombateAFraudeModule.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
+        )
+
+        await fs.copyFile(
+          path.resolve(__dirname, './caf/android/CombateAFraudePackage.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java'
+        )
+
+        return config
+      },
+    ])
+  }
+
+  const withMainAtv: ConfigPlugin<any> = (config) => {
     return withMainApplication(config, async (config) => {
       let mainApplication = config.modResults.contents
       mainApplication = mergeContents({
@@ -220,6 +239,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
   }
 
   return withPlugins(config, [
+    [withCafSource, {}],
     [withMainAtv, {}],
     [withBuildGradle, {}],
   ])

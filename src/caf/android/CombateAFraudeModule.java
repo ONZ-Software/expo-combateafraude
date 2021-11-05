@@ -1,4 +1,4 @@
-package com.sdksexample;
+package [[PACKAGE]];
 
 import android.app.Activity;
 import android.content.Intent;

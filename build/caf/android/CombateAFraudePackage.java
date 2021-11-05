@@ -1,4 +1,4 @@
-package com.sdksexample;
+package [[PACKAGE]];
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

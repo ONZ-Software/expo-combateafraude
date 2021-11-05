@@ -104,10 +104,25 @@ const withCafAndroid = (config) => {
         return (0, config_plugins_2.withDangerousMod)(expoCfg, [
             'android',
             async (config) => {
+                var _a, _b, _c;
+                if (!((_a = config.android) === null || _a === void 0 ? void 0 : _a.package))
+                    throw new Error('Missing package name');
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java');
+                const moduleContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java');
+                await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java', moduleContents
+                    .toString()
+                    .replace(/\[\[PACKAGE\]\]/, (_b = config.android) === null || _b === void 0 ? void 0 : _b.package));
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java');
+                const packageContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java');
+                await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
+                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java', packageContents
+                    .toString()
+                    .replace(/\[\[PACKAGE\]\]/, (_c = config.android) === null || _c === void 0 ? void 0 : _c.package));
                 return config;
             },
         ]);
@@ -168,7 +183,7 @@ const withCafAndroid = (config) => {
             }).contents;
             mainApplication = (0, generateCode_1.mergeContents)({
                 tag: 'Dependencies',
-                src: config.modResults.contents,
+                src: mainApplication,
                 newSrc: `
     implementation "com.combateafraude.sdk:passive-face-liveness:+"
     implementation "com.combateafraude.sdk:document-detector:+"
@@ -178,7 +193,7 @@ const withCafAndroid = (config) => {
                 offset: 1,
                 comment: '//',
             }).contents;
-            console.log('APP BUILD GRADLE => ', mainApplication);
+            // console.log('APP BUILD GRADLE => ', mainApplication)
             return Object.assign(config, {
                 modResults: {
                     contents: mainApplication,

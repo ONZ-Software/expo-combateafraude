@@ -138,16 +138,38 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     return withDangerousMod(expoCfg, [
       'android',
       async (config) => {
+        if (!config.android?.package) throw new Error('Missing package name')
         await fs.copyFile(
           path.resolve(__dirname, './caf/android/CombateAFraudeModule.java'),
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
         )
-
+        const moduleContents = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
+        )
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java',
+          moduleContents
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
+        )
         await fs.copyFile(
           path.resolve(__dirname, './caf/android/CombateAFraudePackage.java'),
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java'
+        )
+        const packageContents = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java'
+        )
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java',
+          packageContents
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )
 
         return config
@@ -214,7 +236,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         }).contents
         mainApplication = mergeContents({
           tag: 'Dependencies',
-          src: config.modResults.contents,
+          src: mainApplication,
           newSrc: `
     implementation "com.combateafraude.sdk:passive-face-liveness:+"
     implementation "com.combateafraude.sdk:document-detector:+"
@@ -224,7 +246,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           offset: 1,
           comment: '//',
         }).contents
-        console.log('APP BUILD GRADLE => ', mainApplication)
+        // console.log('APP BUILD GRADLE => ', mainApplication)
         return Object.assign(config, {
           modResults: {
             contents: mainApplication,

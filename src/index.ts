@@ -37,6 +37,14 @@ const withCafIos: ConfigPlugin<void> = (config) => {
         srcRoot + `/${projName}-Bridging-Header.h`
       )
 
+      cfg.modResults.addKnownRegion('pt-BR')
+      cfg.modResults.removeKnownRegion('en')
+      cfg.modResults.removeKnownRegion('Base')
+
+      cfg.modResults.pbxProjectSection()[
+        cfg.modResults.getFirstProject()['uuid']
+      ]['developmentRegion'] = 'pt-BR'
+
       cfg.modResults = addBuildSourceFileToGroup({
         filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
         groupName: projName,

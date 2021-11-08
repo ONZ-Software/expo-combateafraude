@@ -19,6 +19,10 @@ const withCafIos = (config) => {
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
         // Replace Main Briding-Header
         await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        cfg.modResults.addKnownRegion('pt-BR');
+        cfg.modResults.removeKnownRegion('en');
+        cfg.modResults.removeKnownRegion('Base');
+        cfg.modResults.pbxProjectSection()[cfg.modResults.getFirstProject()['uuid']]['developmentRegion'] = 'pt-BR';
         cfg.modResults = (0, Xcodeproj_1.addBuildSourceFileToGroup)({
             filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift',
             groupName: projName,
@@ -115,6 +119,7 @@ const withCafAndroid = (config) => {
                     '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java', packageContents
                     .toString()
                     .replace(/\[\[PACKAGE\]\]/, (_c = config.android) === null || _c === void 0 ? void 0 : _c.package));
+                // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
                 const mainAppContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
                     '/app/src/main/java/br/com/b4u/MainApplication.java');
                 const mainAppContentsUpdated = (0, generateCode_1.mergeContents)({
@@ -132,6 +137,7 @@ const withCafAndroid = (config) => {
         ]);
     };
     const withFileMods = (config) => {
+        // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
         // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
         //   withMainApplication(expoCfg, async (config) => {
         //     config.modResults.contents = mergeContents({
@@ -186,7 +192,7 @@ const withCafAndroid = (config) => {
             }).contents;
             return config;
         });
-        return (0, config_plugins_1.withPlugins)(config, [projectBuild, appBuild]); //mainActivity
+        return (0, config_plugins_1.withPlugins)(config, [projectBuild, appBuild]);
     };
     return (0, config_plugins_1.withPlugins)(config, [withCafSource, withFileMods]);
 };

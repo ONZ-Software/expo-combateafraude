@@ -135,19 +135,28 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
       'android',
       async (config) => {
         if (!config.android?.package) throw new Error('Missing package name')
+
+        const androidSrcPath = config.android?.package?.replace(/\./gi, '/')
+
         await fs.copyFile(
           path.resolve(__dirname, './caf/android/CombateAFraudeModule.java'),
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java'
         )
         const moduleContents = await fs.readFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java'
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java'
         )
 
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java',
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java',
           moduleContents
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
@@ -155,15 +164,21 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         await fs.copyFile(
           path.resolve(__dirname, './caf/android/CombateAFraudePackage.java'),
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java'
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudePackage.java'
         )
         const packageContents = await fs.readFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java'
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudePackage.java'
         )
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java',
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudePackage.java',
           packageContents
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
@@ -217,7 +232,6 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           offset: 1,
           comment: '//',
         }).contents
-        // console.log('PROJECT BUILD GRADLE => ', mainApplication)
         return config
       })
     const appBuild: ConfigPlugin<void> = (expoCfg) =>

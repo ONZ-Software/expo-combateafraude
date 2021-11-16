@@ -100,25 +100,38 @@ const withCafAndroid = (config) => {
         return (0, config_plugins_2.withDangerousMod)(expoCfg, [
             'android',
             async (config) => {
-                var _a, _b, _c;
+                var _a, _b, _c, _d, _e;
                 if (!((_a = config.android) === null || _a === void 0 ? void 0 : _a.package))
                     throw new Error('Missing package name');
+                const androidSrcPath = (_c = (_b = config.android) === null || _b === void 0 ? void 0 : _b.package) === null || _c === void 0 ? void 0 : _c.replace(/\./gi, '/');
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java');
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudeModule.java');
                 const moduleContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java');
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudeModule.java');
                 await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudeModule.java', moduleContents
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudeModule.java', moduleContents
                     .toString()
-                    .replace(/\[\[PACKAGE\]\]/, (_b = config.android) === null || _b === void 0 ? void 0 : _b.package));
+                    .replace(/\[\[PACKAGE\]\]/, (_d = config.android) === null || _d === void 0 ? void 0 : _d.package));
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java');
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudePackage.java');
                 const packageContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java');
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudePackage.java');
                 await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/CombateAFraudePackage.java', packageContents
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/CombateAFraudePackage.java', packageContents
                     .toString()
-                    .replace(/\[\[PACKAGE\]\]/, (_c = config.android) === null || _c === void 0 ? void 0 : _c.package));
+                    .replace(/\[\[PACKAGE\]\]/, (_e = config.android) === null || _e === void 0 ? void 0 : _e.package));
                 // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
                 const mainAppContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
                     '/app/src/main/java/br/com/b4u/MainApplication.java');
@@ -159,7 +172,6 @@ const withCafAndroid = (config) => {
                 offset: 1,
                 comment: '//',
             }).contents;
-            // console.log('PROJECT BUILD GRADLE => ', mainApplication)
             return config;
         });
         const appBuild = (expoCfg) => (0, config_plugins_1.withAppBuildGradle)(expoCfg, async (config) => {

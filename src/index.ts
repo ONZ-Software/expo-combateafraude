@@ -187,7 +187,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
         const mainAppContents = await fs.readFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/MainApplication.java'
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/MainApplication.java'
         )
         const mainAppContentsUpdated = mergeContents({
           tag: 'Add Package',
@@ -199,7 +201,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         }).contents
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
-            '/app/src/main/java/br/com/b4u/MainApplication.java',
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/MainApplication.java',
           mainAppContentsUpdated
         )
 

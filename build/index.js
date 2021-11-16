@@ -134,7 +134,9 @@ const withCafAndroid = (config) => {
                     .replace(/\[\[PACKAGE\]\]/, (_e = config.android) === null || _e === void 0 ? void 0 : _e.package));
                 // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
                 const mainAppContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/MainApplication.java');
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/MainApplication.java');
                 const mainAppContentsUpdated = (0, generateCode_1.mergeContents)({
                     tag: 'Add Package',
                     src: mainAppContents.toString(),
@@ -144,7 +146,9 @@ const withCafAndroid = (config) => {
                     comment: '//',
                 }).contents;
                 await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/br/com/b4u/MainApplication.java', mainAppContentsUpdated);
+                    '/app/src/main/java/' +
+                    androidSrcPath +
+                    '/MainApplication.java', mainAppContentsUpdated);
                 return config;
             },
         ]);

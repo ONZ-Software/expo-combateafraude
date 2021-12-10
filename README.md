@@ -1,6 +1,8 @@
 # expo-combateafraude
 
+
 Integration with React Native Combate a Fraude SDK
+### WARNING: The current implementation only works on Linux.
 
 # API documentation
 

@@ -76,7 +76,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector'`,
+            newSrc: `  pod 'DocumentDetector', '4.9.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -84,7 +84,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'PassiveFaceLiveness',
             src: results.contents,
-            newSrc: `  pod 'PassiveFaceLiveness'`,
+            newSrc: `  pod 'PassiveFaceLiveness', '3.8.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -92,7 +92,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'FaceAuthenticator',
             src: results.contents,
-            newSrc: `  pod 'FaceAuthenticator'`,
+            newSrc: `  pod 'FaceAuthenticator', '2.6.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',

@@ -13,13 +13,13 @@
     "url": "http://github.com/onz-software/expo-combateafraude/issues"
   },
   "scripts": {
-    "build": "expo-module build",
+    "build": "expo-module build && yarn copy-files",
     "clean": "expo-module clean",
     "test": "expo-module test",
     "prepare": "husky install",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
-    "copy-files": "cpx 'src/caf/**/*' build",
+    "copy-files": "cpx 'caf-src/**/*' build",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {

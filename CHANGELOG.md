@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/onz-software/expo-combateafraude/compare/v1.0.0...v1.0.1) (2022-01-06)
+
+
+### Bug Fixes
+
+* wrong caf-src directory ([bcbd958](https://github.com/onz-software/expo-combateafraude/commit/bcbd958e621127e7bf438d2e6728bc5278ef09db))
+
 # 1.0.0 (2022-01-06)
 
 

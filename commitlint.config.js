@@ -1,4 +1,6 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  maxSubjectLength: 512,
+  rules: {
+    'body-max-line-length': [0, 'always', Infinity],
+  },
 }

@@ -23,17 +23,17 @@ const withCafIos: ConfigPlugin<void> = (config) => {
 
       // Copy CombateAFraude Source Files
       await fs.copyFile(
-        path.resolve(__dirname, './caf/ios/CombateAFraude.m'),
+        path.resolve(__dirname, './ios/CombateAFraude.m'),
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.m'
       )
       await fs.copyFile(
-        path.resolve(__dirname, './caf/ios/CombateAFraude.swift'),
+        path.resolve(__dirname, './ios/CombateAFraude.swift'),
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
       )
 
       // Replace Main Briding-Header
       await fs.copyFile(
-        path.resolve(__dirname, './caf/ios/Bridging-Header.h'),
+        path.resolve(__dirname, './ios/Bridging-Header.h'),
         srcRoot + `/${projName}-Bridging-Header.h`
       )
 
@@ -139,7 +139,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         const androidSrcPath = config.android?.package?.replace(/\./gi, '/')
 
         await fs.copyFile(
-          path.resolve(__dirname, './caf/android/CombateAFraudeModule.java'),
+          path.resolve(__dirname, './android/CombateAFraudeModule.java'),
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/' +
             androidSrcPath +
@@ -162,7 +162,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )
         await fs.copyFile(
-          path.resolve(__dirname, './caf/android/CombateAFraudePackage.java'),
+          path.resolve(__dirname, './android/CombateAFraudePackage.java'),
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/' +
             androidSrcPath +

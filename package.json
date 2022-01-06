@@ -1,13 +1,13 @@
 {
   "name": "expo-combateafraude",
-  "author": "ONZ Software",
-  "version": "1.0.0",
+  "author": "onz-software",
+  "version": "0.0.0-development",
   "main": "build/index.js",
   "license": "MIT",
   "homepage": "http://github.com/onz-software/expo-combateafraude#readme",
   "repository": {
     "type": "git",
-    "url": "git+http://github.com/onz-software/expo-combateafraude.git"
+    "url": "https://github.com/onz-software/expo-combateafraude.git"
   },
   "bugs": {
     "url": "http://github.com/onz-software/expo-combateafraude/issues"
@@ -16,14 +16,22 @@
     "build": "expo-module build",
     "clean": "expo-module clean",
     "test": "expo-module test",
-    "prepare": "expo-module prepare && yarn copy-caf-src",
+    "prepare": "husky install",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
-    "copy-caf-src": "cp -R ./src/caf ./build"
+    "copy-files": "cpx 'src/caf/**/*' build",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/fs-extra": "^9.0.13",
-    "expo-module-scripts": "^2.0.0"
+    "cpx": "^1.5.0",
+    "expo-module-scripts": "^2.0.0",
+    "husky": "^7.0.4",
+    "semantic-release": "^18.0.1"
   },
   "dependencies": {
     "@expo/config-plugins": "^4.0.6",

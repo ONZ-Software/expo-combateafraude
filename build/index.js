@@ -15,10 +15,10 @@ const withCafIos = (config) => {
         const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
         const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
         // Copy CombateAFraude Source Files
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
         // Replace Main Briding-Header
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
         cfg.modResults.addKnownRegion('pt-BR');
         cfg.modResults.removeKnownRegion('en');
         cfg.modResults.removeKnownRegion('Base');
@@ -104,7 +104,7 @@ const withCafAndroid = (config) => {
                 if (!((_a = config.android) === null || _a === void 0 ? void 0 : _a.package))
                     throw new Error('Missing package name');
                 const androidSrcPath = (_c = (_b = config.android) === null || _b === void 0 ? void 0 : _b.package) === null || _c === void 0 ? void 0 : _c.replace(/\./gi, '/');
-                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
                     '/CombateAFraudeModule.java');
@@ -118,7 +118,7 @@ const withCafAndroid = (config) => {
                     '/CombateAFraudeModule.java', moduleContents
                     .toString()
                     .replace(/\[\[PACKAGE\]\]/, (_d = config.android) === null || _d === void 0 ? void 0 : _d.package));
-                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
                     '/CombateAFraudePackage.java');

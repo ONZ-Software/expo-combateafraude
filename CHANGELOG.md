@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/onz-software/expo-combateafraude/compare/v1.0.1...v1.0.2) (2022-01-06)
+
+
+### Bug Fixes
+
+* add missing build phase ([3cd9e20](https://github.com/onz-software/expo-combateafraude/commit/3cd9e20951850f10881f95faa0b0d9866a4efa6a))
+
 ## [1.0.1](https://github.com/onz-software/expo-combateafraude/compare/v1.0.0...v1.0.1) (2022-01-06)
 
 

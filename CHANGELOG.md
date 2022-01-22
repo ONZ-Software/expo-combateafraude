@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/onz-software/expo-combateafraude/compare/v1.0.3...v1.1.0) (2022-01-22)
+
+
+### Features
+
+* upgrade expo-modules ([5ab1c84](https://github.com/onz-software/expo-combateafraude/commit/5ab1c841ad45088cae6ff035bddc91b459785774))
+
 ## [1.0.3](https://github.com/onz-software/expo-combateafraude/compare/v1.0.2...v1.0.3) (2022-01-06)
 
 

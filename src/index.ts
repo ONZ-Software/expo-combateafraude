@@ -1,11 +1,11 @@
 import {
   ConfigPlugin,
   withAppBuildGradle,
+  withDangerousMod,
   withPlugins,
   withProjectBuildGradle,
   withXcodeProject,
 } from '@expo/config-plugins'
-import { withDangerousMod } from '@expo/config-plugins'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
@@ -76,7 +76,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector', '~> 4.7.3'`,
+            newSrc: `  pod 'DocumentDetector', '6.2.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -84,7 +84,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'PassiveFaceLiveness',
             src: results.contents,
-            newSrc: `  pod 'PassiveFaceLiveness', '~> 3.6.4'`,
+            newSrc: `  pod 'PassiveFaceLiveness', '5.7.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -92,7 +92,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'FaceAuthenticator',
             src: results.contents,
-            newSrc: `  pod 'FaceAuthenticator', '~> 2.4.0'`,
+            newSrc: `  pod 'FaceAuthenticator', '5.1.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',

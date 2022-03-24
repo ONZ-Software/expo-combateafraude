@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_plugins_1 = require("@expo/config-plugins");
-const config_plugins_2 = require("@expo/config-plugins");
 const Paths_1 = require("@expo/config-plugins/build/ios/Paths");
 const Xcodeproj_1 = require("@expo/config-plugins/build/ios/utils/Xcodeproj");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
@@ -35,7 +34,7 @@ const withCafIos = (config) => {
         });
         return cfg;
     });
-    const withPods = (config) => (0, config_plugins_2.withDangerousMod)(config, [
+    const withPods = (config) => (0, config_plugins_1.withDangerousMod)(config, [
         'ios',
         async (config) => {
             const filePath = path_1.default.join(config.modRequest.platformProjectRoot, 'Podfile');
@@ -47,7 +46,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'DocumentDetector',
                     src: results.contents,
-                    newSrc: `  pod 'DocumentDetector', '~> 4.7.3'`,
+                    newSrc: `  pod 'DocumentDetector', '6.2.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -55,7 +54,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'PassiveFaceLiveness',
                     src: results.contents,
-                    newSrc: `  pod 'PassiveFaceLiveness', '~> 3.6.4'`,
+                    newSrc: `  pod 'PassiveFaceLiveness', '5.7.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -63,7 +62,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'FaceAuthenticator',
                     src: results.contents,
-                    newSrc: `  pod 'FaceAuthenticator', '~> 2.4.0'`,
+                    newSrc: `  pod 'FaceAuthenticator', '5.1.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -97,7 +96,7 @@ source 'https://cdn.cocoapods.org/'
 };
 const withCafAndroid = (config) => {
     const withCafSource = (expoCfg) => {
-        return (0, config_plugins_2.withDangerousMod)(expoCfg, [
+        return (0, config_plugins_1.withDangerousMod)(expoCfg, [
             'android',
             async (config) => {
                 var _a, _b, _c, _d, _e;

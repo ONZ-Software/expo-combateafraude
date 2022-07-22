@@ -2,14 +2,15 @@ import {
   ConfigPlugin,
   withAppBuildGradle,
   withDangerousMod,
+  withMainApplication,
   withPlugins,
   withProjectBuildGradle,
-  withXcodeProject,
+  withXcodeProject
 } from '@expo/config-plugins'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
-  getProjectName,
+  getProjectName
 } from '@expo/config-plugins/build/ios/utils/Xcodeproj'
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs-extra'
@@ -76,7 +77,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector', '6.2.0'`,
+            newSrc: `  pod 'DocumentDetector', '~> 6.2.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -84,7 +85,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'PassiveFaceLiveness',
             src: results.contents,
-            newSrc: `  pod 'PassiveFaceLiveness', '5.7.0'`,
+            newSrc: `  pod 'PassiveFaceLiveness', '~> 5.7.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -92,7 +93,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'FaceAuthenticator',
             src: results.contents,
-            newSrc: `  pod 'FaceAuthenticator', '5.1.0'`,
+            newSrc: `  pod 'FaceAuthenticator', '~> 5.1.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -214,18 +215,18 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
 
   const withFileMods: ConfigPlugin<void> = (config) => {
     // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
-    // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
-    //   withMainApplication(expoCfg, async (config) => {
-    //     config.modResults.contents = mergeContents({
-    //       tag: 'Add Package',
-    //       src: config.modResults.contents,
-    //       newSrc: `      packages.add(new CombateAFraudePackage());`,
-    //       anchor: /return packages/,
-    //       offset: 0,
-    //       comment: '//',
-    //     }).contents
-    //     return config
-    //   })
+    const mainActivity: ConfigPlugin<void> = (expoCfg) =>
+      withMainApplication(expoCfg, async (config) => {
+        config.modResults.contents = mergeContents({
+          tag: 'Add Package',
+          src: config.modResults.contents,
+          newSrc: `      packages.add(new CombateAFraudePackage());`,
+          anchor: /return packages/,
+          offset: 0,
+          comment: '//',
+        }).contents
+        return config
+      })
     const projectBuild: ConfigPlugin<void> = (expoCfg) =>
       withProjectBuildGradle(expoCfg, async (config) => {
         config.modResults.contents = mergeContents({
@@ -248,8 +249,13 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     noCompress "tflite"
   }
 
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding true
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }`,
           anchor: /android {/,
           offset: 1,
@@ -260,9 +266,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Dependencies',
           src: config.modResults.contents,
           newSrc: `
-    implementation "com.combateafraude.sdk:passive-face-liveness:+"
-    implementation "com.combateafraude.sdk:document-detector:+"
-    implementation "com.combateafraude.sdk:face-authenticator:+"
+    implementation 'com.combateafraude.sdk:document-detector:6.16.5'
+    implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
+    implementation 'com.combateafraude.sdk:face-authenticator:5.0.5'
           `,
           anchor: /dependencies {/,
           offset: 1,
@@ -272,7 +278,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [projectBuild, appBuild])
+    return withPlugins(config, [mainActivity,projectBuild, appBuild])
   }
 
   return withPlugins(config, [withCafSource, withFileMods])

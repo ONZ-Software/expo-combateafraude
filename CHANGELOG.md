@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/onz-software/expo-combateafraude/compare/v1.3.0...v1.3.1) (2022-07-23)
+
+
+### Bug Fixes
+
+* missing react import on caf swift file ([3190386](https://github.com/onz-software/expo-combateafraude/commit/3190386734ff20b7d283914d2a6dfbd434b1d7ce))
+
 # [1.3.0](https://github.com/onz-software/expo-combateafraude/compare/v1.2.0...v1.3.0) (2022-07-22)
 
 

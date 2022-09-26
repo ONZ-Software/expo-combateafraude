@@ -1,3 +1,10 @@
+//
+//  CombateAFraude.m
+//  SDKsExample
+//
+//  Created by Frederico Hansel dos Santos Gassen on 08/10/20.
+//
+
 #import "React/RCTBridgeModule.h"
 #import "React/RCTEventEmitter.h"
 

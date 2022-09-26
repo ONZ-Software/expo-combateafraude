@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_plugins_1 = require("@expo/config-plugins");
-const config_plugins_2 = require("@expo/config-plugins");
 const Paths_1 = require("@expo/config-plugins/build/ios/Paths");
 const Xcodeproj_1 = require("@expo/config-plugins/build/ios/utils/Xcodeproj");
 const generateCode_1 = require("@expo/config-plugins/build/utils/generateCode");
@@ -15,10 +14,10 @@ const withCafIos = (config) => {
         const srcRoot = (0, Paths_1.getSourceRoot)(cfg.modRequest.projectRoot);
         const projName = (0, Xcodeproj_1.getProjectName)(cfg.modRequest.projectRoot);
         // Copy CombateAFraude Source Files
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/CombateAFraude.m'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.m');
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/CombateAFraude.swift'), cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift');
         // Replace Main Briding-Header
-        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
+        await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './ios/Bridging-Header.h'), srcRoot + `/${projName}-Bridging-Header.h`);
         cfg.modResults.addKnownRegion('pt-BR');
         cfg.modResults.removeKnownRegion('en');
         cfg.modResults.removeKnownRegion('Base');
@@ -35,7 +34,7 @@ const withCafIos = (config) => {
         });
         return cfg;
     });
-    const withPods = (config) => (0, config_plugins_2.withDangerousMod)(config, [
+    const withPods = (config) => (0, config_plugins_1.withDangerousMod)(config, [
         'ios',
         async (config) => {
             const filePath = path_1.default.join(config.modRequest.platformProjectRoot, 'Podfile');
@@ -47,7 +46,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'DocumentDetector',
                     src: results.contents,
-                    newSrc: `  pod 'DocumentDetector', '~> 4.7.3'`,
+                    newSrc: `  pod 'DocumentDetector', '~> 6.2.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -55,7 +54,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'PassiveFaceLiveness',
                     src: results.contents,
-                    newSrc: `  pod 'PassiveFaceLiveness', '~> 3.6.4'`,
+                    newSrc: `  pod 'PassiveFaceLiveness', '~> 5.7.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -63,7 +62,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'FaceAuthenticator',
                     src: results.contents,
-                    newSrc: `  pod 'FaceAuthenticator', '~> 2.4.0'`,
+                    newSrc: `  pod 'FaceAuthenticator', '~> 5.1.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -97,14 +96,14 @@ source 'https://cdn.cocoapods.org/'
 };
 const withCafAndroid = (config) => {
     const withCafSource = (expoCfg) => {
-        return (0, config_plugins_2.withDangerousMod)(expoCfg, [
+        return (0, config_plugins_1.withDangerousMod)(expoCfg, [
             'android',
             async (config) => {
                 var _a, _b, _c, _d, _e;
                 if (!((_a = config.android) === null || _a === void 0 ? void 0 : _a.package))
                     throw new Error('Missing package name');
                 const androidSrcPath = (_c = (_b = config.android) === null || _b === void 0 ? void 0 : _b.package) === null || _c === void 0 ? void 0 : _c.replace(/\./gi, '/');
-                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
                     '/CombateAFraudeModule.java');
@@ -118,7 +117,7 @@ const withCafAndroid = (config) => {
                     '/CombateAFraudeModule.java', moduleContents
                     .toString()
                     .replace(/\[\[PACKAGE\]\]/, (_d = config.android) === null || _d === void 0 ? void 0 : _d.package));
-                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './caf/android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
+                await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
                     '/CombateAFraudePackage.java');
@@ -155,18 +154,17 @@ const withCafAndroid = (config) => {
     };
     const withFileMods = (config) => {
         // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
-        // const mainActivity: ConfigPlugin<void> = (expoCfg) =>
-        //   withMainApplication(expoCfg, async (config) => {
-        //     config.modResults.contents = mergeContents({
-        //       tag: 'Add Package',
-        //       src: config.modResults.contents,
-        //       newSrc: `      packages.add(new CombateAFraudePackage());`,
-        //       anchor: /return packages/,
-        //       offset: 0,
-        //       comment: '//',
-        //     }).contents
-        //     return config
-        //   })
+        const mainActivity = (expoCfg) => (0, config_plugins_1.withMainApplication)(expoCfg, async (config) => {
+            config.modResults.contents = (0, generateCode_1.mergeContents)({
+                tag: 'Add Package',
+                src: config.modResults.contents,
+                newSrc: `      packages.add(new CombateAFraudePackage());`,
+                anchor: /return packages/,
+                offset: 0,
+                comment: '//',
+            }).contents;
+            return config;
+        });
         const projectBuild = (expoCfg) => (0, config_plugins_1.withProjectBuildGradle)(expoCfg, async (config) => {
             config.modResults.contents = (0, generateCode_1.mergeContents)({
                 tag: 'Maven Repo',
@@ -187,8 +185,13 @@ const withCafAndroid = (config) => {
     noCompress "tflite"
   }
 
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding true
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }`,
                 anchor: /android {/,
                 offset: 1,
@@ -198,9 +201,9 @@ const withCafAndroid = (config) => {
                 tag: 'Dependencies',
                 src: config.modResults.contents,
                 newSrc: `
-    implementation "com.combateafraude.sdk:passive-face-liveness:+"
-    implementation "com.combateafraude.sdk:document-detector:+"
-    implementation "com.combateafraude.sdk:face-authenticator:+"
+    implementation 'com.combateafraude.sdk:document-detector:6.16.5'
+    implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
+    implementation 'com.combateafraude.sdk:face-authenticator:5.0.5'
           `,
                 anchor: /dependencies {/,
                 offset: 1,
@@ -208,7 +211,7 @@ const withCafAndroid = (config) => {
             }).contents;
             return config;
         });
-        return (0, config_plugins_1.withPlugins)(config, [projectBuild, appBuild]);
+        return (0, config_plugins_1.withPlugins)(config, [mainActivity, projectBuild, appBuild]);
     };
     return (0, config_plugins_1.withPlugins)(config, [withCafSource, withFileMods]);
 };

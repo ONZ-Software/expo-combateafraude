@@ -181,18 +181,18 @@ const withCafAndroid = (config) => {
                 tag: 'Android Config',
                 src: config.modResults.contents,
                 newSrc: `
-  aaptOptions {
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+aaptOptions {
     noCompress "tflite"
-  }
+}
 
-  buildFeatures {
-    dataBinding true
-  }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-  }`,
+dataBinding {
+    enabled = true
+}`,
                 anchor: /android {/,
                 offset: 1,
                 comment: '//',

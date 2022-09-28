@@ -5,12 +5,12 @@ import {
   withMainApplication,
   withPlugins,
   withProjectBuildGradle,
-  withXcodeProject
+  withXcodeProject,
 } from '@expo/config-plugins'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
-  getProjectName
+  getProjectName,
 } from '@expo/config-plugins/build/ios/utils/Xcodeproj'
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs-extra'
@@ -245,18 +245,18 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Android Config',
           src: config.modResults.contents,
           newSrc: `
-  aaptOptions {
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+aaptOptions {
     noCompress "tflite"
-  }
+}
 
-  buildFeatures {
-    dataBinding true
-  }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-  }`,
+dataBinding {
+    enabled = true
+}`,
           anchor: /android {/,
           offset: 1,
           comment: '//',
@@ -278,7 +278,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [mainActivity,projectBuild, appBuild])
+    return withPlugins(config, [mainActivity, projectBuild, appBuild])
   }
 
   return withPlugins(config, [withCafSource, withFileMods])

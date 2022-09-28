@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.3.1...v1.4.0) (2022-09-28)
+
+
+### Features
+
+* upgrade sdk 46 ([0385bd5](https://github.com/ONZ-Software/expo-combateafraude/commit/0385bd5180fd75e573426dbc2407d9ca89bfe55a))
+
 ## [1.3.1](https://github.com/onz-software/expo-combateafraude/compare/v1.3.0...v1.3.1) (2022-07-23)
 
 

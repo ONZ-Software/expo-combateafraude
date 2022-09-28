@@ -132,22 +132,27 @@ const withCafAndroid = (config) => {
                     .toString()
                     .replace(/\[\[PACKAGE\]\]/, (_e = config.android) === null || _e === void 0 ? void 0 : _e.package));
                 // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
-                const mainAppContents = await fs_extra_1.default.readFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/' +
-                    androidSrcPath +
-                    '/MainApplication.java');
-                const mainAppContentsUpdated = (0, generateCode_1.mergeContents)({
-                    tag: 'Add Package',
-                    src: mainAppContents.toString(),
-                    newSrc: `      packages.add(new CombateAFraudePackage());`,
-                    anchor: /return packages/,
-                    offset: 0,
-                    comment: '//',
-                }).contents;
-                await fs_extra_1.default.writeFile(config.modRequest.platformProjectRoot +
-                    '/app/src/main/java/' +
-                    androidSrcPath +
-                    '/MainApplication.java', mainAppContentsUpdated);
+                // const mainAppContents = await fs.readFile(
+                //   config.modRequest.platformProjectRoot +
+                //     '/app/src/main/java/' +
+                //     androidSrcPath +
+                //     '/MainApplication.java'
+                // )
+                // const mainAppContentsUpdated = mergeContents({
+                //   tag: 'Add Package',
+                //   src: mainAppContents.toString(),
+                //   newSrc: `      packages.add(new CombateAFraudePackage());`,
+                //   anchor: /return packages/,
+                //   offset: 0,
+                //   comment: '//',
+                // }).contents
+                // await fs.writeFile(
+                //   config.modRequest.platformProjectRoot +
+                //     '/app/src/main/java/' +
+                //     androidSrcPath +
+                //     '/MainApplication.java',
+                //   mainAppContentsUpdated
+                // )
                 return config;
             },
         ]);

@@ -5,12 +5,12 @@ import {
   withMainApplication,
   withPlugins,
   withProjectBuildGradle,
-  withXcodeProject
+  withXcodeProject,
 } from '@expo/config-plugins'
 import { getSourceRoot } from '@expo/config-plugins/build/ios/Paths'
 import {
   addBuildSourceFileToGroup,
-  getProjectName
+  getProjectName,
 } from '@expo/config-plugins/build/ios/utils/Xcodeproj'
 import { mergeContents } from '@expo/config-plugins/build/utils/generateCode'
 import fs from 'fs-extra'
@@ -186,27 +186,27 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         )
 
         // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
-        const mainAppContents = await fs.readFile(
-          config.modRequest.platformProjectRoot +
-            '/app/src/main/java/' +
-            androidSrcPath +
-            '/MainApplication.java'
-        )
-        const mainAppContentsUpdated = mergeContents({
-          tag: 'Add Package',
-          src: mainAppContents.toString(),
-          newSrc: `      packages.add(new CombateAFraudePackage());`,
-          anchor: /return packages/,
-          offset: 0,
-          comment: '//',
-        }).contents
-        await fs.writeFile(
-          config.modRequest.platformProjectRoot +
-            '/app/src/main/java/' +
-            androidSrcPath +
-            '/MainApplication.java',
-          mainAppContentsUpdated
-        )
+        // const mainAppContents = await fs.readFile(
+        //   config.modRequest.platformProjectRoot +
+        //     '/app/src/main/java/' +
+        //     androidSrcPath +
+        //     '/MainApplication.java'
+        // )
+        // const mainAppContentsUpdated = mergeContents({
+        //   tag: 'Add Package',
+        //   src: mainAppContents.toString(),
+        //   newSrc: `      packages.add(new CombateAFraudePackage());`,
+        //   anchor: /return packages/,
+        //   offset: 0,
+        //   comment: '//',
+        // }).contents
+        // await fs.writeFile(
+        //   config.modRequest.platformProjectRoot +
+        //     '/app/src/main/java/' +
+        //     androidSrcPath +
+        //     '/MainApplication.java',
+        //   mainAppContentsUpdated
+        // )
 
         return config
       },
@@ -278,7 +278,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         return config
       })
 
-    return withPlugins(config, [mainActivity,projectBuild, appBuild])
+    return withPlugins(config, [mainActivity, projectBuild, appBuild])
   }
 
   return withPlugins(config, [withCafSource, withFileMods])

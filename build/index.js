@@ -99,10 +99,9 @@ const withCafAndroid = (config) => {
         return (0, config_plugins_1.withDangerousMod)(expoCfg, [
             'android',
             async (config) => {
-                var _a, _b, _c, _d, _e;
-                if (!((_a = config.android) === null || _a === void 0 ? void 0 : _a.package))
+                if (!config.android?.package)
                     throw new Error('Missing package name');
-                const androidSrcPath = (_c = (_b = config.android) === null || _b === void 0 ? void 0 : _b.package) === null || _c === void 0 ? void 0 : _c.replace(/\./gi, '/');
+                const androidSrcPath = config.android?.package?.replace(/\./gi, '/');
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudeModule.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
@@ -116,7 +115,7 @@ const withCafAndroid = (config) => {
                     androidSrcPath +
                     '/CombateAFraudeModule.java', moduleContents
                     .toString()
-                    .replace(/\[\[PACKAGE\]\]/, (_d = config.android) === null || _d === void 0 ? void 0 : _d.package));
+                    .replace(/\[\[PACKAGE\]\]/, config.android?.package));
                 await fs_extra_1.default.copyFile(path_1.default.resolve(__dirname, './android/CombateAFraudePackage.java'), config.modRequest.platformProjectRoot +
                     '/app/src/main/java/' +
                     androidSrcPath +
@@ -130,7 +129,7 @@ const withCafAndroid = (config) => {
                     androidSrcPath +
                     '/CombateAFraudePackage.java', packageContents
                     .toString()
-                    .replace(/\[\[PACKAGE\]\]/, (_e = config.android) === null || _e === void 0 ? void 0 : _e.package));
+                    .replace(/\[\[PACKAGE\]\]/, config.android?.package));
                 // WORKARROUND ABOUT FAILED withMainApplication ON BUILD
                 // const mainAppContents = await fs.readFile(
                 //   config.modRequest.platformProjectRoot +

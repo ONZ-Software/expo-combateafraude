@@ -1,3 +1,10 @@
+# [1.6.0-beta.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2023-03-07)
+
+
+### Bug Fixes
+
+* swift changes and caf packages version ([b3b50d0](https://github.com/ONZ-Software/expo-combateafraude/commit/b3b50d03468f3dfdbf460faeafb9c973972eac95))
+
 # [1.6.0-beta.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.1...v1.6.0-beta.2) (2023-03-07)
 
 

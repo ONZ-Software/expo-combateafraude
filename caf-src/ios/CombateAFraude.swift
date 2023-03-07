@@ -25,7 +25,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
   @objc(passiveFaceLiveness:)
   func passiveFaceLiveness(mobileToken: String) {
     let passiveFaceLiveness = PassiveFaceLivenessSdk.Builder(mobileToken: mobileToken)
-      .enableMultiLanguage(enable: false)
+      .enableMultiLanguage(false)
       .build()
 
     DispatchQueue.main.async {
@@ -75,7 +75,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
   func documentDetector(mobileToken: String, documentType: String) {
     let documentDetectorBuilder = DocumentDetectorSdk.Builder(mobileToken: mobileToken)
 
-    _ = documentDetectorBuilder.enableMultiLanguage(enable: false)
+    _ = documentDetectorBuilder.enableMultiLanguage(false)
 
     if (documentType == "RG"){
       _ = documentDetectorBuilder.setDocumentDetectorFlow(flow :[
@@ -169,7 +169,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
   @objc(faceAuthenticator:CPF:)
   func faceAuthenticator(mobileToken: String, CPF: String) {
     let faceAuthenticator = FaceAuthenticatorSdk.Builder(mobileToken: mobileToken)
-      .setPersonId(CPF)
+      // .setPersonId(CPF)
       .build()
 
     DispatchQueue.main.async {

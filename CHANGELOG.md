@@ -1,3 +1,10 @@
+# [1.6.0-beta.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.1...v1.6.0-beta.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* static linking workaround for hermes ([b3f9e0e](https://github.com/ONZ-Software/expo-combateafraude/commit/b3f9e0e67441cee9a4404f27b9e064c71f280c2d))
+
 # [1.6.0-beta.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.5.0...v1.6.0-beta.1) (2023-03-07)
 
 

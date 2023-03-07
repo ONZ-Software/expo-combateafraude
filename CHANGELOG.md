@@ -1,3 +1,10 @@
+# [1.6.0-beta.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.5.0...v1.6.0-beta.1) (2023-03-07)
+
+
+### Features
+
+* update pacotes caf ([#7](https://github.com/ONZ-Software/expo-combateafraude/issues/7)) ([7e4e5b8](https://github.com/ONZ-Software/expo-combateafraude/commit/7e4e5b82cdd1016cafd16e318f795226ef664e34))
+
 # [1.5.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.4.0...v1.5.0) (2022-12-23)
 
 

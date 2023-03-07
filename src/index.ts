@@ -77,7 +77,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector', '~> 6.2.0'`,
+            newSrc: `  pod 'DocumentDetector'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -85,7 +85,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'PassiveFaceLiveness',
             src: results.contents,
-            newSrc: `  pod 'PassiveFaceLiveness', '~> 5.7.0'`,
+            newSrc: `  pod 'PassiveFaceLiveness'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -93,7 +93,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'FaceAuthenticator',
             src: results.contents,
-            newSrc: `  pod 'FaceAuthenticator', '~> 5.1.0'`,
+            newSrc: `  pod 'FaceAuthenticator'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -266,9 +266,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Dependencies',
           src: config.modResults.contents,
           newSrc: `
-    implementation 'com.combateafraude.sdk:document-detector:6.16.5'
-    implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
-    implementation 'com.combateafraude.sdk:face-authenticator:5.0.5'
+    implementation 'com.combateafraude.sdk:document-detector'
+    implementation 'com.combateafraude.sdk:passive-face-liveness'
+    implementation 'com.combateafraude.sdk:face-authenticator'
           `,
           anchor: /dependencies {/,
           offset: 1,

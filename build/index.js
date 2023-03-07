@@ -70,7 +70,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'useFrameworks',
                     src: results.contents,
-                    newSrc: `use_frameworks!\n`,
+                    newSrc: `use_frameworks! :linkage => :static\n`,
                     anchor: /platform :ios/,
                     offset: 1,
                     comment: '#',

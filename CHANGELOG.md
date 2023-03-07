@@ -1,3 +1,10 @@
+# [1.6.0-beta.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2023-03-07)
+
+
+### Bug Fixes
+
+* build ([2d910ed](https://github.com/ONZ-Software/expo-combateafraude/commit/2d910edb4fbd41ae9d2a59a247ed272ddbe47dae))
+
 # [1.6.0-beta.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2023-03-07)
 
 

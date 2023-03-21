@@ -46,7 +46,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'DocumentDetector',
                     src: results.contents,
-                    newSrc: `  pod 'DocumentDetector', '~> 7.12.0'`,
+                    newSrc: `  pod 'DocumentDetectorNoSentry', '~> 7.12.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -54,7 +54,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'PassiveFaceLiveness',
                     src: results.contents,
-                    newSrc: `  pod 'PassiveFaceLiveness', '~> 5.25.0'`,
+                    newSrc: `  pod 'PassiveFaceLivenessNoSentry', '~> 5.25.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -62,7 +62,7 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'FaceAuthenticator',
                     src: results.contents,
-                    newSrc: `  pod 'FaceAuthenticator', '~> 5.11.0'`,
+                    newSrc: `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',

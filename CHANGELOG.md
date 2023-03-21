@@ -1,3 +1,10 @@
+# [1.6.0-beta.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2023-03-21)
+
+
+### Bug Fixes
+
+* change repository anchor on android build ([143d1dc](https://github.com/ONZ-Software/expo-combateafraude/commit/143d1dcbd7a405925e64aadb2bf21579ea59cae5))
+
 # [1.6.0-beta.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2023-03-21)
 
 

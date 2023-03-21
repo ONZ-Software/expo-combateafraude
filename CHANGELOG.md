@@ -1,3 +1,10 @@
+# [1.6.0-beta.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2023-03-21)
+
+
+### Bug Fixes
+
+* maven repo anchor ([0215ddb](https://github.com/ONZ-Software/expo-combateafraude/commit/0215ddbc3f73a86466a124b124a1f04692a2ef3b))
+
 # [1.6.0-beta.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2023-03-21)
 
 

@@ -166,7 +166,7 @@ const withCafAndroid = (config) => {
                 tag: 'Maven Repo',
                 src: config.modResults.contents,
                 newSrc: `        maven { url "https://repo.combateafraude.com/android/release" }`,
-                anchor: /mavenLocal\(\)/,
+                anchor: /allprojects\s*\{[\s\S]*?repositories\s*\{/,
                 offset: 1,
                 comment: '//',
             }).contents;

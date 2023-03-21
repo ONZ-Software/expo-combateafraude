@@ -1,3 +1,10 @@
+# [1.6.0-beta.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.4...v1.6.0-beta.5) (2023-03-21)
+
+
+### Bug Fixes
+
+* removed use_frameworks ([7fe6594](https://github.com/ONZ-Software/expo-combateafraude/commit/7fe659463a0c2b02baff5357df54b011e97dee1a))
+
 # [1.6.0-beta.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2023-03-07)
 
 

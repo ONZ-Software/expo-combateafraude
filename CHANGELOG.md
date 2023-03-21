@@ -1,3 +1,10 @@
+# [1.6.0-beta.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2023-03-21)
+
+
+### Bug Fixes
+
+* use noSentry version of caf modules ([f225adf](https://github.com/ONZ-Software/expo-combateafraude/commit/f225adf1ecbcf475ce45c06fc348ad0ebea741d6))
+
 # [1.6.0-beta.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.4...v1.6.0-beta.5) (2023-03-21)
 
 

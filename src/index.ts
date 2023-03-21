@@ -77,7 +77,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
           results = mergeContents({
             tag: 'DocumentDetector',
             src: results.contents,
-            newSrc: `  pod 'DocumentDetector', '~> 7.10.0'`,
+            newSrc: `  pod 'DocumentDetector', '~> 7.12.0'`,
             anchor: /use_react_native!/,
             offset: 0,
             comment: '#',
@@ -96,14 +96,6 @@ const withCafIos: ConfigPlugin<void> = (config) => {
             newSrc: `  pod 'FaceAuthenticator', '~> 5.11.0'`,
             anchor: /use_react_native!/,
             offset: 0,
-            comment: '#',
-          })
-          results = mergeContents({
-            tag: 'useFrameworks',
-            src: results.contents,
-            newSrc: `use_frameworks! :linkage => :static\n`,
-            anchor: /platform :ios/,
-            offset: 1,
             comment: '#',
           })
           results.contents = `${results.contents}
@@ -266,7 +258,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Dependencies',
           src: config.modResults.contents,
           newSrc: `
-    implementation 'com.combateafraude.sdk:document-detector:6.38.0'
+    implementation 'com.combateafraude.sdk:document-detector:6.39.0'
     implementation 'com.combateafraude.sdk:passive-face-liveness:5.25.12'
     implementation 'com.combateafraude.sdk:face-authenticator:5.8.13'
           `,

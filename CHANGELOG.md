@@ -1,3 +1,10 @@
+# [1.6.0-beta.9](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.8...v1.6.0-beta.9) (2023-03-23)
+
+
+### Bug Fixes
+
+* rollback combateafraude packages ([bc11f9e](https://github.com/ONZ-Software/expo-combateafraude/commit/bc11f9ef93e4d5451e06b9da9ee3e68e0fa89c6d))
+
 # [1.6.0-beta.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2023-03-21)
 
 

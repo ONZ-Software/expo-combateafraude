@@ -258,9 +258,9 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Dependencies',
           src: config.modResults.contents,
           newSrc: `
-          implementation 'com.combateafraude.sdk:document-detector:6.35.0'
-          implementation 'com.combateafraude.sdk:passive-face-liveness:5.23.0'
-          implementation 'com.combateafraude.sdk:face-authenticator:5.7.0'
+          implementation 'com.combateafraude.sdk:document-detector:6.16.5'
+          implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
+          implementation 'com.combateafraude.sdk:face-authenticator:5.0.5'
           `,
           anchor: /dependencies {/,
           offset: 1,

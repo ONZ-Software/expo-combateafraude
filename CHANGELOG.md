@@ -1,3 +1,10 @@
+# [1.6.0-beta.10](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.9...v1.6.0-beta.10) (2023-03-29)
+
+
+### Bug Fixes
+
+* rollback combateafraude packages on android ([958c0ee](https://github.com/ONZ-Software/expo-combateafraude/commit/958c0ee45e46756b689cdc0e770582f2db0edfc7))
+
 # [1.6.0-beta.9](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.8...v1.6.0-beta.9) (2023-03-23)
 
 

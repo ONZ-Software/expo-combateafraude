@@ -1,3 +1,10 @@
+# [1.6.0-beta.11](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.10...v1.6.0-beta.11) (2023-04-03)
+
+
+### Bug Fixes
+
+* latest packages again and unified pods merge ([537db55](https://github.com/ONZ-Software/expo-combateafraude/commit/537db5588a65a13fddfb48795d6d51327614b481))
+
 # [1.6.0-beta.10](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.9...v1.6.0-beta.10) (2023-03-29)
 
 

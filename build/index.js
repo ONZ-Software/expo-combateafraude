@@ -46,23 +46,11 @@ const withCafIos = (config) => {
                 results = (0, generateCode_1.mergeContents)({
                     tag: 'DocumentDetector',
                     src: results.contents,
-                    newSrc: `  pod 'DocumentDetectorNoSentry', '~> 7.12.0'`,
-                    anchor: /use_react_native!/,
-                    offset: 0,
-                    comment: '#',
-                });
-                results = (0, generateCode_1.mergeContents)({
-                    tag: 'PassiveFaceLiveness',
-                    src: results.contents,
-                    newSrc: `  pod 'PassiveFaceLivenessNoSentry', '~> 5.25.0'`,
-                    anchor: /use_react_native!/,
-                    offset: 0,
-                    comment: '#',
-                });
-                results = (0, generateCode_1.mergeContents)({
-                    tag: 'FaceAuthenticator',
-                    src: results.contents,
-                    newSrc: `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
+                    newSrc: [
+                        `  pod 'DocumentDetectorNoSentry', '~> 7.12.0'`,
+                        `  pod 'PassiveFaceLivenessNoSentry', '~> 5.25.0'`,
+                        `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
+                    ].join('\n'),
                     anchor: /use_react_native!/,
                     offset: 0,
                     comment: '#',
@@ -197,9 +185,9 @@ const withCafAndroid = (config) => {
                 tag: 'Dependencies',
                 src: config.modResults.contents,
                 newSrc: `
-          implementation 'com.combateafraude.sdk:document-detector:6.16.5'
-          implementation 'com.combateafraude.sdk:passive-face-liveness:4.16.6'
-          implementation 'com.combateafraude.sdk:face-authenticator:5.0.5'
+          implementation 'com.combateafraude.sdk:document-detector:6.39.0'
+          implementation 'com.combateafraude.sdk:passive-face-liveness:5.25.12'
+          implementation 'com.combateafraude.sdk:face-authenticator:5.8.13'
           `,
                 anchor: /dependencies {/,
                 offset: 1,

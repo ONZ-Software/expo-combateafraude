@@ -1,3 +1,10 @@
+# [1.6.0-beta.13](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.12...v1.6.0-beta.13) (2023-05-30)
+
+
+### Bug Fixes
+
+* bump versão ([ac7217c](https://github.com/ONZ-Software/expo-combateafraude/commit/ac7217c10d33409b3858eed0bbf6421df967e306))
+
 # [1.6.0-beta.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.11...v1.6.0-beta.12) (2023-05-30)
 
 

@@ -47,7 +47,7 @@ const withCafIos = (config) => {
                     tag: 'DocumentDetector',
                     src: results.contents,
                     newSrc: [
-                        `  pod 'DocumentDetectorNoSentry', '~> 7.12.0'`,
+                        `  pod 'DocumentDetectorNoSentry', '~> 7.12.2'`,
                         `  pod 'PassiveFaceLivenessNoSentry', '~> 5.25.0'`,
                         `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
                     ].join('\n'),
@@ -185,7 +185,7 @@ const withCafAndroid = (config) => {
                 tag: 'Dependencies',
                 src: config.modResults.contents,
                 newSrc: `
-          implementation 'com.combateafraude.sdk:document-detector:6.39.0'
+          implementation 'com.combateafraude.sdk:document-detector:6.39.6'
           implementation 'com.combateafraude.sdk:passive-face-liveness:5.25.12'
           implementation 'com.combateafraude.sdk:face-authenticator:5.8.13'
           `,

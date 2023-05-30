@@ -1,3 +1,10 @@
+# [1.6.0-beta.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.11...v1.6.0-beta.12) (2023-05-30)
+
+
+### Bug Fixes
+
+* update document-detector ([0e62ac8](https://github.com/ONZ-Software/expo-combateafraude/commit/0e62ac8bc4c1d6f19d9c743b8062b091b1cac375))
+
 # [1.6.0-beta.11](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.10...v1.6.0-beta.11) (2023-04-03)
 
 

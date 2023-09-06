@@ -20,7 +20,7 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "copy-files": "cpx 'caf-src/**/*' build",
-    "semantic-release": "semantic-release"
+    "release": "semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",

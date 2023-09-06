@@ -1,0 +1,40 @@
+name: Publish a release
+
+on:
+  workflow_dispatch:
+  push:
+    tags-ignore:
+      - "**"
+    branches:
+      - master
+
+jobs:
+  run-ci:
+    name: Publish a release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          # Necessário para o commitlint
+          fetch-depth: 0
+          # Workaround para actions não triggarem através do deploy
+          token: ${{ secrets.GH_PR_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # - name: Check commits messages
+      #   uses: wagoid/commitlint-github-action@v5
+
+      - name: Run Semantic Release
+        run: yarn release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

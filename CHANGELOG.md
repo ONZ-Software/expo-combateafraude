@@ -1,3 +1,26 @@
+# [1.6.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.5.0...v1.6.0) (2023-09-06)
+
+
+### Bug Fixes
+
+* build ([2d910ed](https://github.com/ONZ-Software/expo-combateafraude/commit/2d910edb4fbd41ae9d2a59a247ed272ddbe47dae))
+* bump versão ([ac7217c](https://github.com/ONZ-Software/expo-combateafraude/commit/ac7217c10d33409b3858eed0bbf6421df967e306))
+* change repository anchor on android build ([143d1dc](https://github.com/ONZ-Software/expo-combateafraude/commit/143d1dcbd7a405925e64aadb2bf21579ea59cae5))
+* latest packages again and unified pods merge ([537db55](https://github.com/ONZ-Software/expo-combateafraude/commit/537db5588a65a13fddfb48795d6d51327614b481))
+* maven repo anchor ([0215ddb](https://github.com/ONZ-Software/expo-combateafraude/commit/0215ddbc3f73a86466a124b124a1f04692a2ef3b))
+* removed use_frameworks ([7fe6594](https://github.com/ONZ-Software/expo-combateafraude/commit/7fe659463a0c2b02baff5357df54b011e97dee1a))
+* rollback combateafraude packages ([bc11f9e](https://github.com/ONZ-Software/expo-combateafraude/commit/bc11f9ef93e4d5451e06b9da9ee3e68e0fa89c6d))
+* rollback combateafraude packages on android ([958c0ee](https://github.com/ONZ-Software/expo-combateafraude/commit/958c0ee45e46756b689cdc0e770582f2db0edfc7))
+* static linking workaround for hermes ([b3f9e0e](https://github.com/ONZ-Software/expo-combateafraude/commit/b3f9e0e67441cee9a4404f27b9e064c71f280c2d))
+* swift changes and caf packages version ([b3b50d0](https://github.com/ONZ-Software/expo-combateafraude/commit/b3b50d03468f3dfdbf460faeafb9c973972eac95))
+* update document-detector ([0e62ac8](https://github.com/ONZ-Software/expo-combateafraude/commit/0e62ac8bc4c1d6f19d9c743b8062b091b1cac375))
+* use noSentry version of caf modules ([f225adf](https://github.com/ONZ-Software/expo-combateafraude/commit/f225adf1ecbcf475ce45c06fc348ad0ebea741d6))
+
+
+### Features
+
+* update pacotes caf ([#7](https://github.com/ONZ-Software/expo-combateafraude/issues/7)) ([7e4e5b8](https://github.com/ONZ-Software/expo-combateafraude/commit/7e4e5b82cdd1016cafd16e318f795226ef664e34))
+
 # [1.6.0-beta.13](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.6.0-beta.12...v1.6.0-beta.13) (2023-05-30)
 
 

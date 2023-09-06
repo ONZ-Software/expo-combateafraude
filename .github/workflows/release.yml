@@ -7,11 +7,13 @@ on:
       - "**"
     branches:
       - master
+      - beta
 
 jobs:
   run-ci:
     name: Publish a release
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || (github.ref == 'refs/heads/beta' && !startsWith(github.event.head_commit.message, 'chore(release):'))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

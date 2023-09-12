@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.1...v1.7.2) (2023-09-12)
+
+
+### Bug Fixes
+
+* retirado validacao de modo desenvolvimento ([453d02b](https://github.com/ONZ-Software/expo-combateafraude/commit/453d02b02a024dfaee853739335674dcfbe3d33c))
+
 ## [1.7.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.0...v1.7.1) (2023-09-12)
 
 

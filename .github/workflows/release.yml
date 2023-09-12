@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags-ignore:
-      - "**"
+      - '**'
     branches:
       - master
       - beta
@@ -31,6 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
 
       # - name: Check commits messages
       #   uses: wagoid/commitlint-github-action@v5

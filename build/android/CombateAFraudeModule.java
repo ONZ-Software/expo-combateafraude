@@ -137,7 +137,7 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void passiveFaceLiveness(String mobileToken) {
         try {
-            PassiveFaceLiveness passiveFaceLiveness = new PassiveFaceLiveness.Builder(mobileToken).setUseDeveloperMode(false)
+            PassiveFaceLiveness passiveFaceLiveness = new PassiveFaceLiveness.Builder(mobileToken).setUseDeveloperMode(false).setUseDebug(false)
                     .build();
 
             Activity activity = getCurrentActivity();

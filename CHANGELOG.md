@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.4...v1.7.5) (2023-09-12)
+
+
+### Bug Fixes
+
+* build on release workflow ([04bfbd5](https://github.com/ONZ-Software/expo-combateafraude/commit/04bfbd5a9fa5d4e878d39756dea6957a4af33c7a))
+
 ## [1.7.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.3...v1.7.4) (2023-09-12)
 
 

@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.2...v1.7.3) (2023-09-12)
+
+
+### Bug Fixes
+
+* tirado validacao de modo desenvolvedor e depuracao usb ([bbc31f2](https://github.com/ONZ-Software/expo-combateafraude/commit/bbc31f205be85bbf97bda43d3efc4a613f725e6e))
+
 ## [1.7.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.1...v1.7.2) (2023-09-12)
 
 

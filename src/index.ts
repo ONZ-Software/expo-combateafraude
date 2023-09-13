@@ -78,8 +78,8 @@ const withCafIos: ConfigPlugin<void> = (config) => {
             tag: 'DocumentDetector',
             src: results.contents,
             newSrc: [
-              `  pod 'DocumentDetectorNoSentry', '~> 7.12.2'`,
-              `  pod 'PassiveFaceLivenessNoSentry', '~> 5.25.0'`,
+              `  pod 'DocumentDetectorNoSentry', '~> 8.0.3'`,
+              `  pod 'PassiveFaceLivenessNoSentry', '~> 6.0.0-rc02'`,
               `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
             ].join('\n'),
             anchor: /use_react_native!/,

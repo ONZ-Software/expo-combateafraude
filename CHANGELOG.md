@@ -1,3 +1,10 @@
+## [1.7.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.6...v1.7.7) (2023-09-13)
+
+
+### Bug Fixes
+
+* new versions for ios ([fdcca35](https://github.com/ONZ-Software/expo-combateafraude/commit/fdcca354acce23af45c6c00569815a24f18c6cf8))
+
 ## [1.7.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.5...v1.7.6) (2023-09-13)
 
 

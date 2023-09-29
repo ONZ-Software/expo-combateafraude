@@ -17,6 +17,10 @@ import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 
+import com.combateafraude.faceliveness.input.FaceLiveness;
+import com.combateafraude.faceliveness.FaceLivenessActivity;
+import com.combateafraude.faceliveness.output.FaceLivenessResult;
+
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.input.DocumentDetector;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
@@ -29,6 +33,7 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
     private final int REQUEST_CODE_PASSIVE_FACE_LIVENESS = 50005;
     private final int REQUEST_CODE_DOCUMENT_DETECTOR = 50006;
     private final int REQUEST_CODE_FACE_AUTHENTICATOR = 50007;
+    private final int REQUEST_CODE_FACE_LIVENESS = 50008;
 
     CombateAFraudeModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -118,7 +123,32 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
 
                             getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceAuthenticator_Error", writableMap);
                         }
+                    } else if (requestCode == REQUEST_CODE_FACE_LIVENESS) {
+                        if (intent == null) {
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Cancelado", null);
+                            return;
+                        }
+
+                        FaceLivenessResult faceLivenessResult = (FaceLivenessResult) intent.getSerializableExtra(FaceLivenessResult.PARAMETER_NAME);
+                        if (faceLivenessResult.wasSuccessful()) {
+                            WritableMap writableMap = new WritableNativeMap();
+
+                            writableMap.putString("imagePath", faceLivenessResult.getImagePath());
+                            writableMap.putString("imageUrl", faceLivenessResult.getImageUrl());
+                            writableMap.putString("signedResponse", faceLivenessResult.getSignedResponse());
+                            writableMap.putString("trackingId", faceLivenessResult.getTrackingId());
+
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Sucesso", writableMap);
+                        } else {
+                            WritableMap writableMap = new WritableNativeMap();
+
+                            writableMap.putString("message", faceLivenessResult.getSdkFailure().getMessage());
+                            writableMap.putString("type", faceLivenessResult.getSdkFailure().getClass().getSimpleName());
+
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Erro", writableMap);
+                        }
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -195,6 +225,20 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
             Intent intent = new Intent(activity.getApplicationContext(), FaceAuthenticatorActivity.class);
             intent.putExtra(FaceAuthenticator.PARAMETER_NAME, faceAuthenticator);
             activity.startActivityForResult(intent, REQUEST_CODE_FACE_AUTHENTICATOR);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void faceLiveness(String mobileToken) {
+        try {
+            FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken).build();
+
+            Activity activity = getCurrentActivity();
+            Intent intent = new Intent(activity.getApplicationContext(), FaceLivenessActivity.class);
+            intent.putExtra(FaceLiveness.PARAMETER_NAME, faceLiveness);
+            activity.startActivityForResult(intent, REQUEST_CODE_FACE_LIVENESS);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

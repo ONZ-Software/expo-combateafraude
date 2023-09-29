@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.7...v1.8.0) (2023-09-29)
+
+
+### Features
+
+* face liveness add ([95a4e3d](https://github.com/ONZ-Software/expo-combateafraude/commit/95a4e3d81204ee7e6e4aa931fa984c8bbe7ec487))
+
 ## [1.7.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.7.6...v1.7.7) (2023-09-13)
 
 

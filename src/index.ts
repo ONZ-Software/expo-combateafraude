@@ -223,6 +223,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         }).contents
         return config
       })
+
     const appBuild: ConfigPlugin<void> = (expoCfg) =>
       withAppBuildGradle(expoCfg, async (config) => {
         config.modResults.contents = mergeContents({

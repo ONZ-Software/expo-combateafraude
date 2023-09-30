@@ -213,7 +213,10 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         config.modResults.contents = mergeContents({
           tag: 'Maven Repo',
           src: config.modResults.contents,
-          newSrc: `        maven { url "https://raw.githubusercontent.com/iProov/android/master/maven/" }`,
+          newSrc: `
+            maven { url "https://repo.combateafraude.com/android/release" }
+            maven { url "https://raw.githubusercontent.com/iProov/android/master/maven/" }
+          `,
           anchor: /https:\/\/www.jitpack.io/,
           offset: 1,
           comment: '//',

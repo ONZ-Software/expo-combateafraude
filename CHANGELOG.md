@@ -25,6 +25,15 @@
 * adicionado os dois repositorios maven ([d84b188](https://github.com/ONZ-Software/expo-combateafraude/commit/d84b1882707b0c3a23e4e9eb00408fc26c6f4e61))
 * mudanca no repositorio maven ([cef6bbf](https://github.com/ONZ-Software/expo-combateafraude/commit/cef6bbffe0bae99f6bd98273b601ff94a9d4fe30))
 
+## [1.8.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.8.0...v1.8.1) (2023-09-30)
+
+
+### Bug Fixes
+
+* add dois repositorios maven para android ([d373deb](https://github.com/ONZ-Software/expo-combateafraude/commit/d373deb6de925e2159d3e4b8d00f3c759c361deb))
+* adicionado os dois repositorios maven ([d84b188](https://github.com/ONZ-Software/expo-combateafraude/commit/d84b1882707b0c3a23e4e9eb00408fc26c6f4e61))
+* mudanca no repositorio maven ([cef6bbf](https://github.com/ONZ-Software/expo-combateafraude/commit/cef6bbffe0bae99f6bd98273b601ff94a9d4fe30))
+
 ### Bug Fixes
 
 - adicionado os dois repositorios maven ([d84b188](https://github.com/ONZ-Software/expo-combateafraude/commit/d84b1882707b0c3a23e4e9eb00408fc26c6f4e61))

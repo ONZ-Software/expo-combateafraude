@@ -214,7 +214,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Maven Repo',
           src: config.modResults.contents,
           newSrc: `
-            maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
+            maven { url "https://raw.githubusercontent.com/iProov/android/master/maven/" }
             maven { url "https://repo.combateafraude.com/android/release" }
           `,
           anchor: /https:\/\/www.jitpack.io/,

@@ -238,6 +238,13 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     targetCompatibility = JavaVersion.VERSION_1_8
   }
 
+  rootProject.allprojects {
+    repositories {
+        maven { url "https://repo.combateafraude.com/android/release" }
+        maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
+    }
+  }
+
   aaptOptions {
     noCompress "tflite"
   }`,

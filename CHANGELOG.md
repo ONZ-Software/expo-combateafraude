@@ -1,3 +1,10 @@
+## [1.9.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.6...v1.9.7) (2023-10-02)
+
+
+### Bug Fixes
+
+* retirado pacote face liveness ([4261766](https://github.com/ONZ-Software/expo-combateafraude/commit/426176642eebab9c168911a6402cf8c84032e3ab))
+
 ## [1.9.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.5...v1.9.6) (2023-10-02)
 
 

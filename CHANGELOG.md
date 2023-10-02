@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.2...v1.9.3) (2023-10-02)
+
+
+### Bug Fixes
+
+* repositorio maven ([5cb1c76](https://github.com/ONZ-Software/expo-combateafraude/commit/5cb1c769941d446826a3ec8f010313b329105b22))
+
 ## [1.9.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.1...v1.9.2) (2023-10-02)
 
 

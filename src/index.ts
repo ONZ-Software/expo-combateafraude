@@ -194,6 +194,36 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     ])
   }
 
+  const withSettingsGradleMaven: ConfigPlugin<void> = (config) => {
+    return withDangerousMod(config, [
+      'android',
+      async (config) => {
+        const filePath = path.join(
+          config.modRequest.platformProjectRoot,
+          'settings.gradle'
+        )
+        let contents = await fs.readFile(filePath, 'utf-8')
+
+        if (
+          !contents.includes(
+            'https://raw.githubusercontent.com/iProov/android/master/maven/'
+          )
+        ) {
+          const mavenRepo = `
+  maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
+  maven { url 'https://repo.combateafraude.com/android/release' }
+          `
+
+          contents += mavenRepo
+
+          await fs.writeFile(filePath, contents)
+        }
+
+        return config
+      },
+    ])
+  }
+
   const withFileMods: ConfigPlugin<void> = (config) => {
     // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
     const mainActivity: ConfigPlugin<void> = (expoCfg) =>
@@ -215,7 +245,6 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           src: config.modResults.contents,
           newSrc: `
             maven { url "https://repo.combateafraude.com/android/release" }
-            maven { url "https://raw.githubusercontent.com/iProov/android/master/maven/" }
           `,
           anchor: /https:\/\/www.jitpack.io/,
           offset: 1,
@@ -266,7 +295,11 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     return withPlugins(config, [mainActivity, projectBuild, appBuild])
   }
 
-  return withPlugins(config, [withCafSource, withFileMods])
+  return withPlugins(config, [
+    withCafSource,
+    withFileMods,
+    withSettingsGradleMaven,
+  ])
 }
 
 const mainPlugin: ConfigPlugin<void> = (config) =>

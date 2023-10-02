@@ -125,7 +125,7 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
                         }
                     } else if (requestCode == REQUEST_CODE_FACE_LIVENESS) {
                         if (intent == null) {
-                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Cancelado", null);
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Cancel", null);
                             return;
                         }
 
@@ -138,14 +138,14 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
                             writableMap.putString("signedResponse", faceLivenessResult.getSignedResponse());
                             writableMap.putString("trackingId", faceLivenessResult.getTrackingId());
 
-                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Sucesso", writableMap);
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Success", writableMap);
                         } else {
                             WritableMap writableMap = new WritableNativeMap();
 
                             writableMap.putString("message", faceLivenessResult.getSdkFailure().getMessage());
                             writableMap.putString("type", faceLivenessResult.getSdkFailure().getClass().getSimpleName());
 
-                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Erro", writableMap);
+                            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Error", writableMap);
                         }
                     }
 

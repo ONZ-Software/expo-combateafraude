@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.3...v1.9.4) (2023-10-02)
+
+
+### Bug Fixes
+
+* ajuste nas funcoes de retorno do face liveness ([7dd728e](https://github.com/ONZ-Software/expo-combateafraude/commit/7dd728ef88759540c037e2357c6f9e790bdda342))
+
 ## [1.9.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.2...v1.9.3) (2023-10-02)
 
 

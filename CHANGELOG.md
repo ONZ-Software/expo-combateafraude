@@ -1,3 +1,10 @@
+## [1.9.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.7...v1.9.8) (2023-10-03)
+
+
+### Bug Fixes
+
+* new face liveness ([32ab331](https://github.com/ONZ-Software/expo-combateafraude/commit/32ab331ec437e0ae6779a6a0acd1725c73c70688))
+
 ## [1.9.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.6...v1.9.7) (2023-10-02)
 
 

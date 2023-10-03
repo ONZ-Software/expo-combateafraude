@@ -1,3 +1,10 @@
+## [1.9.10](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.9...v1.9.10) (2023-10-03)
+
+
+### Bug Fixes
+
+* adicionado imports do face liveness android ([3eb58bb](https://github.com/ONZ-Software/expo-combateafraude/commit/3eb58bb23829148fad9d8caff29955368466b1ae))
+
 ## [1.9.9](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.8...v1.9.9) (2023-10-03)
 
 

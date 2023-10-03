@@ -1,3 +1,10 @@
+## [1.9.9](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.8...v1.9.9) (2023-10-03)
+
+
+### Bug Fixes
+
+* ajustado forma de instanciar o sdk android ([d5f6eea](https://github.com/ONZ-Software/expo-combateafraude/commit/d5f6eea4b84a6aba7ccf352455138dc9abff6985))
+
 ## [1.9.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.7...v1.9.8) (2023-10-03)
 
 

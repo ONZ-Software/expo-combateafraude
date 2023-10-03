@@ -17,6 +17,11 @@ import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 
+import com.combateafraude.faceliveness.FaceLiveness;
+import com.combateafraude.faceliveness.input.FaceLivenessResult;
+import com.combateafraude.faceliveness.input.VerifyLivenessListener;
+
+
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.input.DocumentDetector;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
@@ -204,40 +209,31 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
     public void initiateFaceLivenessSDK(String mobileToken, String personId) {
         try {
             FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
-                .setStage(CAFStage.PROD) // Aqui você pode configurar se deseja usar o ambiente de PROD ou BETA.
-                .setFilter(Filter.LINE_DRAWING)
-                .setEnableScreenshots(false)
-                .setLoadingScreen(false)
                 .build();
 
             Activity activity = getCurrentActivity();
             if (activity != null) {
                 faceLiveness.startSDK(activity, personId, new VerifyLivenessListener() {
-                    @Override
                     public void onSuccess(FaceLivenessResult faceLivenessResult) {
                         WritableMap result = new WritableNativeMap();
                         result.putString("signedResponse", faceLivenessResult.getSignedResponse());
                         getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Success", result);
                     }
 
-                    @Override
                     public void onError(FaceLivenessResult faceLivenessResult) {
                         WritableMap result = new WritableNativeMap();
                         result.putString("errorMessage", faceLivenessResult.getErrorMessage());
                         getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Error", result);
                     }
 
-                    @Override
                     public void onCancel(FaceLivenessResult faceLivenessResult) {
                         getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Cancel", null);
                     }
 
-                    @Override
                     public void onLoading() {
                         // Aqui você pode emitir um evento para o JavaScript informando que o SDK está carregando
                     }
 
-                    @Override
                     public void onLoaded() {
                         // Aqui você pode emitir um evento para o JavaScript informando que o SDK terminou de carregar
                     }

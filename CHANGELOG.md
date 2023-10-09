@@ -1,3 +1,10 @@
+## [1.9.15](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.14...v1.9.15) (2023-10-09)
+
+
+### Bug Fixes
+
+* retirado o import de constraint layout ([d3461af](https://github.com/ONZ-Software/expo-combateafraude/commit/d3461af1db40675f34679b4e5a15d3b7ae2a128f))
+
 ## [1.9.14](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.13...v1.9.14) (2023-10-09)
 
 

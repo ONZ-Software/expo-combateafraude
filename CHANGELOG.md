@@ -1,3 +1,10 @@
+## [1.9.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.11...v1.9.12) (2023-10-09)
+
+
+### Bug Fixes
+
+* add novos imports baseados no exemplo do caf ([17dcced](https://github.com/ONZ-Software/expo-combateafraude/commit/17dccedbcb978970a1baf3d4964623c5d5db2342))
+
 ## [1.9.11](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.10...v1.9.11) (2023-10-09)
 
 

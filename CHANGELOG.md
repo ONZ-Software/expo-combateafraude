@@ -1,3 +1,10 @@
+## [1.9.17](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.16...v1.9.17) (2023-10-09)
+
+
+### Bug Fixes
+
+* adicionado react method ([a6638a4](https://github.com/ONZ-Software/expo-combateafraude/commit/a6638a4e69303fad9c1364c0fb373f54d17debe5))
+
 ## [1.9.16](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.15...v1.9.16) (2023-10-09)
 
 

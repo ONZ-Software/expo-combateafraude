@@ -17,9 +17,9 @@ import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 
-import com.combateafraude.faceliveness.FaceLiveness;
-import com.combateafraude.faceliveness.input.FaceLivenessResult;
-import com.combateafraude.faceliveness.input.VerifyLivenessListener;
+import com.combateafraude.newfaceliveness.FaceLiveness;
+import com.combateafraude.newfaceliveness.input.FaceLivenessResult;
+import com.combateafraude.newfaceliveness.input.VerifyLivenessListener;
 
 
 import com.combateafraude.documentdetector.output.Capture;

@@ -224,6 +224,7 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         pbLoading = findViewById(R.id.progressBar2);
     }
 
+    @ReactMethod
     public void startFaceLiveness(String mobileToken, String YOUR_PERSON_ID) {
         sdkName = "Face Liveness";
 

@@ -1,3 +1,10 @@
+## [1.9.13](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.12...v1.9.13) (2023-10-09)
+
+
+### Bug Fixes
+
+* retirado imports desnecessarios ([664478b](https://github.com/ONZ-Software/expo-combateafraude/commit/664478b56a49842bd820f4d2f37076e3942ecd57))
+
 ## [1.9.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.11...v1.9.12) (2023-10-09)
 
 

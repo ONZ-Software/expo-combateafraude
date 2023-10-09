@@ -17,10 +17,15 @@ import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 
-import com.combateafraude.newfaceliveness.FaceLiveness;
-import com.combateafraude.newfaceliveness.input.FaceLivenessResult;
-import com.combateafraude.newfaceliveness.input.VerifyLivenessListener;
+import input.CafStage;
+import input.FaceAuthenticator;
+import input.VerifyAuthenticationListener;
+import output.FaceAuthenticatorResult;
 
+import com.caf.facelivenessiproov.input.CAFStage;
+import com.caf.facelivenessiproov.input.FaceLiveness;
+import com.caf.facelivenessiproov.input.VerifyLivenessListener;
+import com.caf.facelivenessiproov.output.FaceLivenessResult;
 
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.input.DocumentDetector;
@@ -206,42 +211,53 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initiateFaceLivenessSDK(String mobileToken, String personId) {
-        try {
-            FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
+    public void startFaceLiveness(View view, String mobileToken, String YOUR_PERSON_ID) {
+        sdkName = "Face Liveness";
+
+        FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
                 .build();
 
-            Activity activity = getCurrentActivity();
-            if (activity != null) {
-                faceLiveness.startSDK(activity, personId, new VerifyLivenessListener() {
-                    public void onSuccess(FaceLivenessResult faceLivenessResult) {
-                        WritableMap result = new WritableNativeMap();
-                        result.putString("signedResponse", faceLivenessResult.getSignedResponse());
-                        getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Success", result);
-                    }
-
-                    public void onError(FaceLivenessResult faceLivenessResult) {
-                        WritableMap result = new WritableNativeMap();
-                        result.putString("errorMessage", faceLivenessResult.getErrorMessage());
-                        getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Error", result);
-                    }
-
-                    public void onCancel(FaceLivenessResult faceLivenessResult) {
-                        getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("FaceLiveness_Cancel", null);
-                    }
-
-                    public void onLoading() {
-                        // Aqui você pode emitir um evento para o JavaScript informando que o SDK está carregando
-                    }
-
-                    public void onLoaded() {
-                        // Aqui você pode emitir um evento para o JavaScript informando que o SDK terminou de carregar
-                    }
+        faceLiveness.startSDK(this, YOUR_PERSON_ID, new VerifyLivenessListener() {
+            @Override
+            public void onSuccess(FaceLivenessResult faceLivenessResult) {
+                runOnUiThread(() -> {
+                    tvSdkName.setText(sdkName);
+                    tvSdkStatus.setText("isMatch: " + faceLivenessResult.isAlive);
                 });
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
+            @Override
+            public void onError(FaceLivenessResult faceLivenessResult) {
+                runOnUiThread(() -> {
+                    tvSdkName.setText(sdkName);
+                    tvSdkStatus.setText("errorMessage: " + faceLivenessResult.errorMessage );
+                });
+            }
+
+            @Override
+            public void onCancel(FaceLivenessResult faceLivenessResult) {
+                runOnUiThread(() -> {
+                    tvSdkName.setText(sdkName);
+                    tvSdkStatus.setText("errorMessage: " + faceLivenessResult.errorMessage );
+                });
+            }
+
+            @Override
+            public void onLoading() {
+                runOnUiThread(() -> {
+                    pbLoading.setVisibility(View.VISIBLE);
+                    clFrontLayout.setVisibility(View.VISIBLE);
+                });
+            }
+
+            @Override
+            public void onLoaded() {
+                runOnUiThread(() -> {
+                    pbLoading.setVisibility(View.INVISIBLE);
+                    clFrontLayout.setVisibility(View.INVISIBLE);
+                });
+            }
+        });
     }
 
 }

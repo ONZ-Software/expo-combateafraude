@@ -1,8 +1,12 @@
 package [[PACKAGE]];
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.combateafraude.documentdetector.input.CaptureMode;
 import com.combateafraude.documentdetector.input.CaptureStage;
@@ -204,6 +208,23 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    TextView tvSdkName, tvSdkStatus;
+    ProgressBar pbLoading;
+    ConstraintLayout clFrontLayout;
+
+    public String sdkName;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btFaceLiveness = findViewById(R.id.btFaceLivenes);
+        tvSdkName = findViewById(R.id.tvSdkName);
+        tvSdkStatus = findViewById(R.id.tvSdkStatus);
+        clFrontLayout = findViewById(R.id.clFront);
+        pbLoading = findViewById(R.id.progressBar2);
     }
 
     @ReactMethod

@@ -1,3 +1,10 @@
+## [1.9.14](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.13...v1.9.14) (2023-10-09)
+
+
+### Bug Fixes
+
+* adicionado novos imports para android ([4c98837](https://github.com/ONZ-Software/expo-combateafraude/commit/4c98837f3012dd4c34d91385e068383747fbb61b))
+
 ## [1.9.13](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.12...v1.9.13) (2023-10-09)
 
 

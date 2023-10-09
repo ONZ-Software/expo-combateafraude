@@ -224,8 +224,7 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         pbLoading = findViewById(R.id.progressBar2);
     }
 
-    @ReactMethod
-    public void startFaceLiveness(View view, String mobileToken, String YOUR_PERSON_ID) {
+    public void startFaceLiveness(String mobileToken, String YOUR_PERSON_ID) {
         sdkName = "Face Liveness";
 
         FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
@@ -253,20 +252,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
                 runOnUiThread(() -> {
                     tvSdkName.setText(sdkName);
                     tvSdkStatus.setText("errorMessage: " + faceLivenessResult.errorMessage );
-                });
-            }
-
-            @Override
-            public void onLoading() {
-                runOnUiThread(() -> {
-                    pbLoading.setVisibility(View.VISIBLE);
-                });
-            }
-
-            @Override
-            public void onLoaded() {
-                runOnUiThread(() -> {
-                    pbLoading.setVisibility(View.INVISIBLE);
                 });
             }
         });

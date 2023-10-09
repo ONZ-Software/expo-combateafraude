@@ -2,6 +2,7 @@ package [[PACKAGE]];
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 
 import com.combateafraude.documentdetector.input.CaptureMode;
 import com.combateafraude.documentdetector.input.CaptureStage;
@@ -16,11 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
-
-import input.CafStage;
-import input.FaceAuthenticator;
-import input.VerifyAuthenticationListener;
-import output.FaceAuthenticatorResult;
 
 import com.caf.facelivenessiproov.input.CAFStage;
 import com.caf.facelivenessiproov.input.FaceLiveness;

@@ -1,6 +1,5 @@
 package [[PACKAGE]];
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -212,7 +211,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
 
     TextView tvSdkName, tvSdkStatus;
     ProgressBar pbLoading;
-    ConstraintLayout clFrontLayout;
 
     public String sdkName;
 
@@ -223,7 +221,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         btFaceLiveness = findViewById(R.id.btFaceLivenes);
         tvSdkName = findViewById(R.id.tvSdkName);
         tvSdkStatus = findViewById(R.id.tvSdkStatus);
-        clFrontLayout = findViewById(R.id.clFront);
         pbLoading = findViewById(R.id.progressBar2);
     }
 
@@ -263,7 +260,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
             public void onLoading() {
                 runOnUiThread(() -> {
                     pbLoading.setVisibility(View.VISIBLE);
-                    clFrontLayout.setVisibility(View.VISIBLE);
                 });
             }
 
@@ -271,7 +267,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
             public void onLoaded() {
                 runOnUiThread(() -> {
                     pbLoading.setVisibility(View.INVISIBLE);
-                    clFrontLayout.setVisibility(View.INVISIBLE);
                 });
             }
         });

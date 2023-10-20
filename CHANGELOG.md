@@ -1,3 +1,10 @@
+## [1.9.18](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.17...v1.9.18) (2023-10-20)
+
+
+### Bug Fixes
+
+* new caf module ([7b39391](https://github.com/ONZ-Software/expo-combateafraude/commit/7b393916265cfe241ccb73e2abaf6056a9d19e1c))
+
 ## [1.9.17](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.16...v1.9.17) (2023-10-09)
 
 

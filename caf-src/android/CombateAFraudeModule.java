@@ -21,11 +21,6 @@ import com.combateafraude.passivefaceliveness.input.PassiveFaceLiveness;
 import com.combateafraude.passivefaceliveness.PassiveFaceLivenessActivity;
 import com.combateafraude.passivefaceliveness.output.PassiveFaceLivenessResult;
 
-import com.caf.facelivenessiproov.input.CAFStage;
-import com.caf.facelivenessiproov.input.FaceLiveness;
-import com.caf.facelivenessiproov.input.VerifyLivenessListener;
-import com.caf.facelivenessiproov.output.FaceLivenessResult;
-
 import com.combateafraude.documentdetector.output.Capture;
 import com.combateafraude.documentdetector.input.DocumentDetector;
 import com.combateafraude.documentdetector.output.DocumentDetectorResult;
@@ -208,54 +203,4 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
             System.out.println(e.getMessage());
         }
     }
-
-    TextView tvSdkName, tvSdkStatus;
-    ProgressBar pbLoading;
-
-    public String sdkName;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        btFaceLiveness = findViewById(R.id.btFaceLivenes);
-        tvSdkName = findViewById(R.id.tvSdkName);
-        tvSdkStatus = findViewById(R.id.tvSdkStatus);
-        pbLoading = findViewById(R.id.progressBar2);
-    }
-
-    @ReactMethod
-    public void startFaceLiveness(String mobileToken, String YOUR_PERSON_ID) {
-        sdkName = "Face Liveness";
-
-        FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
-                .build();
-
-        faceLiveness.startSDK(this, YOUR_PERSON_ID, new VerifyLivenessListener() {
-            @Override
-            public void onSuccess(FaceLivenessResult faceLivenessResult) {
-                runOnUiThread(() -> {
-                    tvSdkName.setText(sdkName);
-                    tvSdkStatus.setText("isMatch: " + faceLivenessResult.isAlive);
-                });
-            }
-
-            @Override
-            public void onError(FaceLivenessResult faceLivenessResult) {
-                runOnUiThread(() -> {
-                    tvSdkName.setText(sdkName);
-                    tvSdkStatus.setText("errorMessage: " + faceLivenessResult.errorMessage );
-                });
-            }
-
-            @Override
-            public void onCancel(FaceLivenessResult faceLivenessResult) {
-                runOnUiThread(() -> {
-                    tvSdkName.setText(sdkName);
-                    tvSdkStatus.setText("errorMessage: " + faceLivenessResult.errorMessage );
-                });
-            }
-        });
-    }
-
 }

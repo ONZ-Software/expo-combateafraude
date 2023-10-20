@@ -143,6 +143,31 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )
+
+        await fs.copyFile(
+          path.resolve(__dirname, './android/CafModule.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafModule.java'
+        )
+        const moduleContentsCaf = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafModule.java'
+        )
+
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafModule.java',
+          moduleContentsCaf
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
+        )
+
         await fs.copyFile(
           path.resolve(__dirname, './android/CombateAFraudePackage.java'),
           config.modRequest.platformProjectRoot +
@@ -162,6 +187,29 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
             androidSrcPath +
             '/CombateAFraudePackage.java',
           packageContents
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
+        )
+
+        await fs.copyFile(
+          path.resolve(__dirname, './android/CafPackage.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafPackage.java'
+        )
+        const packageContentsCaf = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafPackage.java'
+        )
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafPackage.java',
+          packageContentsCaf
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)
         )

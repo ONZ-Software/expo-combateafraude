@@ -1,3 +1,10 @@
+## [1.9.20](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.19...v1.9.20) (2023-10-23)
+
+
+### Bug Fixes
+
+* adiconado face liveness ios ([8d11e82](https://github.com/ONZ-Software/expo-combateafraude/commit/8d11e82b8634d474d75ae4bc6d934555de5c5152))
+
 ## [1.9.19](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.18...v1.9.19) (2023-10-23)
 
 

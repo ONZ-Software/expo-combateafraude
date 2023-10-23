@@ -11,62 +11,13 @@ import Foundation
 import DocumentDetector
 import PassiveFaceLiveness
 import FaceAuthenticator
-import FaceLiveness
 
 @objc(CombateAFraude)
-class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, DocumentDetectorControllerDelegate, FaceAuthenticatorControllerDelegate, FaceLivenessControllerDelegate {
+class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, DocumentDetectorControllerDelegate, FaceAuthenticatorControllerDelegate {
 
   @objc
   override static func requiresMainQueueSetup() -> Bool {
     return true
-  }
-
-  // FaceLiveness
-  @objc(faceLiveness:)
-  func faceLiveness(mobileToken: String) {
-    let faceLiveness = FaceLivenessSdk.Builder(mobileToken: mobileToken)
-      .enableMultiLanguage(false)
-      .build()
-
-    DispatchQueue.main.async {
-      let currentViewController = UIApplication.shared.keyWindow!.rootViewController
-
-      let sdkViewController = FaceLivenessController(faceLiveness: faceLiveness)
-      sdkViewController.faceLivenessDelegate = self
-
-      currentViewController?.present(sdkViewController, animated: true, completion: nil)
-    }
-  }
-
-  func faceLivenessController(_ faceLivenessController: FaceLivenessController, didFinishWithResults results: FaceLivenessResult) {
-    let response : NSMutableDictionary! = [:]
-
-    if let image = results.image {
-      let imagePath = saveImageToDocumentsDirectory(image: image, withName: "selfie.jpg")
-      response["imagePath"] = imagePath
-    }else{
-      response["imagePath"] = results.capturePath
-    }
-
-    response["success"] = NSNumber(value: true)
-    response["imageUrl"] = results.imageUrl
-    response["signedResponse"] = results.signedResponse
-    response["trackingId"] = results.trackingId
-
-    sendEvent(withName: "FaceLiveness_Success", body: response)
-  }
-
-  func faceLivenessControllerDidCancel(_ faceLivenessController: FaceLivenessController) {
-    sendEvent(withName: "FaceLiveness_Cancel", body: nil)
-  }
-
-  func faceLivenessController(_ faceLivenessController: FaceLivenessController, didFailWithError error: FaceLivenessFailure) {
-    let response : NSMutableDictionary! = [:]
-
-    response["message"] = error.message
-    response["type"] = String(describing: type(of: error))
-
-    sendEvent(withName: "FaceLiveness_Error", body: response)
   }
 
   // PassiveFaceLiveness
@@ -257,7 +208,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
   }
 
   override func supportedEvents() -> [String]! {
-    return ["PassiveFaceLiveness_Success", "PassiveFaceLiveness_Cancel", "PassiveFaceLiveness_Error", "DocumentDetector_Success", "DocumentDetector_Cancel", "DocumentDetector_Error", "FaceAuthenticator_Success", "FaceAuthenticator_Cancel", "FaceAuthenticator_Error", "FaceLiveness_Success", "FaceLiveness_Cancel", "FaceLiveness_Error"]
+    return ["PassiveFaceLiveness_Success", "PassiveFaceLiveness_Cancel", "PassiveFaceLiveness_Error", "DocumentDetector_Success", "DocumentDetector_Cancel", "DocumentDetector_Error", "FaceAuthenticator_Success", "FaceAuthenticator_Cancel", "FaceAuthenticator_Error"]
   }
 
 

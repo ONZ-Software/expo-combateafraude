@@ -1,3 +1,10 @@
+## [1.9.19](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.18...v1.9.19) (2023-10-23)
+
+
+### Bug Fixes
+
+* adicionado faceliveness android funcionando ([11006fc](https://github.com/ONZ-Software/expo-combateafraude/commit/11006fc367b54d99c7e91813c3c57b5067ee4bcf))
+
 ## [1.9.18](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.17...v1.9.18) (2023-10-20)
 
 

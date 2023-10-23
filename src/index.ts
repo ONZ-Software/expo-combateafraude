@@ -249,7 +249,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         config.modResults.contents = mergeContents({
           tag: 'Add Package',
           src: config.modResults.contents,
-          newSrc: `      packages.add(new CombateAFraudePackage());`,
+          newSrc: `      packages.add(new CombateAFraudePackage()); packages.add(new CafPackage());`,
           anchor: /return packages/,
           offset: 0,
           comment: '//',

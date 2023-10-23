@@ -4,19 +4,11 @@ import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import org.jetbrains.annotations.NotNull;
 
-import input.CafStage;
-import input.FaceAuthenticator;
-import input.VerifyAuthenticationListener;
-import output.FaceAuthenticatorResult;
-
-import com.caf.facelivenessiproov.input.CAFStage;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
-import com.caf.facelivenessiproov.input.iproov.Filter;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
 
 public class CafModule extends ReactContextBaseJavaModule {
@@ -35,9 +27,8 @@ public class CafModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startFaceLiveness(String mobileToken, String personId) {
+
         FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
-                .setStage(CAFStage.BETA)
-                .setFilter(Filter.NATURAL)
                 .build();
 
         faceLiveness.startSDK(this.context, personId, new VerifyLivenessListener() {

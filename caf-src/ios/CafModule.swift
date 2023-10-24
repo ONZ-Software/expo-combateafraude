@@ -33,6 +33,7 @@ class CafModule: RCTEventEmitter {
     @objc func startSDK(_ mobileToken: String, personId: String) {
       faceLiveness = FaceLivenessSDK.Build()
         .setCredentials(mobileToken: mobileToken, personId: personId)
+        .setFilter(Filter.NATURAL)
         .build()
 
       faceLiveness?.delegate = self

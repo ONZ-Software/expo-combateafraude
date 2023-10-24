@@ -1,3 +1,10 @@
+## [1.9.23](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.22...v1.9.23) (2023-10-24)
+
+
+### Bug Fixes
+
+* adicionado filtro natural para o face liveness ios ([d01150a](https://github.com/ONZ-Software/expo-combateafraude/commit/d01150abd663c329602ae1081fd5746e846756b2))
+
 ## [1.9.22](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.21...v1.9.22) (2023-10-24)
 
 

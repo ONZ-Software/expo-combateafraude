@@ -29,6 +29,7 @@ public class CafModule extends ReactContextBaseJavaModule {
     public void startFaceLiveness(String mobileToken, String personId) {
 
         FaceLiveness faceLiveness = new FaceLiveness.Builder(mobileToken)
+                .setFilter(Filter.NATURAL)
                 .build();
 
         faceLiveness.startSDK(this.context, personId, new VerifyLivenessListener() {

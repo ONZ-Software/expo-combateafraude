@@ -32,6 +32,16 @@ const withCafIos: ConfigPlugin<void> = (config) => {
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
       )
 
+      // Copy CafModule Source Files
+      await fs.copyFile(
+        path.resolve(__dirname, './ios/CafModule.m'),
+        cfg.modRequest.platformProjectRoot + '/CafModule.m'
+      )
+      await fs.copyFile(
+        path.resolve(__dirname, './ios/CafModule.swift'),
+        cfg.modRequest.platformProjectRoot + '/CafModule.swift'
+      )
+
       // Replace Main Briding-Header
       await fs.copyFile(
         path.resolve(__dirname, './ios/Bridging-Header.h'),
@@ -54,6 +64,18 @@ const withCafIos: ConfigPlugin<void> = (config) => {
 
       cfg.modResults = addBuildSourceFileToGroup({
         filepath: cfg.modRequest.platformProjectRoot + '/CombateAFraude.m',
+        groupName: projName,
+        project: cfg.modResults,
+      })
+
+      cfg.modResults = addBuildSourceFileToGroup({
+        filepath: cfg.modRequest.platformProjectRoot + '/CafModule.swift',
+        groupName: projName,
+        project: cfg.modResults,
+      })
+
+      cfg.modResults = addBuildSourceFileToGroup({
+        filepath: cfg.modRequest.platformProjectRoot + '/CafModule.m',
         groupName: projName,
         project: cfg.modResults,
       })

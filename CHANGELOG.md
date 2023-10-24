@@ -1,3 +1,10 @@
+## [1.9.22](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.21...v1.9.22) (2023-10-24)
+
+
+### Bug Fixes
+
+* refatorado nome do pacote do face liveness no ios ([75e6d0b](https://github.com/ONZ-Software/expo-combateafraude/commit/75e6d0b99957e5809dd2562b7fb3e8c5302d8332))
+
 ## [1.9.21](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.20...v1.9.21) (2023-10-24)
 
 

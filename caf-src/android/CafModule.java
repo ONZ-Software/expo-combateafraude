@@ -7,6 +7,7 @@ import android.content.Context;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.caf.facelivenessiproov.input.iproov.Filter;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;

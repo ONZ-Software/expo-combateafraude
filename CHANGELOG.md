@@ -1,3 +1,10 @@
+## [1.9.24](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.23...v1.9.24) (2023-10-26)
+
+
+### Bug Fixes
+
+* adicionado lib filter no face liveness android ([5ad11ed](https://github.com/ONZ-Software/expo-combateafraude/commit/5ad11ede50640040b9131938ef6ef6d85fa3786e))
+
 ## [1.9.23](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.22...v1.9.23) (2023-10-24)
 
 

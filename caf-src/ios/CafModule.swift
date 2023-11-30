@@ -78,7 +78,7 @@ class CafModule: RCTEventEmitter {
 
     func openLoadingScreenValidation() {
       if let cafModule = self.cafModule {
-        cafModule.emitEvent(eventName: "onFaceLivenessLoading", eventBody: true)
+        cafModule.emitEvent(eventName: "onFaceLivenessLoaded", eventBody: true)
       }
     }
 

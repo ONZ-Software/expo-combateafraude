@@ -1,3 +1,10 @@
+## [1.9.26](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.25...v1.9.26) (2023-11-30)
+
+
+### Bug Fixes
+
+* ajuste no loading do sdk ios ([041fc7f](https://github.com/ONZ-Software/expo-combateafraude/commit/041fc7fd65d246a5ca58c3e500ebe17f64e7c771))
+
 ## [1.9.25](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.24...v1.9.25) (2023-10-26)
 
 

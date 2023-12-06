@@ -32,14 +32,14 @@ const withCafIos: ConfigPlugin<void> = (config) => {
         cfg.modRequest.platformProjectRoot + '/CombateAFraude.swift'
       )
 
-      // Copy CafModule Source Files
+      // Copy CafFaceLiveness Source Files
       await fs.copyFile(
-        path.resolve(__dirname, './ios/CafModule.m'),
-        cfg.modRequest.platformProjectRoot + '/CafModule.m'
+        path.resolve(__dirname, './ios/CafFaceLiveness.m'),
+        cfg.modRequest.platformProjectRoot + '/CafFaceLiveness.m'
       )
       await fs.copyFile(
-        path.resolve(__dirname, './ios/CafModule.swift'),
-        cfg.modRequest.platformProjectRoot + '/CafModule.swift'
+        path.resolve(__dirname, './ios/CafFaceLiveness.swift'),
+        cfg.modRequest.platformProjectRoot + '/CafFaceLiveness.swift'
       )
 
       // Replace Main Briding-Header
@@ -69,13 +69,13 @@ const withCafIos: ConfigPlugin<void> = (config) => {
       })
 
       cfg.modResults = addBuildSourceFileToGroup({
-        filepath: cfg.modRequest.platformProjectRoot + '/CafModule.swift',
+        filepath: cfg.modRequest.platformProjectRoot + '/CafFaceLiveness.swift',
         groupName: projName,
         project: cfg.modResults,
       })
 
       cfg.modResults = addBuildSourceFileToGroup({
-        filepath: cfg.modRequest.platformProjectRoot + '/CafModule.m',
+        filepath: cfg.modRequest.platformProjectRoot + '/CafFaceLiveness.m',
         groupName: projName,
         project: cfg.modResults,
       })
@@ -167,24 +167,24 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
         )
 
         await fs.copyFile(
-          path.resolve(__dirname, './android/CafModule.java'),
+          path.resolve(__dirname, './android/CafFaceLiveness.java'),
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/' +
             androidSrcPath +
-            '/CafModule.java'
+            '/CafFaceLiveness.java'
         )
         const moduleContentsCaf = await fs.readFile(
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/' +
             androidSrcPath +
-            '/CafModule.java'
+            '/CafFaceLiveness.java'
         )
 
         await fs.writeFile(
           config.modRequest.platformProjectRoot +
             '/app/src/main/java/' +
             androidSrcPath +
-            '/CafModule.java',
+            '/CafFaceLiveness.java',
           moduleContentsCaf
             .toString()
             .replace(/\[\[PACKAGE\]\]/, config.android?.package)

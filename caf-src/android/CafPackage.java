@@ -23,7 +23,7 @@ public class CafPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(@NotNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new CafModule(reactContext));
+        modules.add(new CafFaceLiveness(reactContext));
 
         return modules;
     }

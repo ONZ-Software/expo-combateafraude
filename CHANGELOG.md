@@ -1,3 +1,10 @@
+## [1.9.27](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.26...v1.9.27) (2023-12-06)
+
+
+### Bug Fixes
+
+* modificado para a nova bridge do react native ([8fa2f1a](https://github.com/ONZ-Software/expo-combateafraude/commit/8fa2f1a2ba72c1b6f53b240d3228929e22767f22))
+
 ## [1.9.26](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.25...v1.9.26) (2023-11-30)
 
 

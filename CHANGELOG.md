@@ -1,3 +1,10 @@
+## [1.9.28](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.27...v1.9.28) (2023-12-08)
+
+
+### Bug Fixes
+
+* adicionado config do manifest ([0cd9196](https://github.com/ONZ-Software/expo-combateafraude/commit/0cd9196bfc79b01e535e0bb588b956e38b8a051b))
+
 ## [1.9.27](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.26...v1.9.27) (2023-12-06)
 
 

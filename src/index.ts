@@ -1,5 +1,6 @@
 import {
   ConfigPlugin,
+  withAndroidManifest,
   withAppBuildGradle,
   withDangerousMod,
   withMainApplication,
@@ -134,6 +135,28 @@ source 'https://cdn.cocoapods.org/'
 }
 
 const withCafAndroid: ConfigPlugin<void> = (config) => {
+  config = withAndroidManifest(config, async (config) => {
+    const manifest = config.modResults
+
+    const packageName = config.android?.package
+    if (!packageName) {
+      throw new Error('Android package name not found in app config')
+    }
+
+    if (manifest.manifest.application) {
+      const mainApplication = manifest.manifest.application[0]
+      mainApplication.activity = mainApplication.activity || []
+      mainApplication.activity.push({
+        $: {
+          'android:name': `${packageName}.CafFaceLivenessActivity`,
+        },
+      })
+    } else {
+      throw new Error('Application not found in AndroidManifest.xml')
+    }
+
+    return config
+  })
   const withCafSource: ConfigPlugin<void> = (expoCfg) => {
     return withDangerousMod(expoCfg, [
       'android',

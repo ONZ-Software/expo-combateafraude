@@ -1,3 +1,10 @@
+## [1.9.29](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.28...v1.9.29) (2023-12-10)
+
+
+### Bug Fixes
+
+* ajuste para adicionar novo arquivo na estrutura ([e5597da](https://github.com/ONZ-Software/expo-combateafraude/commit/e5597da2aa2c82642220a9ec693834f175c3ff7e))
+
 ## [1.9.28](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.27...v1.9.28) (2023-12-08)
 
 

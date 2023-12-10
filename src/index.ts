@@ -148,7 +148,8 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
       mainApplication.activity = mainApplication.activity || []
       mainApplication.activity.push({
         $: {
-          'android:name': `${packageName}.CafFaceLivenessActivity`,
+          'android:name': '.CafFaceLivenessActivity',
+          'android:label': 'CafFaceLivenessActivity',
         },
       })
     } else {
@@ -165,22 +166,53 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
 
         const androidSrcPath = config.android?.package?.replace(/\./gi, '/')
 
-        const javaFiles = [
-          'CombateAFraudeModule.java',
-          'CafFaceLiveness.java',
-          'CafFaceLivenessActivity.java',
-        ]
+        await fs.copyFile(
+          path.resolve(__dirname, './android/CombateAFraudeModule.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java'
+        )
+        const moduleContents = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java'
+        )
 
-        for (const fileName of javaFiles) {
-          const sourcePath = path.resolve(__dirname, `./android/${fileName}`)
-          const destPath = `${config.modRequest.platformProjectRoot}/app/src/main/java/${androidSrcPath}/${fileName}`
-          let fileContents = await fs.readFile(sourcePath, 'utf8')
-          fileContents = fileContents.replace(
-            /\[\[PACKAGE\]\]/g,
-            config.android.package
-          )
-          await fs.writeFile(destPath, fileContents)
-        }
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CombateAFraudeModule.java',
+          moduleContents
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
+        )
+
+        await fs.copyFile(
+          path.resolve(__dirname, './android/CafFaceLiveness.java'),
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafFaceLiveness.java'
+        )
+        const moduleContentsCaf = await fs.readFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafFaceLiveness.java'
+        )
+
+        await fs.writeFile(
+          config.modRequest.platformProjectRoot +
+            '/app/src/main/java/' +
+            androidSrcPath +
+            '/CafFaceLiveness.java',
+          moduleContentsCaf
+            .toString()
+            .replace(/\[\[PACKAGE\]\]/, config.android?.package)
+        )
 
         await fs.copyFile(
           path.resolve(__dirname, './android/CombateAFraudePackage.java'),

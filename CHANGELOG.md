@@ -1,3 +1,10 @@
+## [1.9.30](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.29...v1.9.30) (2023-12-10)
+
+
+### Bug Fixes
+
+* ajuste do diretorio de arquivos ([364a172](https://github.com/ONZ-Software/expo-combateafraude/commit/364a17251ef8189a63c11d3f406ef2877f610626))
+
 ## [1.9.29](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.28...v1.9.29) (2023-12-10)
 
 

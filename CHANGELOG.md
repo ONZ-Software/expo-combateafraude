@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.0...v1.10.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* ajuste no retorno da funcao de falha no ios ([22b4034](https://github.com/ONZ-Software/expo-combateafraude/commit/22b403439a643f7b37e7bd31081f20059d4c322c))
+
 # [1.10.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.34...v1.10.0) (2023-12-11)
 
 

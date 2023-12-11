@@ -1,3 +1,10 @@
+## [1.9.33](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.32...v1.9.33) (2023-12-11)
+
+
+### Bug Fixes
+
+* adicionado placeholder ao package do arquivo activity ([a0c53c3](https://github.com/ONZ-Software/expo-combateafraude/commit/a0c53c384182936bcf2d568cba399652557d9972))
+
 ## [1.9.32](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.31...v1.9.32) (2023-12-11)
 
 

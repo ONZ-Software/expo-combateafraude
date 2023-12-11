@@ -363,7 +363,40 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
   return withPlugins(config, [withCafSource, withFileMods])
 }
 
-const mainPlugin: ConfigPlugin<void> = (config) =>
-  withPlugins(config, [withCafIos, withCafAndroid])
+const withCafAndroidFiles: ConfigPlugin<void> = (config) => {
+  return withDangerousMod(config, [
+    'android',
+    async (config) => {
+      const packageName = config.android?.package
+      if (!packageName) throw new Error('Missing package name')
+
+      const androidSrcPath = packageName.replace(/\./g, '/')
+      const fileNames = ['CafFaceLivenessActivity.java']
+
+      for (const fileName of fileNames) {
+        const srcFile = path.resolve(__dirname, `./android/${fileName}`)
+        const destPath = path.join(
+          config.modRequest.platformProjectRoot,
+          'app/src/main/java',
+          androidSrcPath,
+          fileName
+        )
+
+        if (await fs.pathExists(srcFile)) {
+          await fs.copyFile(srcFile, destPath)
+        } else {
+          throw new Error(`File ${srcFile} does not exist.`)
+        }
+      }
+
+      return config
+    },
+  ])
+}
+
+const mainPlugin: ConfigPlugin<void> = (config) => {
+  config = withCafAndroidFiles(config)
+  return withPlugins(config, [withCafIos, withCafAndroid])
+}
 
 export default mainPlugin

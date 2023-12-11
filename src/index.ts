@@ -104,7 +104,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
               `  pod 'DocumentDetectorNoSentry', '~> 8.0.3'`,
               `  pod 'PassiveFaceLivenessNoSentry', '~> 6.0.0-rc02'`,
               `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
-              `  pod 'FaceLiveness', '~> 3.1.2'`,
+              `  pod 'FaceLiveness', '~> 3.1.6'`,
             ].join('\n'),
             anchor: /use_react_native!/,
             offset: 0,
@@ -347,7 +347,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           implementation 'com.combateafraude.sdk:document-detector:7.0.0'
           implementation 'com.combateafraude.sdk:passive-face-liveness:6.0.0-rc07'
           implementation 'com.combateafraude.sdk:face-authenticator:5.8.14'
-          implementation 'com.combateafraude.sdk:new-face-liveness:1.5.1'
+          implementation 'com.combateafraude.sdk:new-face-liveness:1.6.0'
           `,
           anchor: /dependencies {/,
           offset: 1,

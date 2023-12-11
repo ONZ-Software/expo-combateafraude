@@ -1,3 +1,10 @@
+## [1.9.31](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.30...v1.9.31) (2023-12-11)
+
+
+### Bug Fixes
+
+* ajuste na extencao do arquivo ([0f2c18e](https://github.com/ONZ-Software/expo-combateafraude/commit/0f2c18e62a81ed5f04c664b323a5706d35bec23a))
+
 ## [1.9.30](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.29...v1.9.30) (2023-12-10)
 
 

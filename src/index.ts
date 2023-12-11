@@ -383,7 +383,9 @@ const withCafAndroidFiles: ConfigPlugin<void> = (config) => {
         )
 
         if (await fs.pathExists(srcFile)) {
-          await fs.copyFile(srcFile, destPath)
+          let fileContents = await fs.readFile(srcFile, 'utf8')
+          fileContents = fileContents.replace(/\[\[PACKAGE\]\]/g, packageName)
+          await fs.writeFile(destPath, fileContents)
         } else {
           throw new Error(`File ${srcFile} does not exist.`)
         }

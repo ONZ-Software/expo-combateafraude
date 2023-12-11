@@ -17,7 +17,7 @@ public class CafFaceLiveness extends ReactContextBaseJavaModule {
 
     CafFaceLiveness(ReactApplicationContext reactContext) {
         super(reactContext);
-        intent = new Intent(getReactApplicationContext(), CafFaceLivenessActivity.class);
+        intent = new Intent(getReactApplicationContext(), CafFaceLivenessActivity.java);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 

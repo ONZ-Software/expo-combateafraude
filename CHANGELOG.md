@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.34...v1.10.0) (2023-12-11)
+
+
+### Features
+
+* nova versao de bridge com atualizacao do face liveness ([1a254c9](https://github.com/ONZ-Software/expo-combateafraude/commit/1a254c9d2fef356fd94807db974c36e6f6df0402))
+
 ## [1.9.34](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.33...v1.9.34) (2023-12-11)
 
 

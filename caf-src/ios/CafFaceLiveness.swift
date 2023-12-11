@@ -86,6 +86,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let response : NSMutableDictionary = [:]
         response["message"] = faceLivenessFailResult.description
         response["type"] = String(describing: faceLivenessFailResult.failType)
+        response["data"] = String(describing: faceLivenessFailResult.signedResponse)
         sendEvent(withName: "FaceLiveness_Error", body: response)
   }
 

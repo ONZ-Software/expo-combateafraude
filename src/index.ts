@@ -371,7 +371,10 @@ const withCafAndroidFiles: ConfigPlugin<void> = (config) => {
       if (!packageName) throw new Error('Missing package name')
 
       const androidSrcPath = packageName.replace(/\./g, '/')
-      const fileNames = ['CafFaceLivenessActivity.java']
+      const fileNames = [
+        'CafFaceLivenessActivity.java',
+        'FaceLivenessConfig.java',
+      ]
 
       for (const fileName of fileNames) {
         const srcFile = path.resolve(__dirname, `./android/${fileName}`)

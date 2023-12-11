@@ -1,3 +1,10 @@
+## [1.9.32](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.31...v1.9.32) (2023-12-11)
+
+
+### Bug Fixes
+
+* ajustes no main plugin ([c657f6c](https://github.com/ONZ-Software/expo-combateafraude/commit/c657f6c71e10e07248adf9d8b2b3cb00d8df254c))
+
 ## [1.9.31](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.9.30...v1.9.31) (2023-12-11)
 
 

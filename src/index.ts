@@ -296,7 +296,7 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
           tag: 'Add Package',
           src: config.modResults.contents,
           newSrc: `      packages.add(new CombateAFraudePackage()); packages.add(new CafPackage());`,
-          anchor: /return PackageList(this).packages/,
+          anchor: /override fun getPackages\(\): List<ReactPackage> {/,
           offset: 0,
           comment: '//',
         }).contents

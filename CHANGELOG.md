@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.2...v1.10.3) (2024-02-29)
+
+
+### Bug Fixes
+
+* expo config plugins upgrade ([b829f0c](https://github.com/ONZ-Software/expo-combateafraude/commit/b829f0c059a11858a3559207c9fda876a929eb0e))
+
 ## [1.10.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.1...v1.10.2) (2024-02-28)
 
 

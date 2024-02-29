@@ -1,3 +1,10 @@
+## [1.10.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.4...v1.10.5) (2024-02-29)
+
+
+### Bug Fixes
+
+* main application sdk50 ([94be691](https://github.com/ONZ-Software/expo-combateafraude/commit/94be69145928cb2c4d19d348974a299e08282a15))
+
 ## [1.10.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.3...v1.10.4) (2024-02-29)
 
 

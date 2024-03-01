@@ -1,3 +1,10 @@
+## [1.10.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.5...v1.10.6) (2024-03-01)
+
+
+### Bug Fixes
+
+* main app adjusted to kotlin default ([5ac0027](https://github.com/ONZ-Software/expo-combateafraude/commit/5ac00279e05904717a354ef73395b64988b51021))
+
 ## [1.10.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.4...v1.10.5) (2024-02-29)
 
 

@@ -21,6 +21,8 @@ For bare React Native projects, you must ensure that you have [installed and con
 
 ```
 npm install expo-combateafraude
+or
+yarn add expo-combateafraude
 ```
 
 # Contributing

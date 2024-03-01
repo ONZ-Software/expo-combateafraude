@@ -292,14 +292,15 @@ const withCafAndroid: ConfigPlugin<void> = (config) => {
     // DISABLED DUE FAIL ON BUILD -- NEEDS REVIEW
     const mainActivity: ConfigPlugin<void> = (expoCfg) =>
       withMainApplication(expoCfg, async (config) => {
-        config.modResults.contents = mergeContents({
-          tag: 'Add Package',
-          src: config.modResults.contents,
-          newSrc: `      packages.add(CombateAFraudePackage()); packages.add(CafPackage());`,
-          anchor: /override fun getPackages\(\): List<ReactPackage> {/,
-          offset: 0,
-          comment: '//',
-        }).contents
+        config.modResults.contents = config.modResults.contents.replace(
+          /override fun getPackages\(\): List<ReactPackage> {/,
+          `override fun getPackages(): List<ReactPackage> {
+          val packages = mutableListOf<ReactPackage>()
+          packages.addAll(PackageList(this).packages)
+          packages.add(CombateAFraudePackage())
+          packages.add(CafPackage())
+          return packages`
+        )
         return config
       })
     const projectBuild: ConfigPlugin<void> = (expoCfg) =>

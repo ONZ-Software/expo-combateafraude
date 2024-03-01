@@ -1,3 +1,10 @@
+## [1.10.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.6...v1.10.7) (2024-03-01)
+
+
+### Bug Fixes
+
+* main application ([5ce5776](https://github.com/ONZ-Software/expo-combateafraude/commit/5ce5776a1ff59167297374b2ce517fbb3bccf616))
+
 ## [1.10.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.5...v1.10.6) (2024-03-01)
 
 

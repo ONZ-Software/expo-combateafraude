@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.7...v1.11.0) (2024-09-19)
+
+
+### Features
+
+* faceliveness and document detector sdk update ([aa610bf](https://github.com/ONZ-Software/expo-combateafraude/commit/aa610bf0aa1e0ca807b70e02feb20032f99bab7a))
+
 ## [1.10.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.10.6...v1.10.7) (2024-03-01)
 
 

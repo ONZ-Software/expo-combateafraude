@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.1...v1.11.2) (2024-09-19)
+
+
+### Bug Fixes
+
+* maven repo android ([ff90ce6](https://github.com/ONZ-Software/expo-combateafraude/commit/ff90ce6fcf34a4ac7326345be1b0cc084b214985))
+
 ## [1.11.1](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.0...v1.11.1) (2024-09-19)
 
 

@@ -6,9 +6,8 @@ import android.os.Bundle;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
-import com.caf.facelivenessiproov.output.failure.NetworkReason;
 import com.caf.facelivenessiproov.output.failure.SDKFailure;
-import com.caf.facelivenessiproov.output.failure.ServerReason;
+import com.caf.facelivenessiproov.output.failure.ErrorType;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -62,18 +61,34 @@ public class CafFaceLivenessActivity extends ReactActivity {
             }
 
             @Override
-            public void onError(FaceLivenessResult faceLivenessResult) {
-                String message = "Error: " + faceLivenessResult.getErrorMessage();
-                ;
+            public void onError(SDKFailure sdkFailure) {
+                String message = "Error: " + sdkFailure.getDescription();
                 String type = "Error";
                 WritableMap writableMap = new WritableNativeMap();
-                SDKFailure sdkFailure = faceLivenessResult.getSdkFailure();
 
-                if (sdkFailure instanceof NetworkReason) {
-                    message = ("FaceLivenessResult " + "onError: " + " Throwable: " + ((NetworkReason) faceLivenessResult.getSdkFailure()).getThrowable());
-                } else if (sdkFailure instanceof ServerReason) {
-                    message = ("FaceLivenessResult " + "onError: " + " Status Code: " + ((ServerReason) faceLivenessResult.getSdkFailure()).getCode());
-                    message = message + " Status Message: " + faceLivenessResult.getSdkFailure().getMessage();
+                ErrorType errorType = sdkFailure.getErrorType();
+                switch (errorType) {
+                    case NETWORK_EXCEPTION:
+                        message = "Network error occurred.";
+                        break;
+                    case SERVER_EXCEPTION:
+                        message = "Server error occurred.";
+                        break;
+                    case CAMERA_PERMISSION:
+                        message = "Camera permission not granted.";
+                        break;
+                    case TOKEN_EXCEPTION:
+                        message = "Invalid or expired token.";
+                        break;
+                    case UNSUPPORTED_DEVICE:
+                        message = "Unsupported device.";
+                        break;
+                    case CERTIFICATE_EXCEPTION:
+                        message = "Certificate pinning error.";
+                        break;
+                    default:
+                        message = "Unknown error occurred.";
+                        break;
                 }
 
                 writableMap.putString("message", message);
@@ -86,7 +101,7 @@ public class CafFaceLivenessActivity extends ReactActivity {
             }
 
             @Override
-            public void onCancel(FaceLivenessResult faceLivenessResult) {
+            public void onCancel() {
                 WritableMap writableMap = new WritableNativeMap();
                 getReactInstanceManager().getCurrentReactContext()
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -114,6 +129,4 @@ public class CafFaceLivenessActivity extends ReactActivity {
 
         });
     }
-
-
 }

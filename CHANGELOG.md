@@ -1,3 +1,10 @@
+## [1.11.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.4...v1.11.5) (2024-09-20)
+
+
+### Bug Fixes
+
+* removed network reason and server reason ([4b9e738](https://github.com/ONZ-Software/expo-combateafraude/commit/4b9e738f766dee8245be9feae20edc761f679b2e))
+
 ## [1.11.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.3...v1.11.4) (2024-09-20)
 
 

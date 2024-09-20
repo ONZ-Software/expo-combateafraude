@@ -159,22 +159,22 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
             DocumentDetector.Builder documentDetectorBuilder = new DocumentDetector.Builder(mobileToken);
 
             if (documentType.equals("CNH")) {
-                documentDetectorBuilder.setDocumentSteps(new DocumentDetectorStep[]{
+                documentDetectorBuilder.setDocumentCaptureFlow(new DocumentDetectorStep[]{
                         new DocumentDetectorStep(Document.CNH_FRONT),
                         new DocumentDetectorStep(Document.CNH_BACK)
                 });
             } else if (documentType.equals("RG")) {
-                documentDetectorBuilder.setDocumentSteps(new DocumentDetectorStep[]{
+                documentDetectorBuilder.setDocumentCaptureFlow(new DocumentDetectorStep[]{
                         new DocumentDetectorStep(Document.RG_FRONT),
                         new DocumentDetectorStep(Document.RG_BACK)
                 });
             } else if (documentType.equals("RNE")) {
-                documentDetectorBuilder.setDocumentSteps(new DocumentDetectorStep[]{
+                documentDetectorBuilder.setDocumentCaptureFlow(new DocumentDetectorStep[]{
                         new DocumentDetectorStep(Document.RNE_FRONT),
                         new DocumentDetectorStep(Document.RNE_BACK)
                 });
             } else if (documentType.equals("CRLV")) {
-                documentDetectorBuilder.setDocumentSteps(new DocumentDetectorStep[]{
+                documentDetectorBuilder.setDocumentCaptureFlow(new DocumentDetectorStep[]{
                         new DocumentDetectorStep(Document.CRLV)
                 });
             }

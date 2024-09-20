@@ -6,8 +6,6 @@ import android.os.Bundle;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
-import com.caf.facelivenessiproov.output.failure.SDKFailure;
-import com.caf.facelivenessiproov.output.failure.ErrorType;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -61,35 +59,11 @@ public class CafFaceLivenessActivity extends ReactActivity {
             }
 
             @Override
-            public void onError(SDKFailure sdkFailure) {
-                String message = "Error: " + sdkFailure.getDescription();
+            public void onError(FaceLivenessResult faceLivenessResult) {
+                String message = "Error: " + faceLivenessResult.getSignedResponse()
+                ;
                 String type = "Error";
                 WritableMap writableMap = new WritableNativeMap();
-
-                ErrorType errorType = sdkFailure.getErrorType();
-                switch (errorType) {
-                    case NETWORK_EXCEPTION:
-                        message = "Network error occurred.";
-                        break;
-                    case SERVER_EXCEPTION:
-                        message = "Server error occurred.";
-                        break;
-                    case CAMERA_PERMISSION:
-                        message = "Camera permission not granted.";
-                        break;
-                    case TOKEN_EXCEPTION:
-                        message = "Invalid or expired token.";
-                        break;
-                    case UNSUPPORTED_DEVICE:
-                        message = "Unsupported device.";
-                        break;
-                    case CERTIFICATE_EXCEPTION:
-                        message = "Certificate pinning error.";
-                        break;
-                    default:
-                        message = "Unknown error occurred.";
-                        break;
-                }
 
                 writableMap.putString("message", message);
                 writableMap.putString("type", type);

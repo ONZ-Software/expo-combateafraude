@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.3...v1.11.4) (2024-09-20)
+
+
+### Bug Fixes
+
+* document detector ([20ccac0](https://github.com/ONZ-Software/expo-combateafraude/commit/20ccac022f83f1e57cfd333b27fd25af6bcebc48))
+
 ## [1.11.3](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.2...v1.11.3) (2024-09-19)
 
 

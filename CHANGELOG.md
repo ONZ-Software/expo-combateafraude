@@ -1,3 +1,10 @@
+## [1.11.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.5...v1.11.6) (2024-09-20)
+
+
+### Bug Fixes
+
+* set document step ([af0f292](https://github.com/ONZ-Software/expo-combateafraude/commit/af0f292ea6c607f25cdc9cc2da9dc987bbe605dd))
+
 ## [1.11.5](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.4...v1.11.5) (2024-09-20)
 
 

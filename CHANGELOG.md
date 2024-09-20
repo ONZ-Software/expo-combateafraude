@@ -1,3 +1,10 @@
+## [1.11.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.6...v1.11.7) (2024-09-20)
+
+
+### Bug Fixes
+
+* sdk failure and get description ([9eeb5c1](https://github.com/ONZ-Software/expo-combateafraude/commit/9eeb5c17a1ef46f494ad263d442abe2fb0131ffb))
+
 ## [1.11.6](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.5...v1.11.6) (2024-09-20)
 
 

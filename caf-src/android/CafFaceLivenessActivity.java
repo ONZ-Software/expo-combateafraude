@@ -1,4 +1,4 @@
-package [[PACKAGE]];
+package finance.onz;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
+import com.caf.facelivenessiproov.output.failure.SDKFailure;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -58,11 +59,11 @@ public class CafFaceLivenessActivity extends ReactActivity {
                 finish();
             }
 
-            @Override
-            public void onError(FaceLivenessResult faceLivenessResult) {
-                String message = "Error: " + faceLivenessResult.getSignedResponse()
+
+          public void onError(SDKFailure sdkFailure) {
+                String message = "Error: " + sdkFailure.getDescription()
                 ;
-                String type = "Error";
+                String type = "Error: " + sdkFailure.getErrorType();
                 WritableMap writableMap = new WritableNativeMap();
 
                 writableMap.putString("message", message);

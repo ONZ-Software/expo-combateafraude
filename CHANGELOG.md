@@ -1,3 +1,10 @@
+## [1.11.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.7...v1.11.8) (2024-09-30)
+
+
+### Bug Fixes
+
+* upgrade document detector version ([81220ea](https://github.com/ONZ-Software/expo-combateafraude/commit/81220ea3297646376d9ac7a56932da9aa1766d4d))
+
 ## [1.11.7](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.6...v1.11.7) (2024-09-20)
 
 

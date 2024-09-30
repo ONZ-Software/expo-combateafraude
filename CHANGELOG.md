@@ -1,3 +1,10 @@
+## [1.11.9](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.8...v1.11.9) (2024-09-30)
+
+
+### Bug Fixes
+
+* face liveness sdk changes ([398a697](https://github.com/ONZ-Software/expo-combateafraude/commit/398a697bd2c0e47bdf0be69c68c95860b3174056))
+
 ## [1.11.8](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.7...v1.11.8) (2024-09-30)
 
 

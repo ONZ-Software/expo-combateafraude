@@ -101,7 +101,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
             tag: 'DocumentDetector',
             src: results.contents,
             newSrc: [
-              `  pod 'DocumentDetector', '~> 14.0.0'`,
+              `  pod 'DocumentDetector', '~> 15.0.0'`,
               `  pod 'PassiveFaceLivenessNoSentry', '~> 6.0.0-rc02'`,
               `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
               `  pod 'FaceLiveness', '~> 6.1.0'`,

@@ -133,10 +133,10 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
     sendEvent(withName: "DocumentDetector_Cancel", body: nil)
   }
 
-  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error: DocumentDetectorFailure) {
+  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error: Error) {
     let response : NSMutableDictionary! = [:]
 
-    response["message"] = error.message
+    response["message"] = error.localizedDescription
     response["type"] = String(describing: type(of: error))
 
     sendEvent(withName: "DocumentDetector_Error", body: response)

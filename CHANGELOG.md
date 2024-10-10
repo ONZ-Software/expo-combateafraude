@@ -1,3 +1,10 @@
+## [1.11.11](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.10...v1.11.11) (2024-10-10)
+
+
+### Bug Fixes
+
+* set document capture flow in ios ([627d38d](https://github.com/ONZ-Software/expo-combateafraude/commit/627d38d39e9f143353236f7111e46fc0dc1f8c43))
+
 ## [1.11.10](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.9...v1.11.10) (2024-10-09)
 
 

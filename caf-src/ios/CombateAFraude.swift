@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import React
 import Foundation
 import DocumentDetector
 import PassiveFaceLiveness
@@ -14,6 +13,7 @@ import FaceAuthenticator
 
 @objc(CombateAFraude)
 class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, DocumentDetectorControllerDelegate {
+
 
   @objc
   override static func requiresMainQueueSetup() -> Bool {
@@ -79,22 +79,22 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
 
     if (documentType == "RG"){
       _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
-        DocumentDetectorStep(document: Document.RG_FRONT),
-        DocumentDetectorStep(document: Document.RG_BACK)
+        DocumentDetectorStep(document: CafDocument.RG_FRONT),
+        DocumentDetectorStep(document: CafDocument.RG_BACK)
       ])
     } else if (documentType == "CNH"){
       _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
-        DocumentDetectorStep(document: Document.CNH_FRONT),
-        DocumentDetectorStep(document: Document.CNH_BACK)
+        DocumentDetectorStep(document: CafDocument.CNH_FRONT),
+        DocumentDetectorStep(document: CafDocument.CNH_BACK)
       ])
     } else if (documentType == "RNE"){
       _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
-        DocumentDetectorStep(document: Document.RNE_FRONT),
-        DocumentDetectorStep(document: Document.RNE_BACK)
+        DocumentDetectorStep(document: CafDocument.RNE_FRONT),
+        DocumentDetectorStep(document: CafDocument.RNE_BACK)
       ])
     } else if (documentType == "CRLV"){
       _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
-        DocumentDetectorStep(document: Document.CRLV)
+        DocumentDetectorStep(document: CafDocument.CRLV)
       ])
     }
 
@@ -107,6 +107,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
       currentViewController?.present(sdkViewController, animated: true, completion: nil)
     }
   }
+
 
   func documentDetectionController(_ scanner: DocumentDetectorController, didFinishWithResults results: DocumentDetectorResult) {
     let response : NSMutableDictionary! = [:]
@@ -133,10 +134,10 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
     sendEvent(withName: "DocumentDetector_Cancel", body: nil)
   }
 
-  func documentDetectionController(_ scanner: DocumentDetectorController, didFailWithError error: Error) {
+  func documentDetectionController(_ scanner: DocumentDetector.DocumentDetectorController, didFailWithError error: DocumentDetector.CafDocumentDetectorFailure) {
     let response : NSMutableDictionary! = [:]
 
-    response["message"] = error.localizedDescription
+    response["message"] = error.description
     response["type"] = String(describing: type(of: error))
 
     sendEvent(withName: "DocumentDetector_Error", body: response)
@@ -166,46 +167,46 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
 
   // FaceAuthenticator
 
-  @objc(faceAuthenticator:CPF:)
-  func faceAuthenticator(mobileToken: String, CPF: String) {
-    let faceAuthenticator = FaceAuthenticatorSdk.Builder(mobileToken: mobileToken)
-      // .setPersonId(CPF)
-      .build()
-
-    DispatchQueue.main.async {
-      let currentViewController = UIApplication.shared.keyWindow!.rootViewController
-
-      let sdkViewController = FaceAuthenticatorController(faceAuthenticator: faceAuthenticator)
-      sdkViewController.faceAuthenticatorDelegate = self
-
-      currentViewController?.present(sdkViewController, animated: true, completion: nil)
-    }
-  }
-
-  func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFinishWithResults results: FaceAuthenticatorResult) {
-
-    let response : NSMutableDictionary! = [:]
-
-    response["authenticated"] = results.authenticated
-    response["signedResponse"] = results.signedResponse
-    response["trackingId"] = results.trackingId
-
-    sendEvent(withName: "FaceAuthenticator_Success", body: response)
-
-  }
-
-  func faceAuthenticatorControllerDidCancel(_ faceAuthenticatorController: FaceAuthenticatorController) {
-    sendEvent(withName: "FaceAuthenticator_Cancel", body: nil)
-  }
-
-  func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFailWithError error: FaceAuthenticatorFailure) {
-    let response : NSMutableDictionary! = [:]
-
-    response["message"] = error.message
-    response["type"] = String(describing: type(of: error))
-    sendEvent(withName: "FaceAuthenticator_Error", body: response)
-
-  }
+//  @objc(faceAuthenticator:CPF:)
+//  func faceAuthenticator(mobileToken: String, CPF: String) {
+//    let faceAuthenticator = FaceAuthenticatorSdk.Builder(mobileToken: mobileToken)
+//      // .setPersonId(CPF)
+//      .build()
+//
+//    DispatchQueue.main.async {
+//      let currentViewController = UIApplication.shared.keyWindow!.rootViewController
+//
+//      let sdkViewController = FaceAuthenticatorController(faceAuthenticator: faceAuthenticator)
+//      sdkViewController.faceAuthenticatorDelegate = self
+//
+//      currentViewController?.present(sdkViewController, animated: true, completion: nil)
+//    }
+//  }
+//
+//  func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFinishWithResults results: FaceAuthenticatorResult) {
+//
+//    let response : NSMutableDictionary! = [:]
+//
+//    response["authenticated"] = results.authenticated
+//    response["signedResponse"] = results.signedResponse
+//    response["trackingId"] = results.trackingId
+//
+//    sendEvent(withName: "FaceAuthenticator_Success", body: response)
+//
+//  }
+//
+//  func faceAuthenticatorControllerDidCancel(_ faceAuthenticatorController: FaceAuthenticatorController) {
+//    sendEvent(withName: "FaceAuthenticator_Cancel", body: nil)
+//  }
+//
+//  func faceAuthenticatorController(_ faceAuthenticatorController: FaceAuthenticatorController, didFailWithError error: FaceAuthenticatorFailure) {
+//    let response : NSMutableDictionary! = [:]
+//
+//    response["message"] = error.message
+//    response["type"] = String(describing: type(of: error))
+//    sendEvent(withName: "FaceAuthenticator_Error", body: response)
+//
+//  }
 
   override func supportedEvents() -> [String]! {
     return ["PassiveFaceLiveness_Success", "PassiveFaceLiveness_Cancel", "PassiveFaceLiveness_Error", "DocumentDetector_Success", "DocumentDetector_Cancel", "DocumentDetector_Error", "FaceAuthenticator_Success", "FaceAuthenticator_Cancel", "FaceAuthenticator_Error"]

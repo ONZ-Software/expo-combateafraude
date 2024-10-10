@@ -1,3 +1,10 @@
+## [1.11.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.11...v1.11.12) (2024-10-10)
+
+
+### Bug Fixes
+
+* caf document type ([8fc85c6](https://github.com/ONZ-Software/expo-combateafraude/commit/8fc85c6a7e0d4e05d970d84bc67f8a20d28959c0))
+
 ## [1.11.11](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.10...v1.11.11) (2024-10-10)
 
 

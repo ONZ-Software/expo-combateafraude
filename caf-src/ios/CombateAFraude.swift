@@ -13,7 +13,7 @@ import PassiveFaceLiveness
 import FaceAuthenticator
 
 @objc(CombateAFraude)
-class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, DocumentDetectorControllerDelegate, FaceAuthenticatorControllerDelegate {
+class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, DocumentDetectorControllerDelegate {
 
   @objc
   override static func requiresMainQueueSetup() -> Bool {
@@ -73,28 +73,28 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
 
   @objc(documentDetector:documentType:)
   func documentDetector(mobileToken: String, documentType: String) {
-    let documentDetectorBuilder = DocumentDetectorSdk.Builder(mobileToken: mobileToken)
+    let documentDetectorBuilder = DocumentDetectorSdk.CafBuilder(mobileToken: mobileToken)
 
     _ = documentDetectorBuilder.enableMultiLanguage(false)
 
     if (documentType == "RG"){
-      _ = documentDetectorBuilder.setDocumentDetectorFlow(flow :[
-        DocumentDetectorStep(document: Document.RG_FRONT, stepLabel: nil, illustration: nil, audio: nil),
-        DocumentDetectorStep(document: Document.RG_BACK, stepLabel: nil, illustration: nil, audio: nil)
+      _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
+        DocumentDetectorStep(document: Document.RG_FRONT),
+        DocumentDetectorStep(document: Document.RG_BACK)
       ])
     } else if (documentType == "CNH"){
-      _ = documentDetectorBuilder.setDocumentDetectorFlow(flow :[
-        DocumentDetectorStep(document: Document.CNH_FRONT, stepLabel: nil, illustration: nil, audio: nil),
-        DocumentDetectorStep(document: Document.CNH_BACK, stepLabel: nil, illustration: nil, audio: nil)
+      _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
+        DocumentDetectorStep(document: Document.CNH_FRONT),
+        DocumentDetectorStep(document: Document.CNH_BACK)
       ])
     } else if (documentType == "RNE"){
-      _ = documentDetectorBuilder.setDocumentDetectorFlow(flow :[
-        DocumentDetectorStep(document: Document.RNE_FRONT, stepLabel: nil, illustration: nil, audio: nil),
-        DocumentDetectorStep(document: Document.RNE_BACK, stepLabel: nil, illustration: nil, audio: nil)
+      _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
+        DocumentDetectorStep(document: Document.RNE_FRONT),
+        DocumentDetectorStep(document: Document.RNE_BACK)
       ])
     } else if (documentType == "CRLV"){
-      _ = documentDetectorBuilder.setDocumentDetectorFlow(flow :[
-        DocumentDetectorStep(document: Document.CRLV, stepLabel: nil, illustration: nil, audio: nil)
+      _ = documentDetectorBuilder.setDocumentCaptureFlow(flow :[
+        DocumentDetectorStep(document: Document.CRLV)
       ])
     }
 
@@ -118,7 +118,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
       capture["imagePath"] = imagePath
       capture["imageUrl"] = results.captures[index].imageUrl
       capture["quality"] = results.captures[index].quality
-      capture["label"] = results.captures[index].scannedLabel
+      capture["label"] = results.captures[index].label
       captureMap.append(capture)
     }
 

@@ -1,3 +1,10 @@
+## [1.11.13](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.12...v1.11.13) (2024-10-10)
+
+
+### Bug Fixes
+
+* resolutions settings and compress settings ([dcd4440](https://github.com/ONZ-Software/expo-combateafraude/commit/dcd4440d2039425a701e2f026b893a0d2bf9f873))
+
 ## [1.11.12](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.11...v1.11.12) (2024-10-10)
 
 

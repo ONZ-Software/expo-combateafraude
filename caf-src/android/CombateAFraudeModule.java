@@ -2,13 +2,8 @@ package [[PACKAGE]];
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.ProgressBar;
 
-import com.combateafraude.documentdetector.input.CaptureMode;
-import com.combateafraude.documentdetector.input.CaptureStage;
+
 import com.combateafraude.faceauthenticator.FaceAuthenticatorActivity;
 import com.combateafraude.faceauthenticator.input.FaceAuthenticator;
 import com.combateafraude.faceauthenticator.output.FaceAuthenticatorResult;
@@ -27,6 +22,7 @@ import com.combateafraude.documentdetector.output.DocumentDetectorResult;
 import com.combateafraude.documentdetector.input.Document;
 import com.combateafraude.documentdetector.input.DocumentDetectorStep;
 import com.combateafraude.documentdetector.DocumentDetectorActivity;
+import com.combateafraude.documentdetector.input.Resolution;
 
 public class CombateAFraudeModule extends ReactContextBaseJavaModule {
 
@@ -138,7 +134,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         return "CombateAFraude";
     }
 
-    @ReactMethod
     public void passiveFaceLiveness(String mobileToken) {
         try {
             PassiveFaceLiveness passiveFaceLiveness = new PassiveFaceLiveness.Builder(mobileToken)
@@ -153,7 +148,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod
     public void documentDetector(String mobileToken, String documentType) {
         try {
             DocumentDetector.Builder documentDetectorBuilder = new DocumentDetector.Builder(mobileToken).setResolutionSettings(Resolution.ULTRA_HD).setCompressSettings(100);
@@ -188,7 +182,6 @@ public class CombateAFraudeModule extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod
     public void faceAuthenticator(String mobileToken, String CPF) {
         try {
             FaceAuthenticator faceAuthenticator = new FaceAuthenticator.Builder(mobileToken)

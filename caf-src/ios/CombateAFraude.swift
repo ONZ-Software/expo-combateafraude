@@ -73,7 +73,7 @@ class CombateAFraude: RCTEventEmitter, PassiveFaceLivenessControllerDelegate, Do
 
   @objc(documentDetector:documentType:)
   func documentDetector(mobileToken: String, documentType: String) {
-    let documentDetectorBuilder = DocumentDetectorSdk.CafBuilder(mobileToken: mobileToken)
+    let documentDetectorBuilder = DocumentDetectorSdk.CafBuilder(mobileToken: mobileToken).setResolutionSettings(resolution: CafResolution.ULTRA_HD).setCompressSettings(compressionQuality:  1.0)
 
     _ = documentDetectorBuilder.enableMultiLanguage(false)
 

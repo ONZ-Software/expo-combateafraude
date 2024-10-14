@@ -47,9 +47,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
     }
 
-    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
-      setLoadingScreen = loadingScreen
-    }
+    let setLoadingScreen = configDictionary?["setLoadingScreen"] as? Bool ?? false
 
     if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
       filter = newFilter
@@ -62,7 +60,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen!)
+        .setLoadingScreen(withLoading: setLoadingScreen ?? false)
         .build()
         faceLiveness.delegate = self
 

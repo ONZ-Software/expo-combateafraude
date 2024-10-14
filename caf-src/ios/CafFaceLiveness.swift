@@ -62,16 +62,13 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen ?? false)
+        .setLoadingScreen(withLoading: setLoadingScreen!)
         .build()
         faceLiveness.delegate = self
 
         DispatchQueue.main.async {
-          if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-             let window = scene.windows.first(where: { $0.isKeyWindow }),
-             let currentViewController = window.rootViewController {
-              faceLiveness.startSDK(viewController: currentViewController, mobileToken: token, personId: personId)
-          }
+            guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
+            faceLiveness.startSDK(viewController: currentViewController, mobileToken: token, personId: personId)
         }
   }
 

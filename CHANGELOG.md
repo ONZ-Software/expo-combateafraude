@@ -1,3 +1,10 @@
+## [1.11.19](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.18...v1.11.19) (2024-10-14)
+
+
+### Bug Fixes
+
+* dispatch queue from face liveness ([94f5c20](https://github.com/ONZ-Software/expo-combateafraude/commit/94f5c20f97a505850e95866d835c7a3d820dc862))
+
 ## [1.11.18](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.17...v1.11.18) (2024-10-14)
 
 

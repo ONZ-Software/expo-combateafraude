@@ -40,7 +40,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   func faceLiveness(token: String, personId: String, config: String) {
     var configDictionary: [String: Any]? = nil
     var filter = Filter.lineDrawing;
-    var cafStage = FaceLiveness.CAFStage.prod
+    var cafStage = FaceLiveness.CAFStage.PROD
     var setLoadingScreen:Bool? = nil;
 
     if let data = config.data(using: .utf8) {
@@ -63,32 +63,40 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
         .setLoadingScreen(withLoading: setLoadingScreen!)
+        .setCredentials(mobileToken: token, personId: personId)
         .build()
         faceLiveness.delegate = self
 
         DispatchQueue.main.async {
             guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
-            faceLiveness.startSDK(viewController: currentViewController, mobileToken: token, personId: personId)
+            faceLiveness.startSDK(viewController: currentViewController)
         }
   }
 
 
   // FaceLiveness
-  func didFinishLiveness(with livenessResult: LivenessResult) {
+  func didFinishLiveness(with faceLivenessResult: FaceLiveness.FaceLivenessResult) {
     let response : NSMutableDictionary = [:]
-        response["data"] = livenessResult.signedResponse
+        response["data"] = faceLivenessResult.signedResponse
         sendEvent(withName: "FaceLiveness_Success", body: response)
   }
 
+  func didFinishWithFail(with faceLivenessFailResult: FaceLiveness.FaceLivenessFailResult) {
+    let response : NSMutableDictionary = [:]
+        response["message"] = faceLivenessFailResult.description
+        response["type"] = String(describing: faceLivenessFailResult.failType)
+        response["data"] = String(describing: faceLivenessFailResult.signedResponse)
+        sendEvent(withName: "FaceLiveness_Error", body: response)
+  }
 
-  func didFinishWithCancelled() {
+  func didFinishWithCancelled(with faceLivenessResult: FaceLiveness.FaceLivenessResult) {
     sendEvent(withName: "FaceLiveness_Cancel", body: nil)
   }
 
-  func didFinishWithError(with sdkFailure: SDKFailure) {
+  func didFinishWithError(with faceLivenessErrorResult: FaceLiveness.FaceLivenessErrorResult) {
     let response : NSMutableDictionary = [:]
-        response["message"] = sdkFailure.description
-        response["type"] = String(describing: sdkFailure.errorType)
+        response["message"] = faceLivenessErrorResult.description
+        response["type"] = String(describing: faceLivenessErrorResult.errorType)
         sendEvent(withName: "FaceLiveness_Error", body: response)
   }
 
@@ -107,6 +115,4 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   func closeLoadingScreenValidation() {
     sendEvent(withName: "FaceLiveness_Loaded", body: nil)
   }
-
-  func onConnectionChanged(_ state: FaceLiveness.LivenessState) {}
 }

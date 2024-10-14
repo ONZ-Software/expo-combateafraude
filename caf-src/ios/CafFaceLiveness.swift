@@ -47,7 +47,9 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
     }
 
-    let setLoadingScreen = configDictionary?["setLoadingScreen"] as? Bool ?? false
+    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
+      setLoadingScreen = loadingScreen
+    }
 
     if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
       filter = newFilter
@@ -75,7 +77,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
 
 
   // FaceLiveness
-  func didFinishLiveness(with livenessResult: FaceLiveness.LivenessResult) {
+  func didFinishLiveness(with livenessResult: LivenessResult) {
     let response : NSMutableDictionary = [:]
         response["data"] = livenessResult.signedResponse
         sendEvent(withName: "FaceLiveness_Success", body: response)
@@ -86,7 +88,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     sendEvent(withName: "FaceLiveness_Cancel", body: nil)
   }
 
-  func didFinishWithError(with sdkFailure: FaceLiveness.SDKFailure) {
+  func didFinishWithError(with sdkFailure: SDKFailure) {
     let response : NSMutableDictionary = [:]
         response["message"] = sdkFailure.description
         response["type"] = String(describing: sdkFailure.errorType)

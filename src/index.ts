@@ -104,7 +104,7 @@ const withCafIos: ConfigPlugin<void> = (config) => {
               `  pod 'DocumentDetector', '~> 15.0.0'`,
               `  pod 'PassiveFaceLivenessNoSentry', '~> 6.0.0-rc02'`,
               `  pod 'FaceAuthenticatorNoSentry', '~> 5.11.0'`,
-              `  pod 'FaceLiveness', '~> 6.1.0'`,
+              `  pod 'FaceLiveness', '~> 5.0.1'`,
             ].join('\n'),
             anchor: /use_react_native!/,
             offset: 0,

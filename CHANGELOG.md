@@ -1,3 +1,10 @@
+## [1.11.17](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.16...v1.11.17) (2024-10-14)
+
+
+### Bug Fixes
+
+* setting default value for face liveness loading screen ([7ee9b35](https://github.com/ONZ-Software/expo-combateafraude/commit/7ee9b3552f27ea577a23e048e775b8deeff17e38))
+
 ## [1.11.16](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.15...v1.11.16) (2024-10-14)
 
 

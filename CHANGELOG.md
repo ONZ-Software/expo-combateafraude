@@ -1,3 +1,10 @@
+## [1.11.21](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.20...v1.11.21) (2024-10-26)
+
+
+### Bug Fixes
+
+* config face liveness android ([4964e93](https://github.com/ONZ-Software/expo-combateafraude/commit/4964e93088bcc57eaa0b3d5683e0ec56889b4e55))
+
 ## [1.11.20](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.19...v1.11.20) (2024-10-14)
 
 

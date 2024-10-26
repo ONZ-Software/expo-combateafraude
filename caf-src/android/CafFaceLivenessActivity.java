@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.caf.facelivenessiproov.input.FaceLiveness;
+import com.caf.facelivenessiproov.input.iproov.Filter;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
 import com.caf.facelivenessiproov.output.failure.SDKFailure;

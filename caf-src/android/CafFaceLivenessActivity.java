@@ -38,13 +38,9 @@ public class CafFaceLivenessActivity extends ReactActivity {
     }
 
     private void faceLiveness() throws JSONException {
-        FaceLivenessConfig config = new FaceLivenessConfig(customConfig);
 
         FaceLiveness faceLiveness = new FaceLiveness.Builder(token)
-                .setStage(config.cafStage)
-                .setFilter(config.filter)
-                .setEnableScreenshots(config.setEnableScreenshots)
-                .setLoadingScreen(config.setLoadingScreen)
+                .setFilter(Filter.NATURAL)
                 .build();
 
         faceLiveness.startSDK(this, personId, new VerifyLivenessListener() {

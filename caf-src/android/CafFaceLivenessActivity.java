@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.caf.facelivenessiproov.input.FaceLiveness;
 import com.caf.facelivenessiproov.input.VerifyLivenessListener;
-import com.caf.facelivenessiproov.input.iproov.Filter;
 import com.caf.facelivenessiproov.output.FaceLivenessResult;
 import com.caf.facelivenessiproov.output.failure.SDKFailure;
 import com.facebook.react.ReactActivity;
@@ -39,8 +38,13 @@ public class CafFaceLivenessActivity extends ReactActivity {
 
   private void faceLiveness() throws JSONException {
 
+    FaceLivenessConfig config = new FaceLivenessConfig(customConfig);
+
     FaceLiveness faceLiveness = new FaceLiveness.Builder(token)
-      .setFilter(Filter.NATURAL)
+      .setStage(config.cafStage)
+      .setFilter(config.filter)
+      .setEnableScreenshots(config.setEnableScreenshots)
+      .setLoadingScreen(config.setLoadingScreen)
       .build();
 
     faceLiveness.startSDK(this, personId, new VerifyLivenessListener() {

@@ -1,3 +1,10 @@
+## [1.11.23](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.22...v1.11.23) (2024-10-26)
+
+
+### Bug Fixes
+
+* package renamed ([c966a98](https://github.com/ONZ-Software/expo-combateafraude/commit/c966a98d393b9433c2868ea6a312ec65b40da647))
+
 ## [1.11.22](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.21...v1.11.22) (2024-10-26)
 
 

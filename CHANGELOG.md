@@ -1,3 +1,10 @@
+## [1.11.24](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.23...v1.11.24) (2024-10-26)
+
+
+### Bug Fixes
+
+* face liveness config ([b2b8ef6](https://github.com/ONZ-Software/expo-combateafraude/commit/b2b8ef6eb14ae7d8d42326f8b504ec6e0a1bb6a6))
+
 ## [1.11.23](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.22...v1.11.23) (2024-10-26)
 
 

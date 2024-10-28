@@ -107,5 +107,6 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   func closeLoadingScreenValidation() {
     sendEvent(withName: "FaceLiveness_Loaded", body: nil)
   }
+
   func onConnectionChanged(_ state: FaceLiveness.LivenessState) {}
 }

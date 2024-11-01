@@ -39,16 +39,11 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   @objc(faceLiveness:personId:config:)
   func faceLiveness(token: String, personId: String, config: String) {
     var configDictionary: [String: Any]? = nil
-    var filter = Filter.lineDrawing;
+    var filter = Filter.natural;
     var cafStage = FaceLiveness.CAFStage.prod
-    var setLoadingScreen: Bool = true
 
     if let data = config.data(using: .utf8) {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-    }
-
-    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
-        setLoadingScreen = loadingScreen
     }
 
     if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
@@ -62,14 +57,17 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen)
+        .setLoadingScreen(withLoading: true)
         .build()
     faceLiveness.delegate = self
 
-        DispatchQueue.main.async {
-            guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
-            faceLiveness.startSDK(viewController: currentViewController, mobileToken: token, personId: personId)
+    DispatchQueue.main.async {
+        guard let currentViewController = UIApplication.shared.windows.first?.rootViewController else {
+            print("Nenhum ViewController ativo encontrado.")
+            return
         }
+        faceLiveness.startSDK(viewController: currentViewController, mobileToken: token, personId: personId)
+    }
   }
 
 
@@ -108,7 +106,5 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     sendEvent(withName: "FaceLiveness_Loaded", body: nil)
   }
 
-  func onConnectionChanged(_ state: FaceLiveness.LivenessState) {
-      print("Estado da conexão:", state)
-  }
+  func onConnectionChanged(_ state: FaceLiveness.LivenessState) {}
 }

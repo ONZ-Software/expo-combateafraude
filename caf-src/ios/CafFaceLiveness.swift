@@ -41,14 +41,14 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     var configDictionary: [String: Any]? = nil
     var filter = Filter.lineDrawing;
     var cafStage = FaceLiveness.CAFStage.prod
-    var setLoadingScreen:Bool? = nil;
+    var setLoadingScreen: Bool = true
 
     if let data = config.data(using: .utf8) {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
     }
 
     if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
-      setLoadingScreen = loadingScreen
+        setLoadingScreen = loadingScreen
     }
 
     if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
@@ -62,9 +62,9 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen!)
+        .setLoadingScreen(withLoading: setLoadingScreen)
         .build()
-        faceLiveness.delegate = self
+    faceLiveness.delegate = self
 
         DispatchQueue.main.async {
             guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
@@ -108,5 +108,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     sendEvent(withName: "FaceLiveness_Loaded", body: nil)
   }
 
-  func onConnectionChanged(_ state: FaceLiveness.LivenessState) {}
+  func onConnectionChanged(_ state: FaceLiveness.LivenessState) {
+      print("Estado da conexão:", state)
+  }
 }

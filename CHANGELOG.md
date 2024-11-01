@@ -1,3 +1,10 @@
+## [1.11.28](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.27...v1.11.28) (2024-11-01)
+
+
+### Bug Fixes
+
+* face liveness ios ([2de6cf8](https://github.com/ONZ-Software/expo-combateafraude/commit/2de6cf815d8418397e35a832c33379c4bbf8188f))
+
 ## [1.11.27](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.26...v1.11.27) (2024-11-01)
 
 

@@ -1,3 +1,10 @@
+## [1.11.27](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.26...v1.11.27) (2024-11-01)
+
+
+### Bug Fixes
+
+* set loading screen to sdk default ([7353b27](https://github.com/ONZ-Software/expo-combateafraude/commit/7353b2744fb4e413d325cb1c14018bc2b23dd6cf))
+
 ## [1.11.26](https://github.com/ONZ-Software/expo-combateafraude/compare/v1.11.25...v1.11.26) (2024-11-01)
 
 
